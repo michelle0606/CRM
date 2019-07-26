@@ -1,25 +1,27 @@
-<div class="login-page">
+<div class="signup-page">
   <header>
     <h1>waromen</h1>
   </header>
   <main>
     <form action="/login" method="POST">
       <div class="form-item">
-        <input type="text" name="account" placeholder="帳號" required autofocus>
+        <input type="text" name="name" placeholder="商店名稱" required autofocus>
+        <div class="feedback"></div>
+      </div>
+      <div class="form-item">
+        <input type="email" name="email" placeholder="電子郵件" required>
         <div class="feedback"></div>
       </div>
       <div class="form-item">
         <input type="password" name="password" placeholder="密碼" required>
         <div class="feedback"></div>
-        <a href="" class="forget">忘記密碼？</a>
+      </div>
+      <div class="form-item">
+        <input type="password2" name="password2" placeholder="確認密碼" required>
+        <div class="feedback"></div>
       </div>
       <div style="text-align:center">
-        <button type="submit" class="Button1">登入</button>
-      </div>
-      <div class="line"></div>
-      <div style="display: flex;
-    justify-content: center;">
-        <a href="/signup" class="Button1">開啟服務</a>
+        <button type="submit" class="Button1">完成</button>
       </div>
     </form>
   </main>

@@ -9,4 +9,8 @@ router.get('/', (req, res) => {
 router.get('/login', (req, res) => {
   res.render('login', { title: 'Login' })
 })
+
+router.get('/signup', (req, res) => {
+  res.render('signup', { title: 'Open Service' })
+})
 module.exports = router
