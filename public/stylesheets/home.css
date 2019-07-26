@@ -1,0 +1,93 @@
+.home-page {
+  background-color: var(--bgColor1);
+  display: flex;
+}
+
+.home-page .sidebar {
+  width: 320px;
+  height: 100vh;
+  background-color: var(--bgColor2);
+  box-shadow: 6px 0 20px 0px black;
+  z-index: 10;
+}
+
+.home-page .sidebar li:nth-child(1) {
+  height: 75px;
+}
+
+.home-page .sidebar li {
+  border-bottom: 3px solid var(--bgColor1);
+  display: flex;
+  justify-content: center;
+}
+
+.home-page .sidebar li a {
+  color: var(--bgColor1);
+  font-size: 24px;
+  display: flex;
+  height: 75px;
+  align-items: center;
+}
+
+.home-page .sidebar li a i {
+  margin-right: 10px;
+}
+
+.home-page .main-content {
+  width: -webkit-fill-available;
+}
+
+.home-page .main-content div:nth-child(2) {
+  display: flex;
+  justify-content: center;
+}
+
+.home-page .main-content div:nth-child(2) form:nth-child(1) {
+  padding: 30px;
+}
+
+.home-page .main-content div:nth-child(2) form:nth-child(1) div input {
+  width: 300px;
+  border: none;
+  font-size: 30px;
+  letter-spacing: 2px;
+}
+
+.home-page .main-content .navbar {
+  background-color: #fff;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 20px 70px 1fr 250px 1fr 70px 20px;
+  grid-template-rows: 75px;
+  grid-template-areas: '. icon . logo . option .';
+}
+
+.home-page .main-content .navbar div:nth-child(1) {
+  grid-area: icon;
+  font-size: 40px;
+  color: var(--bgColor1);
+  text-align: center;
+  cursor: pointer;
+}
+
+.home-page .main-content .navbar div:nth-child(2) {
+  grid-area: logo;
+}
+.home-page .main-content .navbar div:nth-child(3) {
+  grid-area: option;
+  font-size: 40px;
+  color: var(--bgColor1);
+  text-align: center;
+  cursor: pointer;
+}
+
+.search-field {
+  margin: 0px 40px;
+  border-bottom: 2px solid #fff;
+}
+
+.directly {
+  text-align: center;
+  margin-top: 40px;
+}
