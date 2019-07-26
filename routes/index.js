@@ -13,4 +13,9 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
   res.render('signup', { title: 'Open Service' })
 })
+
+router.get('/shop/:shop_id', (req, res) => {
+  res.render('index', { title: 'Waromen' })
+})
+
 module.exports = router

@@ -1,3 +1,6 @@
+.signup-page {
+  background-color: var(--bgColor2);
+}
 .signup-page header {
   padding: 10px 40px;
 }
