@@ -1,14 +1,16 @@
 .home-page {
   background-color: var(--bgColor1);
   display: flex;
+  position: relative;
 }
 
 .home-page .sidebar {
-  width: 320px;
+  width: 200px;
   height: 100vh;
   background-color: var(--bgColor2);
   box-shadow: 6px 0 20px 0px black;
   z-index: 10;
+  position: absolute;
 }
 
 .home-page .sidebar li:nth-child(1) {
@@ -35,6 +37,9 @@
 
 .home-page .main-content {
   width: -webkit-fill-available;
+  height: 100vh;
+  margin-left: 200px;
+  width: 100%;
 }
 
 .home-page .main-content div:nth-child(2) {
@@ -91,3 +96,5 @@
   text-align: center;
   margin-top: 40px;
 }
+
+/****All members page****/
