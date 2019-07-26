@@ -36,10 +36,10 @@
 }
 
 .home-page .main-content {
-  width: -webkit-fill-available;
   height: 100vh;
   margin-left: 200px;
   width: 100%;
+  text-align: -webkit-center;
 }
 
 .home-page .main-content div:nth-child(2) {
@@ -98,3 +98,49 @@
 }
 
 /****All members page****/
+
+.main-content .results {
+  width: 500px;
+  margin: 20px 0px;
+}
+
+.main-content .results form {
+  display: flex;
+  padding-bottom: 15px;
+}
+
+.main-content .results form input {
+  padding: 6px;
+  font-size: 18px;
+  width: 250px;
+}
+
+.main-content .results form button {
+  margin-left: 20px;
+  font-size: 14px;
+  padding: 0px 15px;
+  background-color: #af887c;
+  color: #fff;
+  border: 1px solid var(--bgColor1);
+}
+
+.main-content .results table {
+  background-color: #fff;
+  border-collapse: collapse;
+  width: inherit;
+}
+
+.main-content .results table th,
+.main-content .results table td {
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.main-content .results table tr:nth-child(even) {
+  background-color: #e3e8fb;
+}
+
+.main-content .results table tr:nth-child(1) th,
+.main-content .results table td {
+  padding: 15px 8px;
+}
