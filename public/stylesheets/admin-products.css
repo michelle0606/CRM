@@ -1,0 +1,47 @@
+.product-avatar-block {
+  display: inline-block;
+  width: 200px;
+}
+
+.admin-product-info {
+  display: none;
+  background-color: #F18C7C;
+  padding:20px 100px;
+}
+
+.product-avatar {
+  width: 150px;
+  border-radius: 50%;
+}
+
+.product-detail-info {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.admin-table-product {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse:collapse
+}
+
+.admin-table-product th,td{
+  padding:10px 10px;
+  width: 20%;
+  text-align: center;
+  border:0.5px dotted #F18C7C 
+}
+
+.product-control-bar {
+  height: 50px;
+}
+
+.product-edit {
+  padding:5px 8px;
+  font-size: 24px;
+  float: right;
+}
+
+.open-it {
+  display: block;
+}

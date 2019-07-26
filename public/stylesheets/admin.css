@@ -1,7 +1,7 @@
 .pad-mode {
   display: flex;
   border: 1px dotted#F18C7C;
-  width: 768px;
+  min-width: 768px;
   color: #0A0C43;
   background-color: #EDD3D5;
   font-family: Noto Serif TC;
