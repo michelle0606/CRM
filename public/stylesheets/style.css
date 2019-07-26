@@ -118,3 +118,11 @@ footer ul li a {
   margin-left: 20px;
   color: black;
 }
+
+input:focus {
+  outline: none;
+}
+
+.fa-outdent {
+  width: -webkit-fill-available;
+}
