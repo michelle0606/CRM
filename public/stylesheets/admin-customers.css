@@ -1,0 +1,24 @@
+.customer-avatar-block {
+  display: inline-block;
+  width: 200px;
+}
+
+.admin-customer-info {
+  display: none;
+  background-color: #F18C7C;
+  padding:20px 100px;
+}
+
+.customer-avatar {
+  width: 150px;
+  border-radius: 50%;
+}
+
+.customer-detail-info {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.open-it {
+  display: block;
+}
