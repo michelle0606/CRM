@@ -136,3 +136,37 @@ input[type='number'] {
 .fa-outdent {
   width: -webkit-fill-available;
 }
+
+/**** suggestions ***/
+.match {
+  background: #dd9ba5;
+}
+
+.suggestions {
+  width: 354px;
+  margin: auto;
+  max-height: 200px;
+  overflow: scroll;
+  background: #fff;
+  border: solid 1px var(--color4);
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
+}
+
+.suggestions > li {
+  letter-spacing: 1.5px;
+  border-bottom: solid 1px #efefef;
+
+  font-size: 16px;
+}
+
+.suggestions > li:hover {
+  background-color: #fafafa;
+}
+
+.suggestions > li > a {
+  color: black;
+  padding: 5px 10px;
+  display: block;
+}

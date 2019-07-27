@@ -12,7 +12,7 @@ const authenticated = (req, res, next) => {
 }
 
 /* GET home page. */
-router.get('/', customerController.searchCustomer)
+router.get('/', authenticated, customerController.searchCustomer)
 
 router.get('/login', userController.signInPage)
 router.post(
@@ -36,6 +36,12 @@ router.get(
   '/customers/:customers_id',
   authenticated,
   customerController.getCustomer
+)
+
+router.get(
+  '/api/customers',
+  authenticated,
+  customerController.APIGetAllCustomers
 )
 
 module.exports = router

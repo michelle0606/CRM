@@ -18,8 +18,9 @@
       <div class="Title">會員查詢</div>
       <form action="/" method="GET">
         <div class="nr_input">
-          <i class="fas fa-search"></i><input type="number" name="phone_nr" placeholder="請輸入電話號碼">
+          <i class="fas fa-search"></i><input type="number" name="phone_nr" id="phone_nr" placeholder="請輸入電話號碼">
         </div>
+        <ul class="suggestions"></ul>
       </form>
       {{#if phone_nr}}
       <form action="/customers" method="POST" class="add-customer">
@@ -36,3 +37,4 @@
   </div>
 </div>
 <script src="/javascripts/animation.js"></script>
+<script src="/javascripts/search.js"></script>

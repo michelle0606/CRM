@@ -26,6 +26,12 @@ const customerController = {
     Customer.findAll({ where: { ShopId: req.user.ShopId } }).then(customers => {
       res.render('allCustomers', { customers, title: '所有會員' })
     })
+  },
+
+  APIGetAllCustomers: (req, res) => {
+    Customer.findAll({ where: { ShopId: req.user.ShopId } }).then(customers => {
+      res.send(customers)
+    })
   }
 }
 
