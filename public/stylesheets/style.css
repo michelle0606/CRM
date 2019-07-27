@@ -40,7 +40,7 @@
 }
 
 .Title {
-  font-size: 40px;
+  font-size: 30px;
   color: var(--bgColor2);
   font-weight: 400;
   margin-bottom: 30px;
@@ -121,6 +121,16 @@ footer ul li a {
 
 input:focus {
   outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
 .fa-outdent {

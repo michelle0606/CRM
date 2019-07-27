@@ -1,16 +1,19 @@
-.home-page {
+body {
   background-color: var(--bgColor1);
+}
+
+.home-page {
   display: flex;
   position: relative;
 }
 
 .home-page .sidebar {
   width: 200px;
-  height: 100vh;
+  height: 100%;
   background-color: var(--bgColor2);
   box-shadow: 6px 0 20px 0px black;
   z-index: 10;
-  position: absolute;
+  position: fixed;
 }
 
 .home-page .sidebar li:nth-child(1) {
@@ -36,26 +39,47 @@
 }
 
 .home-page .main-content {
-  width: -webkit-fill-available;
-  height: 100vh;
   margin-left: 200px;
   width: 100%;
 }
 
-.home-page .main-content div:nth-child(2) {
+.search-field {
+  margin: 20px auto;
+  width: 500px;
+  border-bottom: 2px solid #fff;
+}
+
+.search-field > form {
+  margin-bottom: 30px;
+}
+
+.nr_input {
   display: flex;
   justify-content: center;
 }
 
-.home-page .main-content div:nth-child(2) form:nth-child(1) {
-  padding: 30px;
-}
-
-.home-page .main-content div:nth-child(2) form:nth-child(1) div input {
+.nr_input input {
   width: 300px;
   border: none;
   font-size: 30px;
   letter-spacing: 2px;
+}
+
+.add-customer {
+  background-color: #fff;
+  padding: 5px 10px;
+  font-size: 20px;
+  position: relative;
+}
+
+.add-customer > button {
+  font-size: 20px;
+  position: absolute;
+  background-color: var(--bgColor2);
+  color: var(--bgColor1);
+  right: 0;
+  top: -1px;
+  padding: 5px 10px;
 }
 
 .home-page .main-content .navbar {
@@ -87,14 +111,55 @@
   cursor: pointer;
 }
 
-.search-field {
-  margin: 0px 40px;
-  border-bottom: 2px solid #fff;
-}
-
 .directly {
   text-align: center;
   margin-top: 40px;
 }
 
-/****All members page****/
+/****All customers page****/
+
+.main-content .results {
+  width: 500px;
+  margin: 20px auto;
+}
+
+.main-content .results form {
+  display: flex;
+  padding-bottom: 15px;
+}
+
+.main-content .results form input {
+  padding: 6px;
+  font-size: 18px;
+  width: 250px;
+}
+
+.main-content .results form button {
+  margin-left: 20px;
+  font-size: 14px;
+  padding: 0px 15px;
+  background-color: #af887c;
+  color: #fff;
+  border: 1px solid var(--bgColor1);
+}
+
+.main-content .results table {
+  background-color: #fff;
+  border-collapse: collapse;
+  width: inherit;
+}
+
+.main-content .results table th,
+.main-content .results table td {
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.main-content .results table tr:nth-child(even) {
+  background-color: #e3e8fb;
+}
+
+.main-content .results table tr:nth-child(1) th,
+.main-content .results table td {
+  padding: 15px 8px;
+}
