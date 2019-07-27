@@ -20,8 +20,12 @@ const customerController = {
   },
 
   getCustomer: (req, res) => {
-    res.render('customer')
+    return Customer.findByPk(req.params.customers_id)
+      .then(customer => {
+        return res.render('customer', {customer: customer})
+      })
   },
+
   getAllCustomers: (req, res) => {
     Customer.findAll({ where: { ShopId: req.user.ShopId } }).then(customers => {
       res.render('allCustomers', { customers, title: '所有會員' })
