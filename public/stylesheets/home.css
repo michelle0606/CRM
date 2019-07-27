@@ -43,20 +43,43 @@ body {
   width: 100%;
 }
 
-.home-page .main-content div:nth-child(2) {
+.search-field {
+  margin: 20px auto;
+  width: 500px;
+  border-bottom: 2px solid #fff;
+}
+
+.search-field > form {
+  margin-bottom: 30px;
+}
+
+.nr_input {
   display: flex;
   justify-content: center;
 }
 
-.home-page .main-content div:nth-child(2) form:nth-child(1) {
-  padding: 30px;
-}
-
-.home-page .main-content div:nth-child(2) form:nth-child(1) div input {
+.nr_input input {
   width: 300px;
   border: none;
   font-size: 30px;
   letter-spacing: 2px;
+}
+
+.add-customer {
+  background-color: #fff;
+  padding: 5px 10px;
+  font-size: 20px;
+  position: relative;
+}
+
+.add-customer > button {
+  font-size: 20px;
+  position: absolute;
+  background-color: var(--bgColor2);
+  color: var(--bgColor1);
+  right: 0;
+  top: -1px;
+  padding: 5px 10px;
 }
 
 .home-page .main-content .navbar {
@@ -88,17 +111,12 @@ body {
   cursor: pointer;
 }
 
-.search-field {
-  margin: 0px 40px;
-  border-bottom: 2px solid #fff;
-}
-
 .directly {
   text-align: center;
   margin-top: 40px;
 }
 
-/****All members page****/
+/****All customers page****/
 
 .main-content .results {
   width: 500px;
