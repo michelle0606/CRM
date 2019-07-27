@@ -1,11 +1,12 @@
-.loginn-page {
+.login-page {
   background-color: var(--bgColor2);
+  height: inherit;
 }
 .login-page header {
   padding: 10px 40px;
 }
 
-.login-page header h1 {
+.login-page header a {
   color: var(--bgColor1);
   font-size: 70px;
   font-family: var(--logoFont);

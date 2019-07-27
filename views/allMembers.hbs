@@ -1,7 +1,7 @@
 <div class="home-page">
   <ul class="sidebar fade-out">
     <li></li>
-    <li class="active-link"><a href="/shop/:shop_id/members"><i class="fas fa-users"></i>所有會員</a></li>
+    <li class="active-link"><a href="/shop/{{req.user.ShopId}}/members"><i class="fas fa-users"></i>所有會員</a></li>
     <li><a href=""><i class="fas fa-chart-pie"></i>報表分析</a></li>
     <li><a href=""><i class="far fa-list-alt"></i>庫存管理</a></li>
     <li><a href=""><i class="fas fa-bullhorn"></i>廣告行銷</a></li>
@@ -28,26 +28,17 @@
           <th scope="col">Email</th>
           <th scope="col">電話號碼</th>
         </tr>
+        {{#each customers}}
+
         <tr>
-          <td>王小明</td>
-          <td>12345678@gmail.com</td>
-          <td>0987-222-987</td>
+
+          <td><a href="/shop/{{this.ShopId}}/member/{{this.id}}">{{this.name}}</a></td>
+
+          <td>{{this.email}}</td>
+          <td>{{this.phoneNr}}</td>
         </tr>
-        <tr>
-          <td>陳小華</td>
-          <td>74fdfnjk7438@gmail.com</td>
-          <td>0911-487-456</td>
-        </tr>
-        <tr>
-          <td>蔡小美</td>
-          <td>394jdih@gmail.com</td>
-          <td>0942-332-454</td>
-        </tr>
-        <tr>
-          <td>發大財</td>
-          <td>jdioewu88@gmail.com</td>
-          <td>0989-132-656</td>
-        </tr>
+
+        {{/each}}
       </table>
       <form action="/shop/:shop_id/members" method="POST" style="display: none;">
         <input type="hidden" name="phone_nr" value="0912-345-678">
