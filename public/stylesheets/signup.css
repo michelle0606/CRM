@@ -1,11 +1,12 @@
 .signup-page {
   background-color: var(--bgColor2);
+  height: inherit;
 }
 .signup-page header {
   padding: 10px 40px;
 }
 
-.signup-page header h1 {
+.signup-page header a {
   color: var(--bgColor1);
   font-size: 70px;
   font-family: var(--logoFont);
@@ -19,10 +20,12 @@
 .signup-page .form-item {
   margin-bottom: 80px;
   position: relative;
+  width: 420px;
 }
 
 .signup-page .form-item input {
-  font-size: 40px;
+  font-size: 26px;
+  width: -webkit-fill-available;
   padding: 15px;
-  letter-spacing: 5px;
+  letter-spacing: 2px;
 }
