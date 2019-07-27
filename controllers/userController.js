@@ -55,7 +55,7 @@ const userController = {
     // console.log(req.session.passport.user)
     // req.flash('success_messages', '成功登入！')
     console.log('success_messages', '成功登入！')
-    res.redirect(`/shop/${shop_id}`)
+    res.redirect('/')
   },
 
   logout: (req, res) => {

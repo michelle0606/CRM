@@ -1,7 +1,7 @@
 <div class="home-page">
   <ul class="sidebar fade-out">
     <li></li>
-    <li class="active-link"><a href="/shop/{{req.user.ShopId}}/members"><i class="fas fa-users"></i>所有會員</a></li>
+    <li class="active-link"><a href="/customers"><i class="fas fa-users"></i>所有會員</a></li>
     <li><a href=""><i class="fas fa-chart-pie"></i>報表分析</a></li>
     <li><a href=""><i class="far fa-list-alt"></i>庫存管理</a></li>
     <li><a href=""><i class="fas fa-bullhorn"></i>廣告行銷</a></li>
@@ -9,25 +9,28 @@
   <div class="main-content content-out">
     <div class="navbar">
       <div><i class="fas fa-outdent icon-rotate-out"></i></div>
-      <div><a href="/shop/:id" class="Logo">waromen</a></div>
+      <div><a href="/" class="Logo">waromen</a></div>
       <div class="user-name">
         <i class="fas fa-users-cog"></i>
       </div>
     </div>
     <div class="search-field">
-      <form action="/shop/:shop_id" method="GET">
-        <div class="Title">會員查詢</div>
-        <div>
+      <div class="Title">會員查詢</div>
+      <form action="/" method="GET">
+        <div class="nr_input">
           <i class="fas fa-search"></i><input type="number" name="phone_nr" placeholder="請輸入電話號碼">
         </div>
       </form>
-      <form action="/shop/:shop_id/members" method="POST" style="display: none;">
-        <input type="hidden" name="phone_nr" value="0912-345-678">
-        <span>0912-345-678 尚未加入會員</span><button type="submit">立即加入</button>
+      {{#if phone_nr}}
+      <form action="/customers" method="POST" class="add-customer">
+        <input type="hidden" name="phone_nr" value="{{phone_nr}}">
+        <span>{{phone_nr}} 尚未加入會員。</span>
+        <button type="submit">立即加入</button>
       </form>
+      {{/if }}
     </div>
     <div class="directly">
-      <a href="/shop/:shop_id/member/0/record" class="Button2">直接結帳</a>
+      <a href="/customer/0/sale" class="Button2">直接結帳</a>
     </div>
 
   </div>

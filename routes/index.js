@@ -12,10 +12,7 @@ const authenticated = (req, res, next) => {
 }
 
 /* GET home page. */
-router.get('/', (req, res) => {
-  const shop_id = req.user.ShopId
-  res.redirect(`/shop/${shop_id}`)
-})
+router.get('/', customerController.searchCustomer)
 
 router.get('/login', userController.signInPage)
 router.post(
@@ -31,14 +28,14 @@ router.get('/logout', userController.logout)
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
-router.get('/shop/:shop_id', (req, res) => {
-  res.render('index', { title: 'Waromen' })
-})
+router.get('/', authenticated, customerController.searchCustomer)
 
+router.get('/customers', authenticated, customerController.getAllCustomers)
+router.post('/customers', authenticated, customerController.addCustomer)
 router.get(
-  '/shop/:shop_id/members',
+  '/customers/:customers_id',
   authenticated,
-  customerController.getAllCustomers
+  customerController.getCustomer
 )
 
 module.exports = router
