@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/userController')
 const customerController = require('../controllers/customerController')
+const tradeController = require('../controllers/tradeController')
 const passport = require('../config/passport')
 
 const authenticated = (req, res, next) => {
@@ -36,5 +37,7 @@ router.get(
   authenticated,
   customerController.APIGetAllCustomers
 )
+
+router.get('/api/products', tradeController.APIGetAllProducts)
 
 module.exports = router

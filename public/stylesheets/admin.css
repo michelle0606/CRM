@@ -55,14 +55,14 @@ a {
   text-decoration:none
 }
 
-.main-content{
+.advance-content{
   height: 80%;
   display:flex;
   align-items: center;
   justify-content: center;
 }
 
-.main-content-show {
+.advance-content-show {
   display: inline-block;
   padding:5px 5px;
   width:100%;
