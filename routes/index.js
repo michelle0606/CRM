@@ -30,13 +30,6 @@ router.post('/signup', userController.signUp)
 
 router.get('/', authenticated, customerController.searchCustomer)
 
-router.get('/customers', authenticated, customerController.getAllCustomers)
-router.post('/customers', authenticated, customerController.addCustomer)
-router.get(
-  '/customers/:customers_id',
-  authenticated,
-  customerController.getCustomer
-)
 
 router.get(
   '/api/customers',
