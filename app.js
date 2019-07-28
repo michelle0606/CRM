@@ -4,7 +4,7 @@ const path = require('path')
 const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
-const adminRouter = require('./routes/admin')
+const advanceRouter = require('./routes/advance')
 const customersRouter = require('./routes/customers')
 const passport = require('./config/passport')
 const flash = require('connect-flash')
@@ -28,7 +28,7 @@ app.use(passport.session())
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
-app.use('/admin', adminRouter)
+app.use('/advance', advanceRouter)
 app.use('/customers', customersRouter)
 
 // catch 404 and forward to error handler
