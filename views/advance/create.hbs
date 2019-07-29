@@ -1,0 +1,33 @@
+{{#if shop}}
+<form action="/advance/shops/{{shop.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+{{else}}
+<form action="/advance/shops" method="POST" enctype="multipart/form-data">
+{{/if}}
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" value="{{shop.name}}">
+  </div>
+
+  <div class="form-group">
+    <label for="phoneNr">Tel</label>
+    <input type="text" class="form-control" name="phoneNr" id="phoneNr" placeholder="Enter tel" value="{{shop.phoneNr}}">
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" name="email" id="eamil" placeholder="Enter email" value="{{shop.email}}">
+  </div>
+
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input type="text" class="form-control" name="address" id="address" placeholder="Enter address" value="{{shop.address}}">
+  </div>
+
+  <div class="form-group">
+    <label for="logo">Logo</label>
+    <input type="file" class="form-control-file" id="logo" name="logo">
+  </div>
+
+  <button type="submit" class="">Submit</button>
+</form>
