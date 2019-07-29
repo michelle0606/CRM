@@ -3,7 +3,6 @@ const express = require('express')
 const path = require('path')
 const logger = require('morgan')
 const indexRouter = require('./routes/index')
-const usersRouter = require('./routes/users')
 const advanceRouter = require('./routes/advance')
 const customersRouter = require('./routes/customers')
 const passport = require('./config/passport')
@@ -28,8 +27,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use('/', indexRouter)
-
-app.use('/users', usersRouter)
 app.use('/advance', advanceRouter)
 app.use('/customers', customersRouter)
 
