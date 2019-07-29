@@ -20,7 +20,14 @@ const customerController = {
   },
 
   getCustomer: (req, res) => {
+<<<<<<< HEAD
     res.render('customer', { title: '會員資訊' })
+=======
+    return Customer.findByPk(req.params.customers_id)
+      .then(customer => {
+        return res.render('customer', {customer: customer})
+      })
+>>>>>>> origin/master
   },
 
   getAllCustomers: (req, res) => {
