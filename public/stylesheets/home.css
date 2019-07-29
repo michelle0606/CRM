@@ -83,6 +83,7 @@ body {
 }
 
 .home-page .main-content .navbar {
+  position: relative;
   background-color: #fff;
   display: grid;
   justify-content: center;
@@ -162,4 +163,29 @@ body {
 .main-content .results table tr:nth-child(1) th,
 .main-content .results table td {
   padding: 15px 8px;
+}
+
+/***** navbar option ****/
+
+.option {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  display: none;
+  position: absolute;
+  right: 20px;
+  padding: 10px;
+  top: 66px;
+}
+
+.option > a,
+.option > form > button {
+  cursor: pointer;
+  border: none;
+  color: #1d2129;
+  -webkit-font-smoothing: antialiased;
+  padding: 5px 10px;
+  display: block;
+  font-size: 16px;
 }
