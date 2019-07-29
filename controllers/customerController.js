@@ -10,18 +10,20 @@ const customerController = {
 
   addCustomer: (req, res) => {
     Customer.findOne({ where: { phoneNr: req.body.phone_nr } }).then(data => {
-      if (!data)
-        return Customer.create({ phoneNr: req.body.phone_nr }).then(
-          customer => {
-            return res.redirect(`/customers/${customer.id}`)
-          }
-        )
+      if (!data) {
+        return Customer.create({
+          phoneNr: req.body.phone_nr,
+          ShopId: req.user.ShopId
+        }).then(customer => {
+          return res.redirect(`/customers/${customer.id}`)
+        })
+      }
     })
   },
 
   getCustomer: (req, res) => {
     return Customer.findByPk(req.params.customers_id).then(customer => {
-      return res.render('customer', { customer: customer })
+      return res.render('customer', { customer, title: '會員資料' })
     })
   },
 

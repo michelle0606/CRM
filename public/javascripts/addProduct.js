@@ -1,9 +1,7 @@
-
 const addButton = document.querySelector('.fa-plus-circle')
 const productList = document.querySelector('.trade-product-list')
 const endpoint = '/api/products'
 const products = []
-
 
 fetch(endpoint)
   .then(blob => blob.json())
@@ -21,25 +19,34 @@ function addProduct(productId, count) {
   } else {
     const newRow = document.createElement('tr')
 
-    newRow.appendChild(document.createElement('td')).innerHTML = `<input type='text' value='${product[0].id}' name="productId" readonly="readonly">`
+    newRow.appendChild(
+      document.createElement('td')
+    ).innerHTML = `<input type='number' value='${
+      product[0].id
+    }' name="productId" readonly="readonly">`
     newRow.appendChild(document.createElement('td')).innerHTML = product[0].name
-    newRow.appendChild(document.createElement('td')).innerHTML = `<input type='text' value='${count}' name="count" readonly="readonly">`
-    newRow.appendChild(document.createElement('td')).innerHTML = `<span class="price">${product[0].salePrice * count}</span>`
-    newRow.appendChild(document.createElement('td')).innerHTML = `<i class="fas fa-minus-square"></i>`
+    newRow.appendChild(
+      document.createElement('td')
+    ).innerHTML = `<input type='number' value='${count}' name="count" readonly="readonly">`
+    newRow.appendChild(
+      document.createElement('td')
+    ).innerHTML = `<span class="price">${product[0].salePrice * count}</span>`
+    newRow.appendChild(
+      document.createElement('td')
+    ).innerHTML = `<i class="fas fa-minus-square"></i>`
 
     productList.appendChild(newRow)
   }
 }
 
 function cleanInput(productId, count) {
-  productId.value = ""
-  count.value = ""
+  productId.value = ''
+  count.value = ''
 }
 
 function total() {
-
-  const totalPrice = document.querySelector(".total-price")
-  const allPrice = document.querySelectorAll(".price")
+  const totalPrice = document.querySelector('.total-price')
+  const allPrice = document.querySelectorAll('.price')
   let price = 0
   allPrice.forEach(a => {
     price += Number(a.innerHTML)
@@ -54,6 +61,4 @@ addButton.addEventListener('click', () => {
 
   total()
   cleanInput(productId, count)
-
 })
-

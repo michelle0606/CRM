@@ -4,12 +4,10 @@
 	<li>{{customer.email}}</li>
 	<li>{{customer.phoneNr}}</li>
 	<li>{{customer.name}}</li>
+	<li><i class="fas fa-window-close"></i> 是否願意收電子報</li>
 </ul>
-<form action="/">
-	<input type="checkbox" name="" value=""> 願意收到電子報？
-	<!-- <input type="submit" value="Submit"> -->
-</form>
-<a href="/customers/customers_id/record">新增交易</a>
-<a href="/customers/customers_id/records">查看紀錄</a>
-<a href="/customers/customers_id/edit">編輯資料</a>
+
+<a href="/customers/{{customer.id}}/record">新增交易</a>
+<a href="/customers/{{customer.id}}/records">查看紀錄</a>
+<a href="/customers/{{customer.id}}/edit">編輯資料</a>
 <script src="/javascripts/showOption.js"></script>
