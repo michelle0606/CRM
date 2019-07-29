@@ -4,11 +4,12 @@ const path = require('path')
 const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
-const adminRouter = require('./routes/admin')
+const advanceRouter = require('./routes/advance')
 const customersRouter = require('./routes/customers')
 const passport = require('./config/passport')
 const flash = require('connect-flash')
 const session = require('express-session')
+const bodyParser = require('body-parser')
 
 
 const app = express()
@@ -22,13 +23,14 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(passport.initialize())
 app.use(passport.session())
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
-app.use('/admin', adminRouter)
+app.use('/advance', advanceRouter)
 app.use('/customers', customersRouter)
 
 // catch 404 and forward to error handler
