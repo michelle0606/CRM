@@ -25,8 +25,8 @@
     </ul>
   </div>
 
-<a href='/advance/shops/create'>
-  <button type="button" class="">New Shop</button>
+<a href='/advance/users/create'>
+  <button type="button" class="">New User</button>
 </a>
 
 <!-- <a href='/advance/shops'>Shops</a> | -->
@@ -40,29 +40,29 @@
 	<thead class="">
 	  <tr>
 	    <th scope="col">店名</th>
-	    <th scope="col">Email</th>
-	    <th scope="col">電話號碼</th>
+	    <th scope="col">角色</th>
+	    <th scope="col">所屬店家ID</th>
 	    <th scope="col">#</th>
 	  </tr>
   </thead>
   <tbody>
-	  {{#each shops}}
+	  {{#each users}}
 	  <tr>
 	    <td><a href="">{{this.name}}</a></td>
-	    <td>{{this.email}}</td>
-	    <td>{{this.phoneNr}}</td>
+	    <td>{{this.role}}</td>
+	    <td>{{this.ShopId}}</td>
 	    <td>
         <button type="button" class="">
-          <a href="/advance/shops/{{this.id}}">
+          <a href="/advance/users/{{this.id}}">
           Show
           </a>
         </button>
         <button type="button" class="">
-          <a href="/advance/shops/{{this.id}}/edit">
+          <a href="/advance/users/{{this.id}}/edit">
             Edit
           </a>
         </button>
-        <form action="/advance/shops/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+        <form action="/advance/users/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
           <button type="submit" class="">Delete</button>
         </form>
       </td>
