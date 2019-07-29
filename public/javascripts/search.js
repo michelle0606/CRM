@@ -19,11 +19,9 @@ function displayMatches() {
   suggestions.innerHTML = matchArray
     .map(c => {
       return `
-      <li>
         <a href="/customers/${c.id}">${c.phoneNr}<span style="float: right;">${
         c.name
       }<span></a>
-      </li>
       `
     })
     .join('')

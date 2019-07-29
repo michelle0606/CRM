@@ -154,19 +154,15 @@ input[type='number'] {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
 }
 
-.suggestions > li {
+.suggestions > a {
   letter-spacing: 1.5px;
   border-bottom: solid 1px #efefef;
-
-  font-size: 16px;
-}
-
-.suggestions > li:hover {
-  background-color: #fafafa;
-}
-
-.suggestions > li > a {
   color: black;
   padding: 5px 10px;
   display: block;
+  font-size: 16px;
+}
+
+.suggestions > a:hover {
+  background-color: #fafafa;
 }
