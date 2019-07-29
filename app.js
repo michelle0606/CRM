@@ -11,7 +11,6 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const bodyParser = require('body-parser')
 
-
 const app = express()
 
 // view engine setup
@@ -29,22 +28,21 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use('/', indexRouter)
+
 app.use('/users', usersRouter)
 app.use('/advance', advanceRouter)
 app.use('/customers', customersRouter)
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404))
 })
-
 
 app.use((req, res, next) => {
   res.locals.user = req.user
   res.locals.success_msg = req.flash('success_msg')
   res.locals.warning_msg = req.flash('warning_msg')
   next()
-
 })
 
 module.exports = app

@@ -20,10 +20,9 @@ const customerController = {
   },
 
   getCustomer: (req, res) => {
-    return Customer.findByPk(req.params.customers_id)
-      .then(customer => {
-        return res.render('customer', {customer: customer})
-      })
+    return Customer.findByPk(req.params.customers_id).then(customer => {
+      return res.render('customer', { customer: customer })
+    })
   },
 
   getAllCustomers: (req, res) => {

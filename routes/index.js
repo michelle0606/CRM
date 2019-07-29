@@ -12,7 +12,6 @@ const authenticated = (req, res, next) => {
   res.redirect('/login')
 }
 
-/* GET home page. */
 router.get('/', authenticated, customerController.searchCustomer)
 
 router.get('/login', userController.signInPage)
@@ -28,9 +27,6 @@ router.get('/logout', userController.logout)
 
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
-
-router.get('/', authenticated, customerController.searchCustomer)
-
 
 router.get(
   '/api/customers',
