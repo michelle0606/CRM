@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/userController')
 const customerController = require('../controllers/customerController')
+
 const passport = require('../config/passport')
 
 const authenticated = (req, res, next) => {
@@ -11,7 +12,6 @@ const authenticated = (req, res, next) => {
   res.redirect('/login')
 }
 
-/* GET home page. */
 router.get('/', authenticated, customerController.searchCustomer)
 
 router.get('/login', userController.signInPage)
@@ -27,16 +27,6 @@ router.get('/logout', userController.logout)
 
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
-
-router.get('/', authenticated, customerController.searchCustomer)
-
-router.get('/customers', authenticated, customerController.getAllCustomers)
-router.post('/customers', authenticated, customerController.addCustomer)
-router.get(
-  '/customers/:customers_id',
-  authenticated,
-  customerController.getCustomer
-)
 
 router.get(
   '/api/customers',

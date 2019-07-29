@@ -20,8 +20,9 @@ const customerController = {
   },
 
   getCustomer: (req, res) => {
-    res.render('customer')
+    res.render('customer', { title: '會員資訊' })
   },
+
   getAllCustomers: (req, res) => {
     Customer.findAll({ where: { ShopId: req.user.ShopId } }).then(customers => {
       res.render('allCustomers', { customers, title: '所有會員' })
