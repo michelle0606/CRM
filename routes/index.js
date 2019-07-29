@@ -2,11 +2,7 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/userController')
 const customerController = require('../controllers/customerController')
-<<<<<<< HEAD
-
-=======
 const tradeController = require('../controllers/tradeController')
->>>>>>> origin/master
 const passport = require('../config/passport')
 
 const authenticated = (req, res, next) => {
@@ -32,12 +28,6 @@ router.get('/logout', userController.logout)
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
-<<<<<<< HEAD
-=======
-router.get('/', authenticated, customerController.searchCustomer)
-
-
->>>>>>> origin/master
 router.get(
   '/api/customers',
   authenticated,
