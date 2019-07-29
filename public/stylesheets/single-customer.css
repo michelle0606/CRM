@@ -25,7 +25,22 @@
 
 .single-customer-link {
   font-size: 24px;
-  width: 33%;
+  flex:1;
   border:0.5px solid white;
   display: inline-block;
+}
+
+.single-customer-button {
+  margin: 0;
+  padding: 0;
+  border: 1px solid transparent;  
+  outline: none;
+  background-color: transparent;
+  font-size: 24px;
+  color: var(--linkColor);
+  cursor: pointer;
+}
+
+.edit-customer-input {
+  font-size: 24px;
 }
