@@ -17,6 +17,7 @@
     "express-handlebars": "^3.1.0",
     "express-session": "^1.16.2",
     "faker": "^4.1.0",
+    "flash": "^1.1.0",
     "hbs": "^4.0.4",
     "http-errors": "^1.6.3",
     "morgan": "^1.9.1",

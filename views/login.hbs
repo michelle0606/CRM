@@ -3,14 +3,18 @@
     <a href="/login">waromen</a>
   </header>
   <main>
+    {{#if error_messages}}
+    <div class="alert-danger" role="alert">
+      {{error_messages}}
+    </div>
+    {{/if}}
     <form action="/login" method="POST">
+
       <div class="form-item">
         <input type="text" name="account" placeholder="帳號" required autofocus>
-        <div class="feedback"></div>
       </div>
       <div class="form-item">
         <input type="password" name="password" placeholder="密碼" required>
-        <div class="feedback"></div>
         <a href="" class="forget">忘記密碼？</a>
       </div>
       <div style="text-align:center">
