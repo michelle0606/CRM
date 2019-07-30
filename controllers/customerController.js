@@ -17,6 +17,8 @@ const customerController = {
         }).then(customer => {
           return res.redirect(`/customers/${customer.id}`)
         })
+      } else {
+        return res.render('index', { error_messages: '此人已加入會員！' })
       }
     })
   },
