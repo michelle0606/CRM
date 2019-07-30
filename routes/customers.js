@@ -25,4 +25,7 @@ router.post(
   tradeControlloer.createNewTradeRecord
 )
 
+router.get('/:customers_id/edit', customerController.editCustomerPage)
+router.put('/:customers_id/edit', customerController.putCustomer)
+
 module.exports = router

@@ -11,11 +11,12 @@ const session = require('express-session')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const dotenv = require('dotenv');
-
 const app = express()
 
 if (process.env.NODE_ENV !== 'production') {
+
   dotenv.config();
+
 }
 
 // view engine setup
@@ -24,6 +25,7 @@ app.set('view engine', 'hbs')
 
 app.use(flash())
 app.use(logger('dev'))
+app.use(flash())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
@@ -39,14 +41,14 @@ app.use('/advance', advanceRouter)
 app.use('/customers', customersRouter)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404))
 })
 
 app.use((req, res, next) => {
   res.locals.user = req.user
-  res.locals.success_msg = req.flash('success_msg')
-  res.locals.warning_msg = req.flash('warning_msg')
+  res.locals.success_messages = req.flash('success_messages')
+  res.locals.error_messages = req.flash('error_messages')
   next()
 })
 
