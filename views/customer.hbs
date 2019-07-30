@@ -21,11 +21,8 @@
 			</div>
 		</div>
 		<div class="single-customer">
-			<h1>會員資料</h1>
+			<div class="Title">會員資料</div>
 			<div class="single-customer-detail">
-				<div class="single-customer-img">
-					<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jeremiespoken/128.jpg" alt="">
-				</div>
 				<ul>
 					<li>Name：{{customer.name}}</li>
 					<li>Age：{{customer.age}}</li>
@@ -34,24 +31,20 @@
 					<li>E-mail：{{customer.email}}</li>
 					<li><i class="fas fa-window-close"></i> 是否願意收電子報</li>
 				</ul>
+				<div class="single-customer-bar">
+					<div>
+						<a href="/customers/{{customer.id}}/record">新增交易</a>
+					</div>
+					<div>
+						<a href="/customers/{{customer.id}}/records">查看紀錄</a>
+					</div>
+					<div>
+						<a href="/customers/{{customer.id}}/edit">編輯資料</a>
+					</div>
+				</div>
 			</div>
-			<div class="single-customer-bar">
-				<div class="single-customer-link">
-					<a href="/customers/{{customer.id}}/record">新增交易</a>
-				</div>
-				<div class="single-customer-link">
-					<a href="/customers/{{customer.id}}/records">查看紀錄</a>
-				</div>
-
-				<div class="single-customer-link">
-					<a href="/customers/{{customer.id}}/edit">編輯資料</a>
-				</div>
-
-			</div>
-
 		</div>
-
 	</div>
 </div>
-
+<script src="/javascripts/animation.js"></script>
 <script src="/javascripts/showOption.js"></script>
