@@ -1,7 +1,10 @@
-const addButton = document.querySelector('.fa-plus-circle')
-const productList = document.querySelector('.trade-product-list')
 const endpoint = '/api/products'
 const products = []
+
+const addButton = document.querySelector('.fa-plus-circle')
+const productList = document.querySelector('.trade-product-list')
+const productId = document.querySelector('.productId')
+const count = document.querySelector('.count')
 
 fetch(endpoint)
   .then(blob => blob.json())
@@ -55,10 +58,7 @@ function total() {
 }
 
 addButton.addEventListener('click', () => {
-  let productId = addButton.previousElementSibling.previousElementSibling
-  let count = addButton.previousElementSibling
   addProduct(productId.value, count.value)
-
   total()
   cleanInput(productId, count)
 })

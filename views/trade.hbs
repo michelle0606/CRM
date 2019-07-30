@@ -20,38 +20,45 @@
         </form>
       </div>
     </div>
-    <form action="/customers/{{customer.id}}/record" method="POST">
-      <div class="creat-trade-page">
-        <div>
-          新增交易
-        </div>
-        <div>
-          會員 {{customer.name}} 電話 {{customer.phoneNr}}
-        </div>
-        <div>
-          <input type="text" placeholder="輸入產品編號">
-          數量<input type="number" placeholder="輸入數量" value="1">
-          <i class="fas fa-plus-circle"></i>
 
-
-          <table class="trade-product-list">
-            <tr>
-              <th scope="col">產品編號</th>
-              <th scope="col">產品名稱</th>
-              <th scope="col">數量</th>
-              <th scope="col">價格</th>
-              <th scope="col"></th>
-            </tr>
-          </table>
-        </div>
-        總計金額: <input type="number" name="total" value="0" class="total-price">
-        <button type="submit">送出交易</button>
+    {{!----}}
+    <div class="trade-content">
+      <div class="Title">
+        新增交易
       </div>
-    </form>
+      <div class="trade">
+        <div>
+          <span>會員</span>
+          <span>{{customer.name}}</span>
+          <span>{{customer.phoneNr}}</span>
+        </div>
+        <form action="/customers/{{customer.id}}/record" method="POST">
+          <div class="creat-trade-page">
+            <input type="text" class="productId" placeholder="輸入產品編號">
+            <input type="number" class="count" placeholder="數量" value="1">
+            <div><i class="fas fa-plus-circle"></i></div>
+          </div>
+          <div class="table-head">
+            <table class="trade-product-list">
+              <tr>
+                <th scope="col">產品編號</th>
+                <th scope="col">產品名稱</th>
+                <th scope="col">數量</th>
+                <th scope="col">價格</th>
+                <th scope="col"></th>
+              </tr>
+            </table>
+          </div>
 
+          <div class="total">
+            <div>總金額：<input type="number" name="total" value="0" class="total-price"></div>
+            <div><button type="submit" class="Button2">送出交易</button></div>
 
-  </div>
-</div>
-<script src="/javascripts/animation.js"></script>
-<script src="/javascripts/addProduct.js"></script>
-<script src="/javascripts/showOption.js"></script>
+          </div>
+        </form>
+
+      </div>
+    </div>
+    <script src="/javascripts/animation.js"></script>
+    <script src="/javascripts/addProduct.js"></script>
+    <script src="/javascripts/showOption.js"></script>

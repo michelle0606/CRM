@@ -1,4 +1,94 @@
+.trade-content {
+  margin-top: 30px;
+}
+.trade {
+  width: 500px;
+  margin: auto;
+}
+
+.trade > div {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.creat-trade-page > input {
+  font-size: 20px;
+  padding: 5px 10px;
+}
+
 .creat-trade-page {
-  padding:10px 20px;
-  display: block;
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.creat-trade-page > div {
+  margin: auto 10px;
+}
+
+.creat-trade-page > div > i {
+  font-size: 30px;
+}
+
+.total {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.total-price {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+}
+
+.creat-trade-page > input:nth-child(2) {
+  width: 70px;
+  margin-left: 10px;
+}
+
+.trade-content .trade table {
+  background-color: #fff;
+  border-collapse: collapse;
+  width: inherit;
+  table-layout: fixed;
+}
+
+.trade-content .trade table th,
+.trade-content .trade table td {
+  border: 1px solid #ddd;
+  text-align: center;
+}
+.trade-content .trade table tr th:nth-child(1) {
+  width: 150px;
+}
+
+.trade-content .trade table tr th:nth-child(2) {
+  width: 150px;
+}
+.trade-content .trade table tr th:nth-child(3) {
+  width: 60px;
+}
+.trade-content .trade table tr th:nth-child(4) {
+  width: 90px;
+}
+.trade-content .trade table tr th:nth-child(5) {
+  width: 50px;
+}
+
+.trade-content .trade table tr:nth-child(even) {
+  background-color: #e3e8fb;
+}
+
+.trade-content .trade table tr:nth-child(1) th,
+.trade-content .trade table td {
+  padding: 15px 8px;
+}
+
+.table-head {
+  height: 300px;
+  overflow: scroll;
+  background-color: #fff;
+  border: 1px solid #ddd;
 }
