@@ -1,0 +1,77 @@
+.fa-search {
+  background: transparent;
+}
+
+.record-table-head {
+  max-height: 800px;
+  overflow: scroll;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.record-content {
+  margin-top: 30px;
+}
+.record {
+  width: 650px;
+  margin: auto;
+}
+
+.record > div {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.creat-record-page > input {
+  font-size: 20px;
+  padding: 5px 10px;
+}
+
+.creat-record-page {
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.creat-record-page > div {
+  margin: auto 10px;
+}
+
+.creat-record-page > div > i {
+  font-size: 30px;
+}
+
+.total {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.total-price {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+}
+
+.creat-record-page > input:nth-child(2) {
+  width: 70px;
+  margin-left: 10px;
+}
+
+.record-content .record table {
+  background-color: #fff;
+  border-collapse: collapse;
+  width: inherit;
+  table-layout: fixed;
+}
+
+.record-content .record table th,
+.record-content .record table td {
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.record-content .record table tr:nth-child(even) {
+  background-color: #e3e8fb;
+}
