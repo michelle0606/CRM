@@ -1,0 +1,73 @@
+<div class="pad-mode">
+<div class="side-bar">
+    <div class="side-title">
+      Hey there
+    </div>
+    <ul class="side-list">
+      <li class="side-list-button">
+        <a href="">客戶管理</a>
+      </li>
+      <li class="side-list-button">
+        <a href="">商品管理</a>
+      </li>
+      <li class="side-list-button">
+        <a href="">行銷管理</a>
+      </li>
+      <li class="side-list-button">
+        <a href="/advance/users">人事管理</a>
+      </li>
+      <li class="side-list-button">
+        <a href="/advance/shops">店管理</a>
+      </li>
+      <li class="side-list-button">
+        <a href="/">回到前台</a>
+      </li>
+    </ul>
+  </div>
+
+<a href='/advance/shops/create'>
+  <button type="button" class="">New Shop</button>
+</a>
+
+<!-- <a href='/advance/shops'>Shops</a> | -->
+<!-- <a href='/advance/categories'>Categories</a> | -->
+<!-- <a href='/advance/users'>Users</a> -->
+
+<br/>
+<br/>
+
+<table>
+	<thead class="">
+	  <tr>
+	    <th scope="col">店名</th>
+	    <th scope="col">Email</th>
+	    <th scope="col">電話號碼</th>
+	    <th scope="col">#</th>
+	  </tr>
+  </thead>
+  <tbody>
+	  {{#each shops}}
+	  <tr>
+	    <td><a href="">{{this.name}}</a></td>
+	    <td>{{this.email}}</td>
+	    <td>{{this.phoneNr}}</td>
+	    <td>
+        <button type="button" class="">
+          <a href="/advance/shops/{{this.id}}">
+          Show
+          </a>
+        </button>
+        <button type="button" class="">
+          <a href="/advance/shops/{{this.id}}/edit">
+            Edit
+          </a>
+        </button>
+        <form action="/advance/shops/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <button type="submit" class="">Delete</button>
+        </form>
+      </td>
+	  </tr>
+	  {{/each}}
+	</tbody>
+</table>
+</div>

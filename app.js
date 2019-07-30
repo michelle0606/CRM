@@ -10,17 +10,20 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-
+const dotenv = require('dotenv');
 const app = express()
 
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
+
+  dotenv.config();
+
 }
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
+app.use(flash())
 app.use(logger('dev'))
 app.use(flash())
 app.use(express.json())
