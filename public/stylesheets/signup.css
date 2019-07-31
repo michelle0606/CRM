@@ -12,13 +12,13 @@
   font-family: var(--logoFont);
 }
 .signup-page main {
-  display: flex;
+  display: grid;
   justify-content: center;
   margin-top: 150px;
 }
 
 .signup-page .form-item {
-  margin-bottom: 80px;
+  margin-bottom: 60px;
   position: relative;
   width: 420px;
 }

@@ -47,7 +47,7 @@
   text-align: center;
 }
 
-.fa-search {
+.nr_input > .fa-search {
   background: #fff;
   font-size: 30px;
   display: flex;
@@ -165,4 +165,10 @@ input[type='number'] {
 
 .suggestions > a:hover {
   background-color: #fafafa;
+}
+
+.feedback {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 22px;
 }
