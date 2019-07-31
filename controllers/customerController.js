@@ -1,10 +1,8 @@
 const db = require('../models')
-const Shop = db.Shop
 const Customer = db.Customer
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
-const Sale = db.Sale
-const User = db.User
+const { Sale, User, Product } = db
 
 const customerController = {
   searchCustomer: (req, res) => {
@@ -79,12 +77,11 @@ const customerController = {
 
   getRecords: (req, res) => {
     Customer.findByPk(req.params.customers_id,
-      { include: [{ model: Sale, include: [User] }] })
+      { include: [{ model: Sale, include: [User, { model: Product, as: 'associatedProducts' }] }] })
       .then(customer => {
 
         let totalPrice = 0
         customer.Sales.forEach(sale => {
-          console.log(sale)
           totalPrice += sale.total
         })
 
