@@ -13,15 +13,10 @@ passport.use(
     },
     (req, username, password, cb) => {
       User.findOne({ where: { id: username } }).then(user => {
-        if (!user || !bcrypt.compareSync(password, user.password))
-          return cb(
-            null,
-            false,
-            req.flash(
-              'error_messages',
-              '帳號或密碼輸入錯誤，請再仔細確認一次。'
-            )
-          )
+        if (!user || !bcrypt.compareSync(password, user.password)) {
+          req.flash('error_messages', '帳號或密碼輸入錯誤，請再仔細確認一次。')
+          return cb(null, false)
+        }
         return cb(null, user)
       })
     }

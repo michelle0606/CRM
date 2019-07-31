@@ -3,6 +3,11 @@
     <a href="/login">waromen</a>
   </header>
   <main>
+    {{#if error_messages}}
+    <div class="feedback" role="alert">
+      {{error_messages}}
+    </div>
+    {{/if}}
     <form action="/signup" method="POST">
       <div class="form-item">
         <input type="text" name="name" placeholder="商店名稱" required autofocus>
@@ -17,7 +22,7 @@
         <div class="feedback"></div>
       </div>
       <div class="form-item">
-        <input type="password2" name="password2" placeholder="確認密碼" required>
+        <input type="password" name="password2" placeholder="確認密碼" required>
         <div class="feedback"></div>
       </div>
       <div style="text-align:center">
