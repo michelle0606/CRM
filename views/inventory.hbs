@@ -1,6 +1,32 @@
-<div class="inventory-page">
-
-</div>
+<div class="container">
+  <div class="Title">庫存管理</div>
+  <ul class="manage-action">
+    <li>直接編輯</li>
+    <li>上傳</li>
+    <li>下載</li>
+  </ul>
+  <table>
+    <tr>
+      <th scope="col">編號</th>
+      <th scope="col">名稱</th>
+      <th scope="col">單價</th>
+      <th scope="col">庫存數量</th>
+    </tr>
+    <tr>
+      <td scope="col">3067812</td>
+      <td scope="col">絕對完美極緻隔離霜</td>
+      <td scope="col">3600</td>
+      <td scope="col">26</td>
+    </tr>
+    {{#each products}}
+    <tr>
+      <td>{{this.id}}</a></td>
+      <td>{{this.name}}</td>
+      <td>{{this.salePrice}}</td>
+      <td>{{this.inventory}}</td>
+    </tr>
+    {{/each}}
+  </table>
 </div>
 <script src="/javascripts/animation.js"></script>
 <script src="/javascripts/showOption.js"></script>
