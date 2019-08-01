@@ -1,15 +1,5 @@
-.home-page {
-  position: relative;
-}
-
-.home-page .main-content {
-  margin-left: 200px;
-  width: 100%;
-}
-
 .search-field {
   margin: 20px auto;
-  width: 500px;
   border-bottom: 2px solid #fff;
 }
 
@@ -54,7 +44,6 @@
 /****All customers page****/
 
 .main-content .results {
-  width: 500px;
   margin: 20px auto;
 }
 
@@ -78,48 +67,31 @@
   border: 1px solid var(--bgColor1);
 }
 
-.main-content .results table {
-  background-color: #fff;
-  border-collapse: collapse;
-  width: inherit;
-}
-
-.main-content .results table th,
-.main-content .results table td {
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
-.main-content .results table tr:nth-child(even) {
-  background-color: #e3e8fb;
-}
-
-.main-content .results table tr:nth-child(1) th,
-.main-content .results table td {
-  padding: 15px 8px;
-}
-
-/***** navbar option ****/
-
-.option {
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+.suggestions {
+  width: 354px;
+  margin: auto;
+  max-height: 200px;
+  overflow: scroll;
+  background: #fff;
+  border: solid 1px var(--color4);
   border-radius: 3px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  display: none;
-  position: absolute;
-  right: 20px;
-  padding: 10px;
-  top: 66px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
 }
 
-.option > a,
-.option > form > button {
-  cursor: pointer;
-  border: none;
-  color: #1d2129;
-  -webkit-font-smoothing: antialiased;
+.suggestions > a {
+  letter-spacing: 1.5px;
+  border-bottom: solid 1px #efefef;
+  color: black;
   padding: 5px 10px;
   display: block;
   font-size: 16px;
+}
+
+.suggestions > a:hover {
+  background-color: #fafafa;
+}
+
+.match {
+  background: #dd9ba5;
 }

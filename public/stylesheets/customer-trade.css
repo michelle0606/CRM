@@ -2,7 +2,6 @@
   margin-top: 30px;
 }
 .trade {
-  width: 500px;
   margin: auto;
 }
 
@@ -48,18 +47,6 @@
   margin-left: 10px;
 }
 
-.trade-content .trade table {
-  background-color: #fff;
-  border-collapse: collapse;
-  width: inherit;
-  table-layout: fixed;
-}
-
-.trade-content .trade table th,
-.trade-content .trade table td {
-  border: 1px solid #ddd;
-  text-align: center;
-}
 .trade-content .trade table tr th:nth-child(1) {
   width: 150px;
 }
@@ -75,15 +62,6 @@
 }
 .trade-content .trade table tr th:nth-child(5) {
   width: 50px;
-}
-
-.trade-content .trade table tr:nth-child(even) {
-  background-color: #e3e8fb;
-}
-
-.trade-content .trade table tr:nth-child(1) th,
-.trade-content .trade table td {
-  padding: 15px 8px;
 }
 
 .table-head {

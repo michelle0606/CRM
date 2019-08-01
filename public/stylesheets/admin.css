@@ -55,11 +55,7 @@ a {
   text-decoration: none;
 }
 
-<<<<<<< HEAD
 .advance-content {
-=======
-.advance-content{
->>>>>>> origin/master
   height: 80%;
   display: flex;
   align-items: center;
@@ -70,20 +66,6 @@ a {
   display: inline-block;
   padding: 5px 5px;
   width: 100%;
-}
-
-.admin-table {
-  width: 100%;
-  margin: 0 auto;
-  border-collapse: collapse;
-}
-
-.admin-table th,
-td {
-  padding: 10px 5px;
-  width: 25%;
-  text-align: center;
-  border: 0.5px dotted #f18c7c;
 }
 
 .advance-content ul {
