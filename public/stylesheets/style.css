@@ -11,8 +11,9 @@
 .Button1 {
   color: var(--bgColor2);
   background-color: var(--bgColor1);
-  font-size: 40px;
+  font-size: 30px;
   padding: 10px 50px;
+  border: none;
 }
 
 .Button2 {
@@ -68,6 +69,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
+  background-color: var(--bgColor1);
 }
 
 * {
@@ -99,11 +101,10 @@ a:focus {
 }
 
 footer {
-  position: absolute;
-  height: 200px;
-  bottom: 0;
   width: -webkit-fill-available;
   background-color: #fff;
+  display: flex;
+  justify-content: center;
 }
 
 footer ul {

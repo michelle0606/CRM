@@ -1,56 +1,29 @@
 <div class="home-page">
-  <ul class="sidebar fade-out">
-    <li></li>
-    <li class="active-link"><a href="/customers"><i class="fas fa-users"></i>所有會員</a></li>
-    <li><a href=""><i class="fas fa-chart-pie"></i>報表分析</a></li>
-    <li><a href=""><i class="far fa-list-alt"></i>庫存管理</a></li>
-    <li><a href=""><i class="fas fa-bullhorn"></i>廣告行銷</a></li>
-  </ul>
-  <div class="main-content content-out">
-    <div class="navbar">
-      <div><i class="fas fa-outdent icon-rotate-out"></i></div>
-      <div><a href="/" class="Logo">waromen</a></div>
-      <div class="advance">
-        <i class="fas fa-users-cog"></i>
-      </div>
-      <div class="option">
-        <a href="/advance/customers">進階管理</a>
-        <form action="/logout" method="GET">
-          <button type="submit">登出@Walle</button>
-        </form>
-      </div>
-    </div>
-    <div class="Title" style="padding-top:30px">所有會員</div>
-
-    <div class="results">
-      <form action="/" method="GET">
-        <input type="text" name="phone_nr" placeholder="請輸入電話號碼或email">
-        <button type="submit">查詢</button>
-        <button type="button">清除</button>
-      </form>
-      <table>
-        <tr>
-          <th scope="col">姓名</th>
-          <th scope="col">Email</th>
-          <th scope="col">電話號碼</th>
-        </tr>
-        {{#each customers}}
-
-        <tr>
-
-          <td><a href="/customers/{{this.id}}">{{this.name}}</a></td>
-
-          <td>{{this.email}}</td>
-          <td>{{this.phoneNr}}</td>
-        </tr>
-
-        {{/each}}
-      </table>
-      <form action="/customers" method="POST" style="display: none;">
-        <input type="hidden" name="phone_nr" value="0912-345-678">
-        <span>0912-345-678 尚未加入會員</span><button type="submit">立即加入</button>
-      </form>
-    </div>
+  <div class="Title" style="padding-top:30px">所有會員</div>
+  <div class="results">
+    <form action="/" method="GET">
+      <input type="text" name="phone_nr" placeholder="請輸入電話號碼或email">
+      <button type="submit">查詢</button>
+      <button type="button">清除</button>
+    </form>
+    <table>
+      <tr>
+        <th scope="col">姓名</th>
+        <th scope="col">Email</th>
+        <th scope="col">電話號碼</th>
+      </tr>
+      {{#each customers}}
+      <tr>
+        <td><a href="/customers/{{this.id}}">{{this.name}}</a></td>
+        <td>{{this.email}}</td>
+        <td>{{this.phoneNr}}</td>
+      </tr>
+      {{/each}}
+    </table>
+    <form action="/customers" method="POST" style="display: none;">
+      <input type="hidden" name="phone_nr" value="0912-345-678">
+      <span>0912-345-678 尚未加入會員</span><button type="submit">立即加入</button>
+    </form>
   </div>
 </div>
 <script src="/javascripts/animation.js"></script>
