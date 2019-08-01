@@ -3,6 +3,7 @@ const router = express.Router()
 const userController = require('../controllers/userController')
 const customerController = require('../controllers/customerController')
 const tradeController = require('../controllers/tradeController')
+const productController = require('../controllers/productController')
 const passport = require('../config/passport')
 
 const authenticated = (req, res, next) => {
@@ -27,6 +28,8 @@ router.get('/logout', userController.logout)
 
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
+
+router.get('/inventory', productController.getInventory)
 
 router.get(
   '/api/customers',

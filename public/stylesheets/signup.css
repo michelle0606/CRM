@@ -1,6 +1,13 @@
 .signup-page {
   background-color: var(--bgColor2);
-  height: inherit;
+  display: grid;
+  grid-template-rows: 120px 1fr 160px;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
 }
 .signup-page header {
   padding: 10px 40px;

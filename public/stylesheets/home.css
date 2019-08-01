@@ -1,41 +1,5 @@
-body {
-  background-color: var(--bgColor1);
-}
-
 .home-page {
-  display: flex;
   position: relative;
-}
-
-.home-page .sidebar {
-  width: 200px;
-  height: 100%;
-  background-color: var(--bgColor2);
-  box-shadow: 6px 0 20px 0px black;
-  z-index: 10;
-  position: fixed;
-}
-
-.home-page .sidebar li:nth-child(1) {
-  height: 75px;
-}
-
-.home-page .sidebar li {
-  border-bottom: 3px solid var(--bgColor1);
-  display: flex;
-  justify-content: center;
-}
-
-.home-page .sidebar li a {
-  color: var(--bgColor1);
-  font-size: 24px;
-  display: flex;
-  height: 75px;
-  align-items: center;
-}
-
-.home-page .sidebar li a i {
-  margin-right: 10px;
 }
 
 .home-page .main-content {
@@ -80,36 +44,6 @@ body {
   right: 0;
   top: -1px;
   padding: 5px 10px;
-}
-
-.home-page .main-content .navbar {
-  position: relative;
-  background-color: #fff;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: 20px 70px 1fr 250px 1fr 70px 20px;
-  grid-template-rows: 75px;
-  grid-template-areas: '. icon . logo . option .';
-}
-
-.home-page .main-content .navbar div:nth-child(1) {
-  grid-area: icon;
-  font-size: 40px;
-  color: var(--bgColor1);
-  text-align: center;
-  cursor: pointer;
-}
-
-.home-page .main-content .navbar div:nth-child(2) {
-  grid-area: logo;
-}
-.home-page .main-content .navbar div:nth-child(3) {
-  grid-area: option;
-  font-size: 40px;
-  color: var(--bgColor1);
-  text-align: center;
-  cursor: pointer;
 }
 
 .directly {
