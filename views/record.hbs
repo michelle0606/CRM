@@ -14,27 +14,54 @@
         <span>已消費金額：</span>
         <span>{{totalPrice}} 元</span>
       </div>
-
-      <div class="record-table-head">
-        <table class="trade-product-list">
-          <tr>
-            <th scope="col">交易時間</th>
-            <th scope="col">消費金額</th>
-            <th scope="col">服務人員</th>
-            <th scope="col">詳細內容</th>
-          </tr>
-          {{#each customer.Sales}}
-          <tr>
-            <td>{{this.date}}</td>
-            <td>{{this.total}} 元</td>
-            <td>{{this.User.name}}</td>
-            <td><i class="fas fa-search"></i></td>
-          </tr>
-          {{/each}}
-        </table>
+    </div>
+    <div class="record-table-head">
+      <table class="trade-product-list">
+        <tr>
+          <th scope="col">交易時間</th>
+          <th scope="col">消費金額</th>
+          <th scope="col">服務人員</th>
+          <th scope="col">詳細內容</th>
+        </tr>
+        {{#each customer.Sales}}
+        <tr>
+          <td>{{this.date}}</td>
+          <td>{{this.total}} 元</td>
+          <td>{{this.User.name}}</td>
+          <td><button class="search-button" value="{{this.id}}" data-open="open"><i class="fas fa-search"></i></button>
+          </td>
+        </tr>
+        {{/each}}
+      </table>
+      {{#each customer.Sales}}
+      <div id="{{this.id}}" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <table>
+            <tr>
+              <th scope="col">品名</th>
+              <th scope="col">單價</th>
+              <th scope="col">數量</th>
+              <th scope="col">總金額</th>
+            </tr>
+            {{#each this.associatedProducts}}
+            <tr>
+              <td>{{this.name}}</td>
+              <td data-price="price">{{this.salePrice}}</td>
+              <td>{{this.SaleDetail.quantity}}</td>
+              <td></td>
+            </tr>
+            {{/each}}
+          </table>
+        </div>
       </div>
+      {{/each}}
     </div>
   </div>
 </div>
+
 <script src="/javascripts/animation.js"></script>
 <script src="/javascripts/showOption.js"></script>
+<script src="/javascripts/popup.js"></script>
+<script src="/javascripts/itemTotalPrice.js"></script>
