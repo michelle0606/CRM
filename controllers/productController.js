@@ -3,7 +3,9 @@ const Product = db.Product
 
 const productController = {
   getInventory: (req, res) => {
-    res.render('inventory')
+    Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
+      res.render('inventory', { title: '庫存管理', products })
+    })
   }
 }
 
