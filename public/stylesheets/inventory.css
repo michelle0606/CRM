@@ -1,6 +1,7 @@
 .manage-action {
   display: flex;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .manage-action > li {
@@ -12,4 +13,15 @@
   border-radius: 10px;
   cursor: pointer;
   margin-right: 15px;
+}
+
+.upload-url {
+  position: absolute;
+  bottom: -30px;
+  left: 95px;
+}
+
+.upload-url > input {
+  font-size: 16px;
+  width: 200px;
 }

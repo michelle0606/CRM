@@ -1,9 +1,13 @@
 <div class="container">
   <div class="Title">庫存管理</div>
   <ul class="manage-action">
-    <li>直接編輯</li>
-    <li>上傳</li>
-    <li>下載</li>
+    <li class="edit-inventory">直接編輯</li>
+    <li class="upload-products">
+      <label style="cursor: pointer">上傳檔案
+        <input id="upload_file" style="display:none;" type="file">
+      </label>
+    </li>
+    <li class="download-products">下載檔案</li>
   </ul>
   <table>
     <tr>
@@ -28,5 +32,5 @@
     {{/each}}
   </table>
 </div>
-<script src="/javascripts/animation.js"></script>
-<script src="/javascripts/showOption.js"></script>
+<script src="/javascripts/upload.js"></script>
+<script src="/javascripts/download.js"></script>
