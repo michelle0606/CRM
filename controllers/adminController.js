@@ -4,14 +4,14 @@ const Shop = db.Shop
 const imgur = require('imgur-node-api')
 
 const adminController = {
-	createShop: (req, res) => {
-		return res.render('advance/createShop')
-	},
+  createShop: (req, res) => {
+    return res.render('advance/createShop', { layout: 'advanceLayout.hbs' })
+  },
 
-	postShop: (req, res) => {
+  postShop: (req, res) => {
     if (!req.body.name) {
       req.flash('error_messages', '需要有店名')
-  		return res.redirect('back')
+      return res.redirect('back')
     }
     const { file } = req // equal to const file = req.file
     if (file) {
@@ -25,7 +25,7 @@ const adminController = {
           logo: file ? img.data.link : null,
         }).then((shop) => {
           req.flash('success_messages', '新增成功')
-					res.redirect('/advance/shops')
+          res.redirect('/advance/shops')
         })
       })
     } else {
@@ -35,39 +35,39 @@ const adminController = {
         email: req.body.email,
         address: req.body.address,
       })
-      .then((shop) => {
-        req.flash('success_messages', '新增成功')
-        res.redirect('/advance/shops')
-      })
+        .then((shop) => {
+          req.flash('success_messages', '新增成功')
+          res.redirect('/advance/shops')
+        })
     }
   },
 
-	getShops: (req, res) => {
-		return Shop
-			.findAll()
-			.then(shops => {
-				res.render('advance/shops', { shops })
-	    })
-	},
+  getShops: (req, res) => {
+    return Shop
+      .findAll()
+      .then(shops => {
+        res.render('advance/shops', { layout: 'advanceLayout.hbs', shops })
+      })
+  },
 
-	getShop: (req, res) => {
-		return Shop
-		  .findByPk(req.params.shop_id)
-		  .then(shop => {
-		  	res.render('advance/shop', { shop })
-		  })
-	},
+  getShop: (req, res) => {
+    return Shop
+      .findByPk(req.params.shop_id)
+      .then(shop => {
+        res.render('advance/shop', { layout: 'advanceLayout.hbs', shop })
+      })
+  },
 
   editShop: (req, res) => {
-		return Shop
-			.findByPk(req.params.shop_id)
-			.then(shop => {
-				return res.render('advance/createShop', { shop })
-   		})
+    return Shop
+      .findByPk(req.params.shop_id)
+      .then(shop => {
+        return res.render('advance/createShop', { layout: 'advanceLayout.hbs', shop })
+      })
   },
 
   putShop: (req, res) => {
-  	if (!req.body.name) {
+    if (!req.body.name) {
       req.flash('error_messages', '需填店名');
       return res.redirect('back');
     }
@@ -116,19 +116,19 @@ const adminController = {
   },
 
   deleteShop: (req, res) => {
-  	return Shop
-  		.destroy({ 
-  			where: {
-  				id: Number(req.params.shop_id) 
-  			}
-  		})
+    return Shop
+      .destroy({
+        where: {
+          id: Number(req.params.shop_id)
+        }
+      })
       .then(() => {
         return res.redirect('/advance/shops')
       })
   },
 
   createUser: (req, res) => {
-    return res.render('advance/createUser')
+    return res.render('advance/createUser', { layout: 'advanceLayout.hbs' })
   },
 
   postUser: (req, res) => {
@@ -156,10 +156,10 @@ const adminController = {
         role: req.body.role,
         ShopId: req.body.ShopId,
       })
-      .then((user) => {
-        req.flash('success_messages', '新增成功')
-        res.redirect('/advance/users')
-      })
+        .then((user) => {
+          req.flash('success_messages', '新增成功')
+          res.redirect('/advance/users')
+        })
     }
   },
 
@@ -167,7 +167,7 @@ const adminController = {
     return User
       .findAll()
       .then(users => {
-        res.render('advance/users', { users })
+        res.render('advance/users', { layout: 'advanceLayout.hbs', users })
       })
   },
 
@@ -175,7 +175,7 @@ const adminController = {
     return User
       .findByPk(req.params.user_id)
       .then(user => {
-        res.render('advance/user', { user })
+        res.render('advance/user', { layout: 'advanceLayout.hbs', user })
       })
   },
 
@@ -183,7 +183,7 @@ const adminController = {
     return User
       .findByPk(req.params.user_id)
       .then(user => {
-        return res.render('advance/createUser', { user })
+        return res.render('advance/createUser', { layout: 'advanceLayout.hbs', user })
       })
   },
 
@@ -236,9 +236,9 @@ const adminController = {
 
   deleteUser: (req, res) => {
     return User
-      .destroy({ 
+      .destroy({
         where: {
-          id: Number(req.params.user_id) 
+          id: Number(req.params.user_id)
         }
       })
       .then(() => {

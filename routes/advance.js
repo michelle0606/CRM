@@ -14,15 +14,15 @@ const authenticatedAdmin = (req, res, next) => {
 }
 
 router.get('/customers', (req, res) => {
-  res.render('advance/customers')
+  res.render('advance/customers', { layout: 'advanceLayout.hbs' })
 })
 
 router.get('/products', (req, res) => {
-  res.render('advance/products')
+  res.render('advance/products', { layout: 'advanceLayout.hbs' })
 })
 
 router.get('/sales', (req, res) => {
-  res.render('advance/sales')
+  res.render('advance/sales', { layout: 'advanceLayout.hbs' })
 })
 
 // shop create
