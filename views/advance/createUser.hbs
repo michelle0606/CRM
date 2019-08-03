@@ -1,28 +1,34 @@
-{{#if user}}
-<form action="/advance/users/{{user.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
-{{else}}
-<form action="/advance/users" method="POST" enctype="multipart/form-data">
-{{/if}}
+<div class="container">
 
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" value="{{user.name}}">
-  </div>
+  {{#if user}}
+  <div class="Title">人員資料編輯</div>
+  <form action="/advance/users/{{user.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+    {{else}}
+    <div class="Title">新增人員</div>
+    <form action="/advance/users" method="POST" enctype="multipart/form-data">
+      {{/if}}
 
-  <div class="form-group">
-    <label for="role">Role</label>
-    <input type="text" class="form-control" name="role" id="role" placeholder="Enter role" value="{{user.role}}">
-  </div>
+      <div class="form-group">
+        <label for="name" class="edit-user-input">Name：</label>
+        <input type="text" class="edit-user-input" name="name" id="name" placeholder="Enter name" value="{{user.name}}">
+      </div>
 
-  <div class="form-group">
-    <label for="ShopId">ShopId</label>
-    <input type="text" class="form-control" name="ShopId" id="ShopId" placeholder="Enter ShopId" value="{{user.ShopId}}">
-  </div>
+      <div class="form-group">
+        <label for="role" class="edit-user-input">Role：</label>
+        <input type="text" class="edit-user-input" name="role" id="role" placeholder="Enter role" value="{{user.role}}">
+      </div>
 
-  <div class="form-group">
-    <label for="avatar">Avatar</label>
-    <input type="file" class="form-control-file" id="avatar" name="avatar">
-  </div>
+      <div class="form-group">
+        <label for="ShopId" class="edit-user-input">ShopId：</label>
+        <input type="text" class="edit-user-input" name="ShopId" id="ShopId" placeholder="Enter ShopId"
+          value="{{user.ShopId}}">
+      </div>
 
-  <button type="submit" class="">Submit</button>
-</form>
+      <div class="form-group">
+        <label for="avatar" class="edit-user-input">Avatar：</label>
+        <input type="file" class="form-control-file" id="avatar" name="avatar">
+      </div>
+
+      <button type="submit" class="edit-user-input">Submit</button>
+    </form>
+</div>

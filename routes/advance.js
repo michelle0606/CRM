@@ -1,29 +1,27 @@
 const express = require('express')
 const router = express.Router()
 const adminController = require('../controllers/adminController')
+const advanceController = require('../controllers/advanceController')
 const passport = require('../config/passport')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
 
 const authenticatedAdmin = (req, res, next) => {
   if (req.isAuthenticated()) {
-    if (req.user.role === 0) { return next() }
+    if (req.user.role === 0 || req.user.role === 1) { return next() }
     return res.redirect('/')
   }
   res.redirect('/login')
 }
 
-router.get('/customers', (req, res) => {
-  res.render('advance/customers', { layout: 'advanceLayout.hbs' })
-})
+router.get('/customers', authenticatedAdmin, advanceController.getAllCustomers)
+router.get('/customers/:customers_id', authenticatedAdmin, advanceController.getCustomer)
 
-router.get('/products', (req, res) => {
-  res.render('advance/products', { layout: 'advanceLayout.hbs' })
-})
 
-router.get('/sales', (req, res) => {
-  res.render('advance/sales', { layout: 'advanceLayout.hbs' })
-})
+router.get('/products', advanceController.getAllProducts)
+router.get('/users', advanceController.getAllSales)
+
+
 
 // shop create
 router.get('/shops/create', authenticatedAdmin, adminController.createShop)
