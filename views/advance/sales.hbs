@@ -1,60 +1,41 @@
-<div class="pad-mode">
-  <div class="side-bar">
-    <div class="side-title">
-      Hey there
-    </div>
-    <ul class="side-list">
-      <li class="side-list-button">
-        <a href="">客戶管理</a>
-      </li>
-      <li class="side-list-button">
-        <a href="">商品管理</a>
-      </li>
-      <li class="side-list-button">
-        <a href="">行銷管理</a>
-      </li>
-      <li class="side-list-button">
-        <a href="">人事管理</a>
-      </li>
-      <li class="side-list-button">
-        <a href="">回到前台</a>
-      </li>
-    </ul>
-  </div>
+<div class="advance-container">
+  <div class="Title">人事管理</div>
+  <ul class="manage-action">
+    <li><a href="/advance/users/create">新增人員</a></li>
+  </ul>
 
-  <div class="advance-section">
-    <div class="advance-title">
-      人事管理
-    </div>
-    <div class="advance-content">
-      <div class="advance-content-show">
-        <table class="admin-table">
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Sales Avatar</th>
-            <th scope="col">Sales Name</th>
-            <th scope="col">Role</th>
-          </tr>
-          <tr>
-            <td>
-              1
-            </td>
-            <td>
-              <img src="https://picsum.photos/200/200" alt="" class="sales-avatar">
-            </td>
-            <td>
-              Walle
-            </td>
-            <td>
-              <select>
-                <option value="manager">Store Manager</option>
-                <option value="sales">Sales</option>
-              </select>
-            </td>
-          </tr>
-        </table>
-
-      </div>
-    </div>
-  </div>
+  <table>
+    <tr>
+      <th scope="col">編號</th>
+      <th scope="col">店員照片</th>
+      <th scope="col">店員名字</th>
+      <th scope="col">角色</th>
+      <th scope="col"></th>
+    </tr>
+    {{#each sales}}
+    <tr>
+      <td>{{this.id}}</a></td>
+      <td><img src="{{this.avatar}}" alt="" class="sales-avatar "></td>
+      <td>{{this.name}}</td>
+      <td>
+        {{this.role}}
+      </td>
+      <td>
+        <button type="button" class="">
+          <a href="/advance/users/{{this.id}}">
+            Show
+          </a>
+        </button>
+        <button type="button" class="">
+          <a href="/advance/users/{{this.id}}/edit">
+            Edit
+          </a>
+        </button>
+        <form action="/advance/users/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <button type="submit" class="">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </table>
 </div>
