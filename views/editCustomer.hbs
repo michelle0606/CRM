@@ -2,21 +2,15 @@
   <form action="/customers/{{customer.id}}/edit?_method=PUT" method="POST" enctype="multipart/form-data">
     <div class="single-customer">
       <div class="Title">{{title}}</div>
-      <div class="single-customer-detail">
-        <div class="single-customer-img">
-          <img src="{{customer.avatar}}" alt="">
-        </div>
-        <ul>
-          <li>Image : <input type="file" name="avatar"></li>
-          <li>Name：<input type="text" name="name" value="{{customer.name}}" class="edit-customer-input"></li>
-          <li>Age：<input type="text" name="age" value="{{customer.age}}" class="edit-customer-input"></li>
-          <li>Gender：<input type="text" name="gender" value="{{customer.gender}}" class="edit-customer-input"></li>
-          <li>Tel：<input type="text" name="phoneNr" value="{{customer.phoneNr}}" class="edit-customer-input"></li>
-          <li>E-mail：<input type="email" name="email" value="{{customer.email}}" class="edit-customer-input"></li>
-          <li>Address：<input type="text" name="address" value="{{customer.address}}" class="edit-customer-input"></li>
-          <li><i class="fas fa-window-close"></i> 是否願意收電子報</li>
-        </ul>
-      </div>
+      <ul class="single-customer-detail">
+        <li>Name：<input type="text" name="name" value="{{customer.name}}" class="edit-customer-input"></li>
+        <li>Gender：<input type="text" name="gender" value="{{customer.gender}}" class="edit-customer-input"></li>
+        <li>Tel：<input type="text" name="phoneNr" value="{{customer.phoneNr}}" class="edit-customer-input"></li>
+        <li>Birthday：<input type="date" name="birthday" value="{{customer.birthday}}" class="edit-customer-input"></li>
+        <li>E-mail：<input type="email" name="email" value="{{customer.email}}" class="edit-customer-input"></li>
+        <li>Address：<input type="text" name="address" value="{{customer.address}}" class="edit-customer-input"></li>
+        <li><i class="fas fa-window-close"></i> 是否願意收電子報</li>
+      </ul>
       <div class="single-customer-bar">
         <div class="single-customer-link">
           <button type="submit" class="single-customer-button">確定修改</button>

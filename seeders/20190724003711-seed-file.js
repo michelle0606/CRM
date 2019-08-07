@@ -18,6 +18,7 @@ module.exports = {
         note: faker.lorem.text(),
         avatar: faker.image.avatar(),
         ShopId: Math.floor(Math.random() * 2) + 2,
+        birthday: faker.date.past(),
         createdAt: new Date(),
         updatedAt: new Date()
       })),
