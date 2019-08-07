@@ -13,6 +13,9 @@
 .single-customer-detail > ul {
   padding: 10px 20px;
 }
+.single-customer-detail > ul > li:nth-child(1) {
+  font-size: 24px;
+}
 
 .single-customer-bar {
   margin: 0 auto;
@@ -48,4 +51,45 @@
 
 .edit-customer-input {
   font-size: 24px;
+}
+
+.tag-area {
+  margin-top: 20px;
+}
+
+.tag-area > form {
+  margin-right: 10px;
+}
+
+.tag-area > form > button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  color: #fff;
+  border-radius: 10px;
+  background-color: var(--bgColor2);
+  margin-left: 5px;
+}
+
+#tag {
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  width: 150px;
+}
+
+.each-tag {
+  background-color: #fff;
+  padding: 5px 5px 5px 10px;
+  border-radius: 10px;
+  margin: 0px 5px 10px 0px;
+  font-size: 16px;
+  display: inline-flex;
+  width: fit-content;
+}
+
+.each-tag > form > button {
+  border: none;
+  font-size: 14px;
 }
