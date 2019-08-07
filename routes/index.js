@@ -30,6 +30,7 @@ router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
 router.get('/inventory', authenticated, productController.getInventory)
+router.post('/inventory', authenticated, productController.postInventory)
 
 router.get(
   '/api/customers',
@@ -37,6 +38,6 @@ router.get(
   customerController.APIGetAllCustomers
 )
 
-router.get('/api/products', authenticated, tradeController.APIGetAllProducts)
+router.get('/api/products', authenticated, productController.APIGetAllProducts)
 
 module.exports = router

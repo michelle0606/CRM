@@ -44,14 +44,7 @@ const tradeController = {
         SaleId: sale.id
       })
     }
-
     return res.redirect(`/customers/${req.params.customers_id}`)
-  },
-
-  APIGetAllProducts: (req, res) => {
-    Product.findAll().then(products => {
-      res.send(products)
-    })
   }
 }
 

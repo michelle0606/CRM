@@ -1,11 +1,13 @@
 <div class="container">
   <div class="Title">庫存管理</div>
   <ul class="manage-action">
-    <li class="edit-inventory">直接編輯</li>
     <li class="upload-products">
-      <label style="cursor: pointer">上傳檔案
-        <input id="upload_file" style="display:none;" type="file">
-      </label>
+      <form action="/inventory" method="POST">
+        <label style="cursor: pointer">上傳檔案
+          <input id="upload_file" style="display:none;" name="file" type="file">
+        </label>
+        <button type="submit">確認</button>
+      </form>
     </li>
     <li class="download-products">下載檔案</li>
   </ul>
