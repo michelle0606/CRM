@@ -25,13 +25,10 @@ passport.use(
 
 // serialize and deserialize user
 passport.serializeUser((user, cb) => {
-  // console.log('sssssssssserializeeeeeee')
-  // console.log(user)
   cb(null, user.id)
 })
 
 passport.deserializeUser((id, cb) => {
-  // console.log('dddeeesseriali')
   User.findByPk(id, {
     include: [
       // { model: Restaurant, as: 'FavoritedRestaurants' },
@@ -40,7 +37,6 @@ passport.deserializeUser((id, cb) => {
       // { model: User, as: 'Followings' }
     ]
   }).then(user => {
-    // console.log(user)
     return cb(null, user)
   })
 })

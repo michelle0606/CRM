@@ -1,5 +1,6 @@
-const searchInput = document.getElementById('phone_nr')
-const suggestions = document.querySelector('.suggestions')
+const searchInput = document.getElementById('keyword')
+const clear = document.getElementById('clear')
+const table = document.querySelector('.table')
 
 const endpoint = '/api/customers'
 const customers = []
@@ -16,16 +17,25 @@ function findMatches(wordToMatch, customers) {
 
 function displayMatches() {
   const matchArray = findMatches(this.value, customers)
-  suggestions.innerHTML = matchArray
+  table.innerHTML = `<tr>
+        <th scope="col">姓名</th>
+        <th scope="col">Email</th>
+        <th scope="col">電話號碼</th>
+      </tr>`
+  table.innerHTML += matchArray
     .map(c => {
-      return `
-        <a href="/customers/${c.id}">${c.phoneNr}<span style="float: right;">${
-        c.name
-      }<span></a>
-      `
+      return `<tr>
+                <td><a href="/customers/${c.id}">${c.name}</a></td>
+                <td>${c.email}</td>
+                <td>${c.phoneNr}</td>
+              </tr>
+    `
     })
     .join('')
 }
 
 searchInput.addEventListener('change', displayMatches)
 searchInput.addEventListener('keyup', displayMatches)
+clear.addEventListener('click', () => {
+  searchInput.value = ''
+})

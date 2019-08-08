@@ -5,6 +5,18 @@
 
 .search-field > form {
   margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-field > form > button {
+  background-color: #fff;
+  margin-left: 10px;
+  font-size: 24px;
+  padding: 0px 20px;
+  border: 3px solid var(--bgColor2);
+  color: var(--bgColor2);
+  background-color: var(--bgColor1);
 }
 
 .nr_input {
@@ -43,22 +55,21 @@
 
 /****All customers page****/
 
-.main-content .results {
+.search-all-customers {
   margin: 20px auto;
 }
 
-.main-content .results form {
+.search-all-customers {
   display: flex;
-  padding-bottom: 15px;
 }
 
-.main-content .results form input {
+.search-all-customers input {
   padding: 6px;
   font-size: 18px;
   width: 250px;
 }
 
-.main-content .results form button {
+.search-all-customers button {
   margin-left: 20px;
   font-size: 14px;
   padding: 0px 15px;

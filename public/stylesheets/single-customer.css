@@ -92,4 +92,9 @@
 .each-tag > form > button {
   border: none;
   font-size: 14px;
+  background: transparent;
+}
+
+.table > tbody > tr > th:nth-child(1) {
+  width: 140px;
 }
