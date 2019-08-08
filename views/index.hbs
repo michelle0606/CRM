@@ -1,22 +1,14 @@
 <div class="container">
   <div class="search-field">
-    <div class="Title">會員查詢</div>
-    <form action="/" method="GET">
+    <div class="Title">新增會員</div>
+    <form action="/customers/create" method="POST">
       <div class="nr_input">
         <i class="fas fa-search"></i><input type="number" name="phone_nr" id="phone_nr" placeholder="請輸入電話號碼">
       </div>
-      <div class="suggestions"></div>
+      <button type="submit">確認</button>
     </form>
-    {{#if phone_nr}}
-    <form action="/customers" method="POST" class="add-customer">
-      <input type="hidden" name="phone_nr" value="{{phone_nr}}">
-      <span>{{phone_nr}} 尚未加入會員。</span>
-      <button type="submit">立即加入</button>
-    </form>
-    {{/if }}
   </div>
   <div class="directly">
-    <a href="/customer/0/sale" class="Button2">直接結帳</a>
+    <a href="/customer/0/sale" class="Button2">非會員直接結帳</a>
   </div>
 </div>
-<script src="/javascripts/search.js"></script>

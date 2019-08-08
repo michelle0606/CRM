@@ -1,12 +1,11 @@
 <div class="container">
-  <div class="Title">所有會員</div>
+  <div class="Title">查詢會員</div>
   <div class="results">
-    <form action="/" method="GET">
-      <input type="text" name="phone_nr" placeholder="請輸入電話號碼或email">
-      <button type="submit">查詢</button>
-      <button type="button">清除</button>
-    </form>
-    <table>
+    <div class="search-all-customers">
+      <input type="text" id="keyword" placeholder="請輸入電話號碼或email">
+      <button id="clear" type="button">清除</button>
+    </div>
+    <table class="table">
       <tr>
         <th scope="col">姓名</th>
         <th scope="col">Email</th>
@@ -26,3 +25,4 @@
     </form>
   </div>
 </div>
+<script src="/javascripts/search.js"></script>

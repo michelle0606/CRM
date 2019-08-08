@@ -1,9 +1,10 @@
+{{> messages}}
 <div class="container">
 	<div class="single-customer">
 		<div class="Title">會員資料</div>
 		<div class="single-customer-detail">
 			<ul>
-				<li>{{customer.name}} <i class="fas fa-mars"></i> {{customer.birthday}}</li>
+				<li>{{customer.name}} <i class="fas fa-mars"></i> {{moment customer.birthday}}</li>
 				<li><i class="fas fa-phone"></i> {{customer.phoneNr}}</li>
 				<li><i class="fas fa-envelope"></i> {{customer.email}}</li>
 				<li><i class="fas fa-window-close"></i> 是否願意收電子報</li>

@@ -13,7 +13,8 @@ const authenticated = (req, res, next) => {
 }
 
 router.get('/', authenticated, customerController.getAllCustomers)
-router.post('/', authenticated, customerController.addCustomer)
+router.get('/create', authenticated, customerController.createCustomerPage)
+router.post('/create', authenticated, customerController.addCustomer)
 
 router.get('/:customers_id', authenticated, customerController.getCustomer)
 router.get(
@@ -28,7 +29,11 @@ router.post(
 )
 
 router.get('/:customers_id/edit', customerController.editCustomerPage)
-router.put('/:customers_id/edit', upload.single('avatar'), customerController.putCustomer)
+router.put(
+  '/:customers_id/edit',
+  upload.single('avatar'),
+  customerController.putCustomer
+)
 router.get('/:customers_id/records', customerController.getRecords)
 
 module.exports = router

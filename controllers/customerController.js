@@ -7,9 +7,8 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const { Sale, User, Product } = db
 
 const customerController = {
-  searchCustomer: (req, res) => {
-    const phone_nr = req.query.phone_nr
-    res.render('index', { title: '查詢會員', phone_nr })
+  createCustomerPage: (req, res) => {
+    res.render('index', { title: '新增會員' })
   },
 
   addCustomer: (req, res) => {
@@ -19,10 +18,12 @@ const customerController = {
           phoneNr: req.body.phone_nr,
           ShopId: req.user.ShopId
         }).then(customer => {
-          return res.redirect(`/customers/${customer.id}`)
+          req.flash('top_messages', '成功新增會員！')
+          res.redirect(`/customers/${customer.id}`)
         })
       } else {
-        return res.render('index', { error_messages: '此人已加入會員！' })
+        req.flash('top_messages', '此人之前已經加入會員！')
+        res.redirect(`/customers/${data.id}`)
       }
     })
   },
@@ -105,8 +106,10 @@ const customerController = {
   },
 
   getAllCustomers: (req, res) => {
-    Customer.findAll({ where: { ShopId: req.user.ShopId } }).then(customers => {
-      res.render('allCustomers', { customers, title: '所有會員' })
+    Customer.findAll({
+      where: { ShopId: req.user.ShopId }
+    }).then(customers => {
+      res.render('allCustomers', { customers, title: '查詢會員' })
     })
   },
 

@@ -57,7 +57,7 @@ const userController = {
   },
 
   signIn: (req, res) => {
-    res.redirect('/')
+    res.redirect('/customers/create')
   },
 
   logout: (req, res) => {
