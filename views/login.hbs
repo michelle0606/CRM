@@ -3,18 +3,9 @@
     <a href="/login">waromen</a>
   </header>
   <main>
-    {{#if error_messages}}
-    <div class="feedback" role="alert">
-      {{error_messages}}
-    </div>
-    {{/if}}
-    {{#if success_messages}}
-    <div class="feedback" role="alert">
-      {{success_messages}}
-    </div>
-    {{/if}}
-    <form action="/login" method="POST">
 
+    <form action="/login" method="POST">
+      {{> messages}}
       <div class="form-item">
         <input type="text" name="account" placeholder="帳號" required autofocus>
       </div>

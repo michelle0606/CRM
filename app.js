@@ -11,6 +11,9 @@ const session = require('express-session')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const dotenv = require('dotenv')
+const hbs = require('express-handlebars')
+const hbshelpers = require('handlebars-helpers')
+const multihelpers = hbshelpers()
 const app = express()
 
 if (process.env.NODE_ENV !== 'production') {
@@ -19,12 +22,16 @@ if (process.env.NODE_ENV !== 'production') {
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
-// app.engine(
-//   'hbs',
-//   handlebars({
-//     helpers: require('./config/handlebars-helpers')
-//   })
-// )
+app.engine(
+  'hbs',
+  hbs({
+    helpers: multihelpers,
+    partialsDir: ['views/partials'],
+    extname: '.hbs',
+    layoutsDir: 'views',
+    defaultLayout: 'layout'
+  })
+)
 app.set('view engine', 'hbs')
 
 app.use(flash())
@@ -44,7 +51,7 @@ app.use('/advance', advanceRouter)
 app.use('/customers', customersRouter)
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404))
 })
 
@@ -52,6 +59,7 @@ app.use((req, res, next) => {
   res.locals.user = req.user
   res.locals.success_messages = req.flash('success_messages')
   res.locals.error_messages = req.flash('error_messages')
+  res.locals.top_messages = req.flash('top_messages')
   next()
 })
 

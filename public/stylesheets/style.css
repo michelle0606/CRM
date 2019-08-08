@@ -19,7 +19,7 @@
 .Button2 {
   color: #af887c;
   border: 10px double;
-  font-size: 18px;
+  font-size: 22px;
   border-radius: 15px;
   padding: 5px 10px;
 }
@@ -141,7 +141,7 @@ input[type='number'] {
 table {
   background-color: #fff;
   border-collapse: collapse;
-  width: inherit;
+  width: 100%;
   table-layout: fixed;
 }
 
@@ -150,8 +150,22 @@ table td {
   border: 1px solid #ddd;
   text-align: center;
   padding: 15px 8px;
+  overflow: scroll;
 }
 
 table tr:nth-child(even) {
   background-color: #e3e8fb;
+}
+
+.feedback {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.top-messages {
+  background-color: #469a25;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px 20px;
 }

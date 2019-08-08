@@ -3,12 +3,8 @@
     <a href="/login">waromen</a>
   </header>
   <main>
-    {{#if error_messages}}
-    <div class="feedback" role="alert">
-      {{error_messages}}
-    </div>
-    {{/if}}
     <form action="/signup" method="POST">
+      {{> messages}}
       <div class="form-item">
         <input type="text" name="name" placeholder="商店名稱" required autofocus>
         <div class="feedback"></div>

@@ -13,7 +13,7 @@ const authenticated = (req, res, next) => {
   res.redirect('/login')
 }
 
-router.get('/', authenticated, customerController.searchCustomer)
+router.get('/', authenticated, (req, res) => res.redirect('/customers/create'))
 
 router.get('/login', userController.signInPage)
 router.post(
