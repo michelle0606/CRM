@@ -24,6 +24,10 @@ router.post(
   }),
   userController.signIn
 )
+
+router.get('/forgot', userController.forgotPage)
+router.post('/forgot', userController.getNewPassword)
+
 router.get('/logout', userController.logout)
 
 router.get('/signup', userController.signUpPage)

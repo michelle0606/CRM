@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt-nodejs')
 const db = require('../models')
-const User = db.User
-const Shop = db.Shop
+const { User, Shop } = db
 
 const userController = {
   signUpPage: (req, res) => {
     return res.render('signup', {
+      layout: 'preLayout.hbs',
       title: '開啟服務',
       error_messages: req.flash('error_messages')
     })
@@ -50,6 +50,7 @@ const userController = {
 
   signInPage: (req, res) => {
     return res.render('login', {
+      layout: 'preLayout.hbs',
       title: '登入',
       error_messages: req.flash('error_messages'),
       success_messages: req.flash('success_messages')
@@ -63,6 +64,32 @@ const userController = {
   logout: (req, res) => {
     req.logout()
     res.redirect('/login')
+  },
+
+  forgotPage: (req, res) => {
+    res.render('forgot', {
+      layout: 'preLayout.hbs',
+      title: '忘記密碼'
+    })
+  },
+
+  getNewPassword: async (req, res) => {
+
+    const user = await User.findOne({ where: { id: req.body.id } })
+
+    if (!user) {
+      req.flash('error_messages', '店員編號不存在')
+      return res.redirect('/forgot')
+    } else if (user.name !== req.body.name) {
+      req.flash('error_messages', '店員名字錯誤')
+      return res.redirect('/forgot')
+    } else {
+      user.update({
+        password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null)
+      }).then(user => {
+        return res.redirect('/login')
+      })
+    }
   }
 }
 
