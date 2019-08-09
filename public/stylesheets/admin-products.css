@@ -1,0 +1,34 @@
+.product-avatar-block {
+  display: inline-block;
+  width: 200px;
+}
+
+.admin-product-info {
+  display: none;
+  background-color: #f18c7c;
+  padding: 20px 100px;
+}
+
+.product-avatar {
+  width: 150px;
+  border-radius: 50%;
+}
+
+.product-detail-info {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.product-control-bar {
+  height: 50px;
+}
+
+.product-edit {
+  padding: 5px 8px;
+  font-size: 24px;
+  float: right;
+}
+
+.open-it {
+  display: block;
+}

@@ -21,6 +21,7 @@
     "protocol": "postgres",
     "dialectOptions": {
       "ssl": true
-    }
+    },
+    "operatorsAliases": false
   }
 }

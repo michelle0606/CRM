@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="Title">查詢會員</div>
+  <div class="results">
+    <div class="search-all-customers">
+      <input type="text" id="keyword" placeholder="請輸入電話號碼或email">
+      <button id="clear" type="button">清除</button>
+    </div>
+    <table class="table">
+      <tr>
+        <th scope="col">姓名</th>
+        <th scope="col">Email</th>
+        <th scope="col">電話號碼</th>
+      </tr>
+      {{#each customers}}
+      <tr>
+        <td><a href="/customers/{{this.id}}">{{this.name}}</a></td>
+        <td>{{this.email}}</td>
+        <td>{{this.phoneNr}}</td>
+      </tr>
+      {{/each}}
+    </table>
+    <form action="/customers" method="POST" style="display: none;">
+      <input type="hidden" name="phone_nr" value="0912-345-678">
+      <span>0912-345-678 尚未加入會員</span><button type="submit">立即加入</button>
+    </form>
+  </div>
+</div>
+<script src="/javascripts/search.js"></script>

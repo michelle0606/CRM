@@ -1,0 +1,84 @@
+.sidebar {
+  width: 200px;
+  height: 100%;
+  background-color: var(--bgColor2);
+  box-shadow: 6px 0 20px 0px black;
+  z-index: 10;
+  position: fixed;
+}
+
+.sidebar li:nth-child(1) {
+  height: 75px;
+}
+
+.sidebar li {
+  border-bottom: 3px solid var(--bgColor1);
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar li a {
+  color: var(--bgColor1);
+  font-size: 20px;
+  display: flex;
+  height: 70px;
+  align-items: center;
+}
+
+.sidebar li a i {
+  margin-right: 10px;
+}
+
+.navbar {
+  position: relative;
+  background-color: #fff;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 20px 70px 1fr 250px 1fr 70px 20px;
+  grid-template-rows: 75px;
+  grid-template-areas: '. icon . logo . option .';
+}
+
+.navbar div:nth-child(1) {
+  grid-area: icon;
+  font-size: 40px;
+  color: var(--bgColor1);
+  text-align: center;
+  cursor: pointer;
+}
+
+.navbar div:nth-child(2) {
+  grid-area: logo;
+}
+.navbar div:nth-child(3) {
+  grid-area: option;
+  font-size: 40px;
+  color: var(--bgColor1);
+  text-align: center;
+  cursor: pointer;
+}
+
+.option {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  display: none;
+  position: absolute;
+  right: 20px;
+  padding: 10px;
+  top: 66px;
+  z-index: 10;
+}
+
+.option > a,
+.option > form > button {
+  cursor: pointer;
+  border: none;
+  color: #1d2129;
+  -webkit-font-smoothing: antialiased;
+  padding: 5px 10px;
+  display: block;
+  font-size: 16px;
+}

@@ -1,0 +1,86 @@
+.trade {
+  margin: auto;
+}
+
+.trade > div {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.trade > div > span {
+  margin-right: 10px;
+}
+
+.creat-trade-page > input {
+  font-size: 20px;
+  padding: 5px 10px;
+}
+
+.creat-trade-page {
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.creat-trade-page > div {
+  margin: auto 10px;
+}
+
+.creat-trade-page > div > i {
+  font-size: 30px;
+}
+
+.total {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.total-price {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+}
+
+.creat-trade-page > input:nth-child(2) {
+  width: 70px;
+  margin-left: 10px;
+}
+
+.trade-content .trade table tr th:nth-child(1),
+.trade-content .trade table tr td:nth-child(1) {
+  width: 100px;
+}
+
+.trade-content .trade table tr th:nth-child(2),
+.trade-content .trade table tr td:nth-child(2) {
+  width: 200px;
+}
+.trade-content .trade table tr th:nth-child(3),
+.trade-content .trade table tr td:nth-child(3) {
+  width: 50px;
+}
+.trade-content .trade table tr th:nth-child(4),
+.trade-content .trade table tr td:nth-child(4) {
+  width: 100px;
+}
+.trade-content .trade table tr th:nth-child(5),
+.trade-content .trade table tr td:nth-child(5) {
+  width: 50px;
+}
+
+.trade-content .trade table tr td input,
+.trade-content .trade table tr td span {
+  width: inherit;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+}
+
+.table-head {
+  height: 300px;
+  overflow: scroll;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}

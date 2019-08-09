@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display+SC:900&display=swap');
+
+:root {
+  --bgColor1: #edd3d5;
+  --bgColor2: #4350b1;
+  --linkColor: #b278a2;
+  --logoFont: 'Playfair Display SC', serif;
+  --normalFont: 'Noto Serif TC', serif;
+}
+
+.Button1 {
+  color: var(--bgColor2);
+  background-color: var(--bgColor1);
+  font-size: 30px;
+  padding: 10px 50px;
+  border: none;
+}
+
+.Button2 {
+  color: #af887c;
+  border: 10px double;
+  font-size: 22px;
+  border-radius: 15px;
+  padding: 5px 10px;
+}
+
+.Button2:hover {
+  background-color: #e6b2a3;
+}
+
+.Logo {
+  color: var(--bgColor1);
+  font-size: 46px;
+  font-family: var(--logoFont);
+  cursor: pointer;
+}
+
+.Title {
+  font-size: 30px;
+  color: var(--bgColor2);
+  font-weight: 400;
+  margin: 30px 0px;
+  text-align: center;
+}
+
+.nr_input > .fa-search {
+  background: #fff;
+  font-size: 30px;
+  display: flex;
+  padding: 12px;
+  align-items: center;
+  color: #777777;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: var(--bgColor1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+a,
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+.container {
+  width: 500px;
+  margin: 30px auto;
+}
+
+footer {
+  width: -webkit-fill-available;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
+footer ul {
+  font-size: 28px;
+  height: inherit;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+footer ul li a {
+  margin-left: 20px;
+  color: black;
+}
+
+input:focus {
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.fa-outdent {
+  width: -webkit-fill-available;
+}
+
+table {
+  background-color: #fff;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 15px 8px;
+  overflow: scroll;
+}
+
+table tr:nth-child(even) {
+  background-color: #e3e8fb;
+}
+
+.feedback {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.top-messages {
+  background-color: #469a25;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px 20px;
+}

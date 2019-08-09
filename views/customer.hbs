@@ -1,0 +1,39 @@
+{{> messages}}
+<div class="container">
+	<div class="single-customer">
+		<div class="Title">會員資料</div>
+		<div class="single-customer-detail">
+			<ul>
+				<li>{{customer.name}} <i class="fas fa-mars"></i> {{moment customer.birthday}}</li>
+				<li><i class="fas fa-phone"></i> {{customer.phoneNr}}</li>
+				<li><i class="fas fa-envelope"></i> {{customer.email}}</li>
+				<li><i class="fas fa-window-close"></i> 是否願意收電子報</li>
+			</ul>
+			<div class="single-customer-bar">
+				<div>
+					<a href="/customers/{{customer.id}}/record">新增交易</a>
+				</div>
+				<div>
+					<a href="/customers/{{customer.id}}/records">查看紀錄</a>
+				</div>
+				<div>
+					<a href="/customers/{{customer.id}}/edit">編輯資料</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tag-area">
+		<form action="/customerDetail/{{customer.id}}" method="POST" style="display: inline-block;">
+			<input type="text" name="tag" id="tag" placeholder="輸入標籤名稱">
+			<button type="submit">新增</button>
+		</form>
+		{{#each tags}}
+		<div class="each-tag">{{this.tag}}
+			<form action="/customerDetail/{{../customer.id}}?_method=DELETE" method="POST">
+				<input type="hidden" name="tagId" value="{{this.id}}">
+				<button type="submit"><i class="fas fa-times"></i></button>
+			</form>
+		</div>
+		{{/each}}
+	</div>
+</div>

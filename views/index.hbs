@@ -1,2 +1,14 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="container">
+  <div class="search-field">
+    <div class="Title">新增會員</div>
+    <form action="/customers/create" method="POST">
+      <div class="nr_input">
+        <i class="fas fa-search"></i><input type="number" name="phone_nr" id="phone_nr" placeholder="請輸入電話號碼">
+      </div>
+      <button type="submit">確認</button>
+    </form>
+  </div>
+  <div class="directly">
+    <a href="/customer/0/sale" class="Button2">非會員直接結帳</a>
+  </div>
+</div>
