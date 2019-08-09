@@ -28,6 +28,8 @@ router.post(
 router.get('/forgot', userController.forgotPage)
 router.post('/forgot', userController.getNewPassword)
 
+router.get('/privacy/:id', userController.privacyInfoPage)
+
 router.get('/logout', userController.logout)
 
 router.get('/signup', userController.signUpPage)

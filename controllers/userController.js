@@ -90,7 +90,16 @@ const userController = {
         return res.redirect('/login')
       })
     }
-  }
+  },
+
+  //user edit own information
+  privacyInfoPage: (req, res) => {
+    User.findByPk(req.params.id).then(user => {
+      res.render('privacy', { user })
+    })
+  },
+
+
 }
 
 module.exports = userController

@@ -1,0 +1,23 @@
+<div class="container">
+  <form action="/privacy/{{user.id}}/edit?_method=PUT" method="POST" enctype="multipart/form-data">
+    <div class="privacy">
+      <div class="Title">{{title}}</div>
+      <ul class="privacy-detail">
+        <li>Name：<input type="text" name="name" value="{{user.name}}" class="edit-privacy-input"></li>
+        <li>Gender：<input type="text" name="gender" value="{{user.gender}}" class="edit-privacy-input"></li>
+        <li>Tel：<input type="text" name="phoneNr" value="{{user.phoneNr}}" class="edit-privacy-input"></li>
+        <li>Birthday：<input type="date" name="birthday" value="{{user.birthday}}" class="edit-privacy-input"></li>
+        <li>E-mail：<input type="email" name="email" value="{{user.email}}" class="edit-privacy-input"></li>
+        <li>Address：<input type="text" name="address" value="{{user.address}}" class="edit-privacy-input"></li>
+      </ul>
+      <div class="privacy-bar">
+        <div class="privacy-link">
+          <button type="submit" class="privacy-button">確定修改</button>
+        </div>
+        <div class="privacy-link">
+          <a href="/customers/{{customer.id}}">返回</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
