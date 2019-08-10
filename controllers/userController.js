@@ -99,6 +99,27 @@ const userController = {
     })
   },
 
+  editPrivacyInfo: (req, res) => {
+    User.findByPk(req.params.id).then(user => {
+      if (!bcrypt.compareSync(req.body.oldPassword, user.password)) {
+        req.flash('error_messages', '密碼錯誤')
+        res.redirect('back')
+      } else {
+        if (req.body.confirmPassword !== req.body.newPassword) {
+          req.flash('error_messages', '兩次密碼不同')
+          res.redirect('back')
+        } else {
+          user.update({
+            password: bcrypt.hashSync(req.body.newPassword, bcrypt.genSaltSync(10), null)
+          }).then(user => {
+            req.flash('success_messages', '密碼更新成功')
+            return res.redirect('back')
+          })
+        }
+      }
+    })
+  }
+
 
 }
 
