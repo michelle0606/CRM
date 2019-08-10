@@ -1,0 +1,36 @@
+<div class="forgot-page">
+  <header>
+    <a href="/login">waromen</a>
+  </header>
+  <main>
+    <form action="/forgot" method="POST">
+      {{> messages}}
+      <div class="form-item">
+        <input type="text" name="id" placeholder="店員編號" value='{{id}}' required autofocus>
+        <div class="feedback"></div>
+      </div>
+      <div class="form-item">
+        <input type="text" name="name" placeholder="店員名字" value='{{name}}' required>
+        <div class="feedback"></div>
+      </div>
+      <div class="form-item">
+        <input type="password" name="password" placeholder="新密碼" value='{{password}}' required>
+        <div class="feedback"></div>
+      </div>
+      <div class="form-item">
+        <input type="password" name="password2" placeholder="確認新密碼" value='{{password2}}' required>
+        <div class="feedback"></div>
+      </div>
+      <div style="text-align:center">
+        <button type="submit" class="Button1">確定</button>
+      </div>
+    </form>
+  </main>
+  <footer>
+    <ul>
+      <li>版權所有、轉載必究｜©Waromen</li>
+      <li><a href="">使用說明</a></li>
+      <li><a href="">服務信箱</a></li>
+    </ul>
+  </footer>
+</div>

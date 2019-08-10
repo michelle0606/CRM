@@ -46,15 +46,6 @@ app.use(methodOverride('_method'))
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/', indexRouter)
-app.use('/advance', advanceRouter)
-app.use('/customers', customersRouter)
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404))
-})
-
 app.use((req, res, next) => {
   res.locals.user = req.user
   res.locals.success_messages = req.flash('success_messages')
@@ -62,5 +53,16 @@ app.use((req, res, next) => {
   res.locals.top_messages = req.flash('top_messages')
   next()
 })
+
+app.use('/', indexRouter)
+app.use('/advance', advanceRouter)
+app.use('/customers', customersRouter)
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404))
+})
+
+
 
 module.exports = app
