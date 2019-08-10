@@ -36,6 +36,10 @@
   padding: 30px;
 }
 
+.advance {
+  display: flex;
+}
+
 .advance-section {
   height: 100vh;
   width: 80%;
