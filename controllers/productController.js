@@ -9,7 +9,6 @@ const productController = {
   },
 
   postInventory: (req, res) => {
-    console.log('1', req.body)
     res.redirect('/inventory')
   },
 
