@@ -1,0 +1,102 @@
+.privacy {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.privacy-detail {
+  font-size: 20px;
+  margin: 0 auto;
+  padding: 20px 25px;
+  text-align: left;
+  background-color: #fff;
+}
+
+.privacy-detail > ul {
+  padding: 10px 20px;
+}
+.privacy-detail > ul > li:nth-child(1) {
+  font-size: 24px;
+}
+
+.privacy-bar {
+  margin: 0 auto;
+  border-top: 0px;
+  display: flex;
+  grid-template-columns: 200px 150px 150px;
+  grid-template-rows: 40px;
+}
+
+.privacy-bar > div {
+  font-size: 20px;
+  background-color: #f18c7c;
+  flex-basis: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.privacy-bar > div > a {
+  color: #fff;
+}
+
+/** edit **/
+.privacy-button {
+  margin: 0;
+  padding: 0;
+  border: 1px solid transparent;
+  outline: none;
+  background-color: transparent;
+  font-size: 24px;
+  color: var(--linkColor);
+  cursor: pointer;
+}
+
+.edit-privacy-input {
+  margin: 5px 2px; 
+  font-size: 24px;
+}
+
+.tag-area {
+  margin-top: 20px;
+}
+
+.tag-area > form {
+  margin-right: 10px;
+}
+
+.tag-area > form > button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  color: #fff;
+  border-radius: 10px;
+  background-color: var(--bgColor2);
+  margin-left: 5px;
+}
+
+#tag {
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  width: 150px;
+}
+
+.each-tag {
+  background-color: #fff;
+  padding: 5px 5px 5px 10px;
+  border-radius: 10px;
+  margin: 0px 5px 10px 0px;
+  font-size: 16px;
+  display: inline-flex;
+  width: fit-content;
+}
+
+.each-tag > form > button {
+  border: none;
+  font-size: 14px;
+  background: transparent;
+}
+
+.table > tbody > tr > th:nth-child(1) {
+  width: 140px;
+}
