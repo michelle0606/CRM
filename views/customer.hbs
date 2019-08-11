@@ -4,10 +4,23 @@
 		<div class="Title">會員資料</div>
 		<div class="single-customer-detail">
 			<ul>
-				<li>{{customer.name}} <i class="fas fa-mars"></i> {{moment customer.birthday}}</li>
+				<li>{{customer.name}}
+					{{#ifCond customer.gender "male"}}
+					<i class="fas fa-mars"></i> 男性
+					{{else}}
+					<i class="fas fa-venus"></i> 女性
+					{{/ifCond}}
+				</li>
 				<li><i class="fas fa-phone"></i> {{customer.phoneNr}}</li>
+				<li><i class="fas fa-birthday-cake"></i> {{customer.birthday}}</li>
 				<li><i class="fas fa-envelope"></i> {{customer.email}}</li>
-				<li><i class="fas fa-window-close"></i> 是否願意收電子報</li>
+				<li><i class="fas fa-map-marker-alt"></i> {{customer.address}}</li>
+
+				{{#if customer.receiveEmail}}
+				<li><i class="far fa-check-circle"></i> 願意接收電子報</li>
+				{{else}}
+				<li><i class="far fa-times-circle"></i> 不接收電子報</li>
+				{{/if}}
 			</ul>
 			<div class="single-customer-bar">
 				<div>

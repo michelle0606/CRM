@@ -28,9 +28,14 @@ router.post(
   tradeControlloer.createNewTradeRecord
 )
 
-router.get('/:customers_id/edit', customerController.editCustomerPage)
+router.get(
+  '/:customers_id/edit',
+  authenticated,
+  customerController.editCustomerPage
+)
 router.put(
   '/:customers_id/edit',
+  authenticated,
   upload.single('avatar'),
   customerController.putCustomer
 )

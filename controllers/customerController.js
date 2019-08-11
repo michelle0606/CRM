@@ -48,43 +48,21 @@ const customerController = {
   },
 
   putCustomer: (req, res) => {
-    const { file } = req
-    if (file) {
-      imgur.setClientID(IMGUR_CLIENT_ID)
-      imgur.upload(file.path, (err, img) => {
-        return Customer.findByPk(req.params.customers_id).then(customer => {
-          customer
-            .update({
-              email: req.body.email,
-              phoneNr: req.body.phoneNr,
-              name: req.body.name,
-              address: req.body.address,
-              gender: req.body.gender,
-              age: req.body.age,
-              avatar: file ? img.data.link : customer.avatar
-            })
-            .then(customer => {
-              res.redirect(`/customers/${req.params.customers_id}`)
-            })
+    Customer.findByPk(req.params.customers_id).then(customer => {
+      customer
+        .update({
+          email: req.body.email,
+          phoneNr: req.body.phoneNr,
+          name: req.body.name,
+          address: req.body.address,
+          gender: req.body.gender,
+          birthday: req.body.birthday,
+          receiveEmail: req.body.receiveEmail
         })
-      })
-    } else {
-      Customer.findByPk(req.params.customers_id).then(customer => {
-        customer
-          .update({
-            email: req.body.email,
-            phoneNr: req.body.phoneNr,
-            name: req.body.name,
-            address: req.body.address,
-            gender: req.body.gender,
-            age: req.body.age,
-            avatar: customer.avatar
-          })
-          .then(customer => {
-            res.redirect(`/customers/${req.params.customers_id}`)
-          })
-      })
-    }
+        .then(() => {
+          res.redirect(`/customers/${req.params.customers_id}`)
+        })
+    })
   },
 
   getRecords: (req, res) => {
