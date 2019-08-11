@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('Products', 'inventory', {
       type: Sequelize.INTEGER,
-      defaultValue: false
+      defaultValue: 0
     })
   },
 
