@@ -1,12 +1,104 @@
+/***** radio *****/
+#edit-form label {
+  display: inline-flex;
+  align-items: baseline;
+}
+#edit-form label input[type='radio'] {
+  position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: inherit;
+  margin: 0;
+  font-family: 'Font Awesome 5 Pro';
+  transition: 300ms ease-out;
+}
+
+#edit-form label input[type='radio']::after {
+  content: '\f111';
+  display: inline-block;
+  text-align: center;
+  width: 1em;
+  color: var(--bgColor2);
+}
+
+#edit-form label input[type='radio']:checked::after {
+  font-weight: 900;
+}
+
+#edit-form label input[type='radio']:active {
+  -webkit-transform: scale(0.6);
+  transform: scale(0.6);
+}
+
+#edit-form label input[type='radio'] + span {
+  margin-left: 0.35em;
+  font-size: 16px;
+}
+
+#edit-form label input[type='radio']:checked::after {
+  content: '\f192';
+}
+
 /***** editCustomer *****/
+#edit-form {
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  padding: 40px 20px 20px 20px;
+}
+
 .edit-item {
   margin-bottom: 16px;
+  display: flex;
 }
 
 .edit-item > aside {
-  padding-right: 32px;
+  padding: 0px 25px;
   text-align: right;
+  width: 194px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 25px;
 }
+
+.edit-item > div {
+  width: -webkit-fill-available;
+  margin-right: 40px;
+}
+
+.edit-item > div > input {
+  background: 0 0;
+  border: 1px solid #efefef;
+  border-radius: 3px;
+  font-size: 16px;
+  height: 32px;
+  padding: 0 10px;
+  width: inherit;
+}
+
+.edit-button-group {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit-button-group > button {
+  color: var(--bgColor1);
+  background-color: var(--bgColor2);
+  font-size: 16px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.edit-button-group > a {
+  align-items: center;
+  margin-left: 30px;
+  color: var(--bgColor2);
+  display: flex;
+  font-size: 16px;
+}
+
 /***** advanceCustomer&customer *****/
 .single-customer {
   text-align: center;

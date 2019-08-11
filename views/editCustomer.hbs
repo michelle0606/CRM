@@ -1,13 +1,17 @@
 <div class="container">
   <div class="Title">{{title}}</div>
-  <form action="/customers/{{customer.id}}/edit?_method=PUT" method="POST" enctype="multipart/form-data">
+  <form action="/customers/{{customer.id}}/edit?_method=PUT" method="POST" id="edit-form" enctype="multipart/form-data">
     <div class="edit-item">
       <aside><label for="name">姓名</label></aside>
       <div><input type="text" name="name" id="name" value="{{customer.name}}"></div>
     </div>
     <div class="edit-item">
-      <aside><label for="gender">性別</label></aside>
-      <div><input type="text" name="gender" id="gender" value="{{customer.gender}}"></div>
+      <aside>生理性別</label></aside>
+      <div>
+        <label for="female" style="
+    margin-right: 10px;"><input type="radio" name="gender" id="female" value="female" checked><span>女生</span></label>
+        <label for="male"><input type="radio" name="gender" id="male" value="male"><span>男生</span></label>
+      </div>
     </div>
     <div class="edit-item">
       <aside><label for="phoneNr">電話</label></aside>
@@ -26,18 +30,21 @@
       <div><input type="text" name="address" id="address" value="{{customer.address}}"></div>
     </div>
     <div class="edit-item">
-      <aside><label for="receiveEmail">是否接收電子報</label></aside>
-      <div><input type="checkbox" id="receiveEmail" name="receiveEmail" checked></div>
-    </div>
-
-
-    {{!-- <div class="single-customer-bar">
-      <div class="single-customer-link">
-        <button type="submit" class="single-customer-button">確定修改</button>
+      <aside><label for="receiveEmail">電子報</label></aside>
+      <div>
+        <label for="receive" style="
+          margin-right: 10px;"><input type="radio" name="receiveEmail" id="receive" value="true"
+            checked><span>接收</span></label>
+        <label for="not-receive"><input type="radio" name="receiveEmail" id="not-receive"
+            value="false"><span>不接收</span></label>
       </div>
-      <div class="single-customer-link">
+    </div>
+    <div class="edit-item">
+      <aside><label></label></aside>
+      <div class="edit-button-group">
+        <button type="submit">提交</button>
         <a href="/customers/{{customer.id}}">返回</a>
       </div>
-    </div> --}}
+    </div>
   </form>
 </div>
