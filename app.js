@@ -18,6 +18,22 @@ if (process.env.NODE_ENV !== 'production') {
   dotenv.config()
 }
 
+// set session store
+const db = require('./models')
+const SequelizeStore = require('connect-session-sequelize')(session.Store)
+
+app.use(
+  session({
+    secret: 'secret',
+    saveUninitialized: false,
+    store: new SequelizeStore({
+      db: db.sequelize
+    }),
+    resave: false,
+    proxy: true
+  })
+)
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.engine(
@@ -37,7 +53,6 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 

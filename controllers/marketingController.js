@@ -3,7 +3,6 @@ const Customer = db.Customer
 const Tag = db.Tag
 const CustomerDetail = db.CustomerDetail
 const nodemailer = require('nodemailer')
-const credentials = require('../credentials')
 
 const marketingController = {
   getMarketingPage: (req, res) => {
@@ -17,8 +16,8 @@ const marketingController = {
       let transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-          user: credentials.gmail.user,
-          pass: credentials.gmail.pass
+          user: process.env.GMAIL_USER,
+          pass: process.env.GMAIL_PASS
         }
       })
 
