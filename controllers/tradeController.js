@@ -20,7 +20,6 @@ const tradeController = {
     const allCounts = req.body.count
 
     const sale = await Sale.create({
-      date: new Date(),
       total: totalPrice,
       CustomerId: req.params.customers_id,
       UserId: req.user.id,
