@@ -2,9 +2,9 @@
   <div class="Title">庫存管理</div>
   <ul class="manage-action">
     <li class="upload-products">
-      <form action="/inventory" id="upload-form" method="POST">
+      <form action="/inventory" id="upload-form" method="POST" enctype="multipart/form-data">
         <label>上傳檔案
-          <input id="upload_file" name="file" type="file">
+          <input id="upload_file" name="products" type="file">
         </label>
         <button type="submit">確認</button>
       </form>
@@ -34,5 +34,3 @@
     {{/each}}
   </table>
 </div>
-<script src="/javascripts/upload.js"></script>
-<script src="/javascripts/download.js"></script>

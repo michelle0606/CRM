@@ -13,10 +13,13 @@ const methodOverride = require('method-override')
 const dotenv = require('dotenv')
 const hbs = require('express-handlebars')
 const app = express()
+const fileUpload = require('express-fileupload')
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config()
 }
+
+app.use(fileUpload())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
