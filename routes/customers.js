@@ -16,17 +16,8 @@ router.get('/', authenticated, customerController.getAllCustomers)
 router.get('/create', authenticated, customerController.createCustomerPage)
 router.post('/create', authenticated, customerController.addCustomer)
 
+//  顧客客人頁面
 router.get('/:customers_id', authenticated, customerController.getCustomer)
-router.get(
-  '/:customers_id/record',
-  authenticated,
-  tradeControlloer.getCustomerTradePage
-)
-router.post(
-  '/:customers_id/record',
-  authenticated,
-  tradeControlloer.createNewTradeRecord
-)
 
 router.get(
   '/:customers_id/edit',
@@ -39,6 +30,25 @@ router.put(
   upload.single('avatar'),
   customerController.putCustomer
 )
-router.get('/:customers_id/records', customerController.getRecords)
+
+// 結帳頁面
+router.get(
+  '/:customers_id/records',
+  authenticated,
+  customerController.getRecords
+)
+
+// 顧客消費記錄
+router.get(
+  '/:customers_id/record',
+  authenticated,
+  tradeControlloer.getCustomerTradePage
+)
+
+router.post(
+  '/:customers_id/record',
+  authenticated,
+  tradeControlloer.createNewTradeRecord
+)
 
 module.exports = router
