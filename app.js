@@ -21,6 +21,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(fileUpload())
 
+app.use(
+  session({
+    secret: 'secret',
+    saveUninitialized: false,
+    resave: false,
+    proxy: true
+  })
+)
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.engine(
@@ -40,7 +49,6 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
