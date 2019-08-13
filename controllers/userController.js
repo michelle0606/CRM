@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt-nodejs')
 const db = require('../models')
-const { User, Shop } = db
+const { User, Shop, Product } = db
 
 const userController = {
   signUpPage: (req, res) => {
@@ -56,7 +56,16 @@ const userController = {
   },
 
   signIn: (req, res) => {
-    res.redirect('/customers/create')
+    Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
+      const alertItem = products.filter(
+        product => product.inventory < product.minimumStock
+      )
+      if (alertItem.length > 0) {
+        req.flash('top_messages', '商品庫存過低！')
+        res.redirect('/customers/create')
+      }
+      res.redirect('/customers/create')
+    })
   },
 
   logout: (req, res) => {
