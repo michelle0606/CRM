@@ -72,7 +72,7 @@
 
 .trade-content .trade table tr td input,
 .trade-content .trade table tr td span {
-  width: inherit;
+  width: -webkit-fill-available;
   background-color: transparent;
   border: none;
   text-align: center;

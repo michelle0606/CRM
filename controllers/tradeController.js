@@ -33,6 +33,14 @@ const tradeController = {
           quantity: allCounts[connect],
           ProductId: product,
           SaleId: sale.id
+        }).then(data => {
+          Product.findByPk(data.ProductId).then(product => {
+            const newInventory =
+              Number(product.inventory) - Number(data.quantity)
+            product.update({
+              inventory: newInventory
+            })
+          })
         })
         connect += 1
       })
