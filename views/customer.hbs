@@ -22,6 +22,9 @@
 				<li><i class="far fa-times-circle"></i> 不接收電子報</li>
 				{{/if}}
 			</ul>
+			<form action="/customers/{{customer.id}}/download" method="POST" class="download-customer-info">
+				<button type="submit"><i class="fas fa-print"></i> <small>下載會員資料</small></button>
+			</form>
 			<div class="single-customer-bar">
 				<div>
 					<a href="/customers/{{customer.id}}/record">新增交易</a>

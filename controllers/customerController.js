@@ -95,6 +95,20 @@ const customerController = {
     Customer.findAll({ where: { ShopId: req.user.ShopId } }).then(customers => {
       res.send(customers)
     })
+  },
+
+  downloadCustomerInfo: (req, res) => {
+    const id = req.params.customers_id
+    Customer.findByPk(id, {
+      include: [
+        {
+          model: Sale,
+          include: [User, { model: Product, as: 'associatedProducts' }]
+        }
+      ]
+    }).then(customer => {
+      res.json(customer)
+    })
   }
 }
 
