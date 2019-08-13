@@ -20,7 +20,6 @@ const tradeController = {
     const allCounts = req.body.count
 
     const sale = await Sale.create({
-      date: new Date(),
       total: totalPrice,
       CustomerId: req.params.customers_id,
       UserId: req.user.id,
@@ -34,6 +33,14 @@ const tradeController = {
           quantity: allCounts[connect],
           ProductId: product,
           SaleId: sale.id
+        }).then(data => {
+          Product.findByPk(data.ProductId).then(product => {
+            const newInventory =
+              Number(product.inventory) - Number(data.quantity)
+            product.update({
+              inventory: newInventory
+            })
+          })
         })
         connect += 1
       })

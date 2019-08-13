@@ -13,22 +13,18 @@ const methodOverride = require('method-override')
 const dotenv = require('dotenv')
 const hbs = require('express-handlebars')
 const app = express()
+const fileUpload = require('express-fileupload')
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config()
 }
 
-// set session store
-const db = require('./models')
-const SequelizeStore = require('connect-session-sequelize')(session.Store)
+app.use(fileUpload())
 
 app.use(
   session({
     secret: 'secret',
     saveUninitialized: false,
-    store: new SequelizeStore({
-      db: db.sequelize
-    }),
     resave: false,
     proxy: true
   })
