@@ -1,9 +1,5 @@
 const db = require('../models')
-const Shop = db.Shop
-const Customer = db.Customer
-const Product = db.Product
-const Sale = db.Sale
-const SaleDetail = db.SaleDetail
+const { Customer, Product, Sale, SaleDetail } = db
 
 const tradeController = {
   getCustomerTradePage: (req, res) => {
@@ -15,43 +11,51 @@ const tradeController = {
   },
 
   createNewTradeRecord: async (req, res) => {
-    const totalPrice = req.body.total
-    const allProducts = req.body.productId
-    const allCounts = req.body.count
+    const totalPrice = [req.body.total]
+    const allProducts = [req.body.productId]
+    const allCounts = [req.body.count]
 
-    const sale = await Sale.create({
+    Sale.create({
       total: totalPrice,
       CustomerId: req.params.customers_id,
       UserId: req.user.id,
       ShopId: req.user.ShopId
     })
-
-    if (allCounts.length > 1) {
-      let connect = 0
-      allProducts.forEach(product => {
-        SaleDetail.create({
-          quantity: allCounts[connect],
-          ProductId: product,
-          SaleId: sale.id
-        }).then(data => {
-          Product.findByPk(data.ProductId).then(product => {
-            const newInventory =
-              Number(product.inventory) - Number(data.quantity)
-            product.update({
-              inventory: newInventory
+      .then(sale => {
+        let connect = 0
+        allProducts.forEach(product => {
+          SaleDetail.create({
+            quantity: allCounts[connect],
+            ProductId: product,
+            SaleId: sale.id
+          }).then(data => {
+            Product.findByPk(data.ProductId).then(product => {
+              const newInventory =
+                Number(product.inventory) - Number(data.quantity)
+              product.update({
+                inventory: newInventory
+              })
             })
           })
+          connect += 1
         })
-        connect += 1
       })
-    } else {
-      SaleDetail.create({
-        quantity: allCounts,
-        ProductId: allProducts,
-        SaleId: sale.id
+      .then(() => {
+        Product.findAll({ where: { ShopId: req.user.ShopId } }).then(
+          products => {
+            const alertItem = products.filter(
+              product => product.inventory < product.minimumStock
+            )
+            if (alertItem.length > 0) {
+              req.flash('top_messages', '商品庫存過低！')
+              return res.redirect(
+                `/customers/${req.params.customers_id}/records`
+              )
+            }
+            return res.redirect(`/customers/${req.params.customers_id}/records`)
+          }
+        )
       })
-    }
-    return res.redirect(`/customers/${req.params.customers_id}`)
   }
 }
 
