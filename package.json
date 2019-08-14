@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "pretest": "NODE_ENV=test npx sequelize db:drop;NODE_ENV=test npx sequelize db:create;NODE_ENV=test npx sequelize db:migrate;NODE_ENV=test npx sequelize db:seed:all;",
+    "test": "NODE_ENV=test mocha tests --exit --recursive --timeout 5000"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
@@ -24,7 +26,7 @@
     "flash": "^1.1.0",
     "handlebars-helpers": "^0.10.0",
     "hbs": "^4.0.4",
-    "http-errors": "^1.6.3",
+    "http-errors": "^1.7.3",
     "imgur-node-api": "^0.1.0",
     "method-override": "^3.0.0",
     "moment": "^2.24.0",
@@ -36,10 +38,17 @@
     "passport-local": "^1.0.0",
     "pg": "^7.12.0",
     "sequelize": "^5.10.3",
-    "sequelize-cli": "^5.5.0"
+    "sequelize-cli": "^5.5.0",
+    "sinon-chai": "^3.3.0"
   },
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "sequelize-test-helpers": "^1.1.2",
+    "sinon": "^7.4.1",
+    "supertest": "^4.0.2"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
