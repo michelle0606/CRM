@@ -1,20 +1,22 @@
+const bcrypt = require('bcrypt-nodejs')
 const db = require('../models')
-const User = db.User
-const Shop = db.Shop
+const { User, Shop } = db
 const imgur = require('imgur-node-api')
 
 const adminController = {
   createShop: (req, res) => {
-    return res.render('advance/createShop', { layout: 'advanceLayout.hbs' })
+    return res.render('admin/createShop', { layout: 'adminLayout.hbs' })
   },
 
   postShop: (req, res) => {
+    // console.log('in postShop')
     if (!req.body.name) {
       req.flash('error_messages', '需要有店名')
       return res.redirect('back')
     }
     const { file } = req // equal to const file = req.file
     if (file) {
+      console.log('if file')
       imgur.setClientID(process.env.IMGUR_CLIENT_ID)
       imgur.upload(file.path, (err, img) => {
         return Shop.create({
@@ -24,8 +26,9 @@ const adminController = {
           address: req.body.address,
           logo: file ? img.data.link : null,
         }).then((shop) => {
+          console.log('done creating')
           req.flash('success_messages', '新增成功')
-          res.redirect('/advance/shops')
+          res.redirect('/admin/shops')
         })
       })
     } else {
@@ -37,7 +40,7 @@ const adminController = {
       })
         .then((shop) => {
           req.flash('success_messages', '新增成功')
-          res.redirect('/advance/shops')
+          res.redirect('/admin/shops')
         })
     }
   },
@@ -46,7 +49,7 @@ const adminController = {
     return Shop
       .findAll()
       .then(shops => {
-        res.render('advance/shops', { layout: 'advanceLayout.hbs', shops })
+        res.render('admin/shops', { layout: 'adminLayout.hbs', shops })
       })
   },
 
@@ -54,7 +57,7 @@ const adminController = {
     return Shop
       .findByPk(req.params.shop_id)
       .then(shop => {
-        res.render('advance/shop', { layout: 'advanceLayout.hbs', shop })
+        res.render('admin/shop', { layout: 'adminLayout.hbs', shop })
       })
   },
 
@@ -62,7 +65,7 @@ const adminController = {
     return Shop
       .findByPk(req.params.shop_id)
       .then(shop => {
-        return res.render('advance/createShop', { layout: 'advanceLayout.hbs', shop })
+        return res.render('admin/createShop', { layout: 'adminLayout.hbs', shop })
       })
   },
 
@@ -89,8 +92,8 @@ const adminController = {
               })
               .then(() => {
                 req.flash('success_messages', '修改成功');
-                res.redirect('/advance/shops')
-                // res.redirect(`/advance/shops/${req.params.shop_id}`);
+                res.redirect('/admin/shops')
+                // res.redirect(`/admin/shops/${req.params.shop_id}`);
               });
           });
       });
@@ -108,8 +111,8 @@ const adminController = {
             })
             .then(() => {
               req.flash('success_messages', '修改成功');
-              res.redirect('/advance/shops')
-              // res.redirect(`/advance/shops/${req.params.shop_id}`);
+              res.redirect('/admin/shops')
+              // res.redirect(`/admin/shops/${req.params.shop_id}`);
             });
         });
     }
@@ -123,12 +126,14 @@ const adminController = {
         }
       })
       .then(() => {
-        return res.redirect('/advance/shops')
+        return res.redirect('/admin/shops')
       })
   },
 
   createUser: (req, res) => {
-    return res.render('advance/createUser', { layout: 'advanceLayout.hbs' })
+    Shop.findAll().then(shops => {
+      return res.render('admin/createUser', { layout: 'adminLayout.hbs', shops })
+    })
   },
 
   postUser: (req, res) => {
@@ -142,23 +147,33 @@ const adminController = {
       imgur.upload(file.path, (err, img) => {
         return User.create({
           name: req.body.name,
+          password: bcrypt.hashSync(
+            req.body.password,
+            bcrypt.genSaltSync(10),
+            null
+          ),
           role: req.body.role,
           ShopId: req.body.ShopId,
           avatar: file ? img.data.link : null,
         }).then((user) => {
           req.flash('success_messages', '新增成功')
-          res.redirect('/advance/users')
+          res.redirect('/admin/users')
         })
       })
     } else {
       return User.create({
         name: req.body.name,
+        password: bcrypt.hashSync(
+          req.body.password,
+          bcrypt.genSaltSync(10),
+          null
+        ),
         role: req.body.role,
         ShopId: req.body.ShopId,
       })
         .then((user) => {
           req.flash('success_messages', '新增成功')
-          res.redirect('/advance/users')
+          res.redirect('/admin/users')
         })
     }
   },
@@ -167,7 +182,7 @@ const adminController = {
     return User
       .findAll()
       .then(users => {
-        res.render('advance/users', { layout: 'advanceLayout.hbs', users })
+        res.render('admin/users', { layout: 'adminLayout.hbs', users })
       })
   },
 
@@ -175,7 +190,7 @@ const adminController = {
     return User
       .findByPk(req.params.user_id)
       .then(user => {
-        res.render('advance/user', { layout: 'advanceLayout.hbs', user })
+        res.render('admin/user', { layout: 'adminLayout.hbs', user })
       })
   },
 
@@ -183,7 +198,9 @@ const adminController = {
     return User
       .findByPk(req.params.user_id)
       .then(user => {
-        return res.render('advance/createUser', { layout: 'advanceLayout.hbs', user })
+        Shop.findAll().then(shops => {
+          return res.render('admin/createUser', { layout: 'adminLayout.hbs', profile: user, shops })
+        })
       })
   },
 
@@ -203,14 +220,19 @@ const adminController = {
             user
               .update({
                 name: req.body.name,
+                password: bcrypt.hashSync(
+                  req.body.password,
+                  bcrypt.genSaltSync(10),
+                  null
+                ),
                 role: req.body.role,
                 ShopId: req.body.ShopId,
                 avatar: file ? img.data.link : user.avatar,
               })
               .then(() => {
                 req.flash('success_messages', '修改成功');
-                res.redirect('/advance/users')
-                // res.redirect(`/advance/users/${req.params.user_id}`);
+                res.redirect('/admin/users')
+                // res.redirect(`/admin/users/${req.params.user_id}`);
               });
           });
       });
@@ -221,14 +243,19 @@ const adminController = {
           user
             .update({
               name: req.body.name,
+              password: bcrypt.hashSync(
+                req.body.password,
+                bcrypt.genSaltSync(10),
+                null
+              ),
               role: req.body.role,
               ShopId: req.body.ShopId,
               avatar: user.avatar,
             })
             .then(() => {
               req.flash('success_messages', '修改成功');
-              res.redirect('/advance/users')
-              // res.redirect(`/advance/users/${req.params.user_id}`);
+              res.redirect('/admin/users')
+              // res.redirect(`/admin/users/${req.params.user_id}`);
             });
         });
     }
@@ -242,7 +269,7 @@ const adminController = {
         }
       })
       .then(() => {
-        return res.redirect('/advance/users')
+        return res.redirect('/admin/users')
       })
   },
 }

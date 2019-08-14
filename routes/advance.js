@@ -22,29 +22,24 @@ router.get('/products', advanceController.getAllProducts)
 router.get('/users', advanceController.getAllSales)
 
 
-
-// shop create
-router.get('/shops/create', authenticatedAdmin, adminController.createShop)
-router.post('/shops', authenticatedAdmin, upload.single('logo'), adminController.postShop)
 // shop read
-router.get('/shops', authenticatedAdmin, adminController.getShops)
-router.get('/shops/:shop_id', authenticatedAdmin, adminController.getShop)
+router.get('/shops/:shop_id', authenticatedAdmin, advanceController.getShop)
 // shop update
-router.get('/shops/:shop_id/edit', authenticatedAdmin, adminController.editShop)
-router.put('/shops/:shop_id', authenticatedAdmin, upload.single('logo'), adminController.putShop)
-// shop delete
-router.delete('/shops/:shop_id', authenticatedAdmin, adminController.deleteShop)
+router.get('/shops/:shop_id/edit', authenticatedAdmin, advanceController.editShop)
+router.put('/shops/:shop_id', authenticatedAdmin, upload.single('logo'), advanceController.putShop)
 
 // user create
-router.get('/users/create', authenticatedAdmin, adminController.createUser)
-router.post('/users', authenticatedAdmin, upload.single('avatar'), adminController.postUser)
+router.get('/salespersons/create', authenticatedAdmin, advanceController.createSalesperson)
+router.post('/salespersons', authenticatedAdmin, upload.single('avatar'), advanceController.postSalesperson)
+
 // user read
-router.get('/users', authenticatedAdmin, adminController.getUsers)
-router.get('/users/:user_id', authenticatedAdmin, adminController.getUser)
+router.get('/users/:user_id', authenticatedAdmin, advanceController.getUser)
+
 // user update
-router.get('/users/:user_id/edit', authenticatedAdmin, adminController.editUser)
-router.put('/users/:user_id', authenticatedAdmin, upload.single('avatar'), adminController.putUser)
+router.get('/users/:user_id/edit', authenticatedAdmin, advanceController.editUser)
+router.put('/users/:user_id', authenticatedAdmin, upload.single('avatar'), advanceController.putUser)
+
 // user delete
-router.delete('/users/:user_id', authenticatedAdmin, adminController.deleteUser)
+router.delete('/salespersons/:salesperson_id', advanceController.deleteUser)
 
 module.exports = router

@@ -5,6 +5,7 @@ const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const advanceRouter = require('./routes/advance')
 const customersRouter = require('./routes/customers')
+const adminRouter = require('./routes/admin')
 const passport = require('./config/passport')
 const flash = require('connect-flash')
 const session = require('express-session')
@@ -46,21 +47,22 @@ app.use(methodOverride('_method'))
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/', indexRouter)
-app.use('/advance', advanceRouter)
-app.use('/customers', customersRouter)
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404))
-})
-
 app.use((req, res, next) => {
   res.locals.user = req.user
   res.locals.success_messages = req.flash('success_messages')
   res.locals.error_messages = req.flash('error_messages')
   res.locals.top_messages = req.flash('top_messages')
   next()
+})
+
+app.use('/', indexRouter)
+app.use('/advance', advanceRouter)
+app.use('/customers', customersRouter)
+app.use('/admin', adminRouter)
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404))
 })
 
 module.exports = app
