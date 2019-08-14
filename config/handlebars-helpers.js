@@ -1,5 +1,4 @@
 const moment = require('moment')
-
 module.exports = {
   ifCond: function(a, b, options) {
     if (a === b) {
@@ -8,7 +7,6 @@ module.exports = {
     return options.inverse(this)
   },
   moment: function(a) {
-    moment.locale('zh-tw')
-    return moment(a).format('L')
+    return moment(a).format('MMM Do YY')
   }
 }

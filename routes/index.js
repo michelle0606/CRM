@@ -4,6 +4,7 @@ const userController = require('../controllers/userController')
 const customerController = require('../controllers/customerController')
 const productController = require('../controllers/productController')
 const tagController = require('../controllers/tagController')
+const marketingController = require('../controllers/marketingController')
 const passport = require('../config/passport')
 
 const authenticated = (req, res, next) => {
@@ -13,8 +14,8 @@ const authenticated = (req, res, next) => {
   res.redirect('/login')
 }
 
+// user login system
 router.get('/', authenticated, (req, res) => res.redirect('/customers/create'))
-
 router.get('/login', userController.signInPage)
 router.post(
   '/login',
@@ -24,14 +25,26 @@ router.post(
   }),
   userController.signIn
 )
-router.get('/logout', userController.logout)
 
+router.get('/forgot', userController.forgotPage)
+router.post('/forgot', userController.getNewPassword)
+
+router.get('/privacy/:id', authenticated, userController.privacyInfoPage)
+router.put('/privacy/:id/edit', authenticated, userController.editPrivacyInfo)
+
+router.get('/logout', userController.logout)
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
+// inventory
 router.get('/inventory', authenticated, productController.getInventory)
 router.post('/inventory', authenticated, productController.postInventory)
 
+// marketing
+router.get('/marketing', authenticated, marketingController.getMarketingPage)
+router.post('/marketing', authenticated, marketingController.sendEmail)
+
+// customerDetail
 router.post(
   '/customerDetail/:customers_id',
   authenticated,
@@ -43,6 +56,7 @@ router.delete(
   tagController.deleteTag
 )
 
+// api routes
 router.get(
   '/api/customers',
   authenticated,

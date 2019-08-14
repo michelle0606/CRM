@@ -1,0 +1,38 @@
+.forgot-page {
+  background-color: var(--bgColor2);
+  display: grid;
+  grid-template-rows: 120px 1fr 160px;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+.forgot-page header {
+  padding: 10px 40px;
+}
+
+.forgot-page header a {
+  color: var(--bgColor1);
+  font-size: 70px;
+  font-family: var(--logoFont);
+}
+.forgot-page main {
+  display: grid;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.forgot-page .form-item {
+  margin-bottom: 60px;
+  position: relative;
+  width: 420px;
+}
+
+.forgot-page .form-item input {
+  font-size: 26px;
+  width: -webkit-fill-available;
+  padding: 15px;
+  letter-spacing: 2px;
+}
