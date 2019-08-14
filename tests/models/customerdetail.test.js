@@ -1,10 +1,4 @@
-const assert = require('assert')
-const moment = require('moment')
-const chai = require('chai')
-const request = require('supertest')
-const should = chai.should()
 const { expect } = require('chai')
-
 const db = require('../../models')
 
 describe('# CustomerDetail Model', () => {

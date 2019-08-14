@@ -38,12 +38,14 @@
     "passport-local": "^1.0.0",
     "pg": "^7.12.0",
     "sequelize": "^5.10.3",
-    "sequelize-cli": "^5.5.0"
+    "sequelize-cli": "^5.5.0",
+    "sinon-chai": "^3.3.0"
   },
   "main": "app.js",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
+    "sequelize-test-helpers": "^1.1.2",
     "sinon": "^7.4.1",
     "supertest": "^4.0.2"
   },
