@@ -2,4 +2,3 @@ node_modules/
 .env
 temp/
 credentials.js
-uploadCsv/*
