@@ -150,7 +150,7 @@ table td {
   border: 1px solid #ddd;
   text-align: center;
   padding: 15px 8px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 table tr:nth-child(even) {

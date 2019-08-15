@@ -1,0 +1,18 @@
+.mail-section {
+  display: none;
+}
+
+.choose-bar {
+  text-align: center;
+}
+
+
+.filter-select > ul {
+  display: flex; 
+}
+
+.filter-select > ul > li {
+  margin: 10px auto;
+}
+
+
