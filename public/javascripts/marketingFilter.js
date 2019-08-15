@@ -1,14 +1,40 @@
 const endpoint = '/api/customers'
 const customers = []
 
-fetch(endpoint)
-  .then(blob => blob.json())
-  .then(data => {
-    customers.push(...data)
-  })
+async function getData() {
+  await fetch(endpoint)
+    .then(blob => blob.json())
+    .then(data => {
+      customers.push(...data)
+      createCustomer(customers)
+    })
+}
 
 const filterButton = document.querySelectorAll('[data-filter="filter"]')
 const filterList = document.querySelector('.filter-list')
+
+
+function createCustomer(data) {
+  filterList.innerHTML = `<table class="filter-list">
+          <tr>
+            <th>Name</th>
+            <th>E-mailssss</th>
+            <th>Phone</th>
+          </tr>`
+  data.forEach(customer => {
+    const newRow = document.createElement('tr')
+    newRow.appendChild(
+      document.createElement('td')
+    ).innerHTML = `${customer.name}`
+    newRow.appendChild(document.createElement('td')).innerHTML = `${customer.email}`
+    newRow.appendChild(
+      document.createElement('td')
+    ).innerHTML = `${customer.phoneNr}`
+
+    filterList.appendChild(newRow)
+  })
+}
+
 
 filterButton.forEach(b => {
 
@@ -44,30 +70,9 @@ filterButton.forEach(b => {
       }
     }
     )
-
-    filterList.innerHTML = `<table class="filter-list">
-          <tr>
-            <th>Name</th>
-            <th>E-mail</th>
-            <th>Phone</th>
-          </tr>`
-
-    genderFilterData.forEach(customer => {
-      const newRow = document.createElement('tr')
-
-      newRow.appendChild(
-        document.createElement('td')
-      ).innerHTML = `${customer.name}`
-      newRow.appendChild(document.createElement('td')).innerHTML = `${customer.email}`
-      newRow.appendChild(
-        document.createElement('td')
-      ).innerHTML = `${customer.phoneNr}`
-
-      filterList.appendChild(newRow)
-    })
+    createCustomer(genderFilterData)
 
   })
 })
 
-
-
+getData()
