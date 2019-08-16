@@ -29,20 +29,14 @@ const advanceController = {
     })
   },
 
-  getShop: (req, res) => {
-    return Shop
-      .findByPk(req.params.shop_id)
-      .then(shop => {
-        res.render('advance/shop', { layout: 'advanceLayout.hbs', shop })
-      })
+  getShop: async (req, res) => {
+    const shop = await Shop.findByPk(req.params.shop_id)
+    return res.render('advance/shop', { layout: 'advanceLayout.hbs', shop })
   },
 
-  editShop: (req, res) => {
-    return Shop
-      .findByPk(req.params.shop_id)
-      .then(shop => {
-        return res.render('advance/editShop', { layout: 'advanceLayout.hbs', shop })
-      })
+  editShop: async (req, res) => {
+    const shop = await Shop.findByPk(req.params.shop_id)
+    return res.render('advance/editShop', { layout: 'advanceLayout.hbs', shop })
   },
 
   putShop: (req, res) => {
@@ -139,20 +133,14 @@ const advanceController = {
     }
   },
 
-  getUser: (req, res) => {
-    return User
-      .findByPk(req.params.user_id)
-      .then(user => {
-        res.render('admin/user', { layout: 'advanceLayout.hbs', user })
-      })
+  getUser: async (req, res) => {
+    const user = await User.findByPk(req.params.user_id)
+    return res.render('admin/user', { layout: 'advanceLayout.hbs', user })
   },
 
-  editUser: (req, res) => {
-    return User
-      .findByPk(req.params.user_id)
-      .then(user => {
-        return res.render('advance/createUser', { layout: 'advanceLayout.hbs', profile: user })
-      })
+  editUser: async (req, res) => {
+    const user = await User.findByPk(req.params.user_id)
+    return res.render('advance/createUser', { layout: 'advanceLayout.hbs', profile: user })
   },
 
   putUser: (req, res) => {
@@ -212,16 +200,9 @@ const advanceController = {
     }
   },
 
-  deleteUser: (req, res) => {
-    return User
-      .destroy({
-        where: {
-          id: Number(req.params.salesperson_id)
-        }
-      })
-      .then(() => {
-        return res.redirect('/advance/users')
-      })
+  deleteUser: async (req, res) => {
+    await User.destroy({ where: { id: Number(req.params.salesperson_id) } })
+    return res.redirect('/advance/users')
   },
 }
 

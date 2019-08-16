@@ -9,14 +9,12 @@ const adminController = {
   },
 
   postShop: (req, res) => {
-    // console.log('in postShop')
     if (!req.body.name) {
       req.flash('error_messages', '需要有店名')
       return res.redirect('back')
     }
     const { file } = req // equal to const file = req.file
     if (file) {
-      console.log('if file')
       imgur.setClientID(process.env.IMGUR_CLIENT_ID)
       imgur.upload(file.path, (err, img) => {
         return Shop.create({
@@ -26,7 +24,6 @@ const adminController = {
           address: req.body.address,
           logo: file ? img.data.link : null,
         }).then((shop) => {
-          console.log('done creating')
           req.flash('success_messages', '新增成功')
           res.redirect('/admin/shops')
         })
@@ -37,36 +34,26 @@ const adminController = {
         phoneNr: req.body.phoneNr,
         email: req.body.email,
         address: req.body.address,
+      }).then((shop) => {
+        req.flash('success_messages', '新增成功')
+        res.redirect('/admin/shops')
       })
-        .then((shop) => {
-          req.flash('success_messages', '新增成功')
-          res.redirect('/admin/shops')
-        })
     }
   },
 
-  getShops: (req, res) => {
-    return Shop
-      .findAll()
-      .then(shops => {
-        res.render('admin/shops', { layout: 'adminLayout.hbs', shops })
-      })
+  getShops: async (req, res) => {
+    const shops = await Shop.findAll()
+    return res.render('admin/shops', { layout: 'adminLayout.hbs', shops })
   },
 
-  getShop: (req, res) => {
-    return Shop
-      .findByPk(req.params.shop_id)
-      .then(shop => {
-        res.render('admin/shop', { layout: 'adminLayout.hbs', shop })
-      })
+  getShop: async (req, res) => {
+    const shop = await Shop.findByPk(req.params.shop_id)
+    return res.render('admin/shop', { layout: 'adminLayout.hbs', shop })
   },
 
-  editShop: (req, res) => {
-    return Shop
-      .findByPk(req.params.shop_id)
-      .then(shop => {
-        return res.render('admin/createShop', { layout: 'adminLayout.hbs', shop })
-      })
+  editShop: async (req, res) => {
+    const shop = await Shop.findByPk(req.params.shop_id)
+    return res.render('admin/createShop', { layout: 'adminLayout.hbs', shop })
   },
 
   putShop: (req, res) => {
@@ -118,22 +105,14 @@ const adminController = {
     }
   },
 
-  deleteShop: (req, res) => {
-    return Shop
-      .destroy({
-        where: {
-          id: Number(req.params.shop_id)
-        }
-      })
-      .then(() => {
-        return res.redirect('/admin/shops')
-      })
+  deleteShop: async (req, res) => {
+    await Shop.destroy({ where: { id: Number(req.params.shop_id) } })
+    return res.redirect('/admin/shops')
   },
 
-  createUser: (req, res) => {
-    Shop.findAll().then(shops => {
-      return res.render('admin/createUser', { layout: 'adminLayout.hbs', shops })
-    })
+  createUser: async (req, res) => {
+    const shops = await Shop.findAll()
+    return res.render('admin/createUser', { layout: 'adminLayout.hbs', shops })
   },
 
   postUser: (req, res) => {
@@ -178,30 +157,20 @@ const adminController = {
     }
   },
 
-  getUsers: (req, res) => {
-    return User
-      .findAll()
-      .then(users => {
-        res.render('admin/users', { layout: 'adminLayout.hbs', users })
-      })
+  getUsers: async (req, res) => {
+    const users = await User.findAll()
+    return res.render('admin/users', { layout: 'adminLayout.hbs', users })
   },
 
-  getUser: (req, res) => {
-    return User
-      .findByPk(req.params.user_id)
-      .then(user => {
-        res.render('admin/user', { layout: 'adminLayout.hbs', user })
-      })
+  getUser: async (req, res) => {
+    const user = await User.findByPk(req.params.user_id)
+    return res.render('admin/user', { layout: 'adminLayout.hbs', user })
   },
 
-  editUser: (req, res) => {
-    return User
-      .findByPk(req.params.user_id)
-      .then(user => {
-        Shop.findAll().then(shops => {
-          return res.render('admin/createUser', { layout: 'adminLayout.hbs', profile: user, shops })
-        })
-      })
+  editUser: async (req, res) => {
+    const user = await User.findByPk(req.params.user_id)
+    const shops = await Shop.findAll()
+    return res.render('admin/createUser', { layout: 'adminLayout.hbs', profile: user, shops })
   },
 
   putUser: (req, res) => {
@@ -261,16 +230,9 @@ const adminController = {
     }
   },
 
-  deleteUser: (req, res) => {
-    return User
-      .destroy({
-        where: {
-          id: Number(req.params.user_id)
-        }
-      })
-      .then(() => {
-        return res.redirect('/admin/users')
-      })
+  deleteUser: async (req, res) => {
+    await User.destroy({ where: { id: Number(req.params.user_id) } })
+    return res.redirect('/admin/users')
   },
 }
 
