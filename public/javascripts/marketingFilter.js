@@ -1,3 +1,18 @@
+const chooseFilter = document.querySelector('[data-choose="filter"]')
+const chooseEmail = document.querySelector('[data-choose="email"]')
+const filterSection = document.querySelector('.filter-section')
+const emailSection = document.querySelector('.mail-section')
+
+chooseFilter.addEventListener('click', () => {
+  filterSection.style['display'] = "block"
+  emailSection.style['display'] = "none"
+})
+
+chooseEmail.addEventListener('click', () => {
+  filterSection.style['display'] = "none"
+  emailSection.style['display'] = "block"
+})
+
 const endpoint = '/api/customers'
 const customers = []
 
@@ -13,12 +28,16 @@ async function getData() {
 const filterButton = document.querySelectorAll('[data-filter="filter"]')
 const filterList = document.querySelector('.filter-list')
 
+let tagFilterData = []
+let birthdayFilterData = []
+let priceFilterData = []
+let genderFilterData = []
 
 function createCustomer(data) {
   filterList.innerHTML = `<table class="filter-list">
           <tr>
             <th>Name</th>
-            <th>E-mailssss</th>
+            <th>E-mail</th>
             <th>Phone</th>
           </tr>`
   data.forEach(customer => {
@@ -26,7 +45,7 @@ function createCustomer(data) {
     newRow.appendChild(
       document.createElement('td')
     ).innerHTML = `${customer.name}`
-    newRow.appendChild(document.createElement('td')).innerHTML = `${customer.email}`
+    newRow.appendChild(document.createElement('td')).innerHTML = `<input type="email" name="email" value="${customer.email}" readonly="readonly">`
     newRow.appendChild(
       document.createElement('td')
     ).innerHTML = `${customer.phoneNr}`
@@ -48,12 +67,12 @@ filterButton.forEach(b => {
     const price = filterSelect[2]
     const gender = filterSelect[3]
 
-    let tagFilterData = []
-    let birthdayFilterData = []
-    let priceFilterData = []
-    let genderFilterData = []
+
 
     birthdayFilterData = customers.filter(a => {
+      if (birthday === 'all') {
+        return a
+      }
       const date = new Date(a.birthday)
       if ((date.getMonth() + 1) === Number(birthday)) {
         return a
@@ -75,4 +94,53 @@ filterButton.forEach(b => {
   })
 })
 
+
 getData()
+
+// function addRecipient() {
+//   const list = []
+
+//   list.push(...genderFilterData)
+
+//   localStorage.setItem('recipientList', JSON.stringify(list))
+// }
+
+
+
+const formData = new FormData();
+const fileField = document.querySelector('input[type="file"]');
+
+fileField.addEventListener('change', (e) => {
+  for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+    var file = e.originalEvent.srcElement.files[i];
+
+    var img = document.createElement("img");
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      img.src = reader.result;
+    }
+    reader.readAsDataURL(file);
+    fileField.after(img)
+  }
+})
+
+
+// function test() {
+//   console.log('hello')
+
+//   formData.append('username', 'abc123');
+//   formData.append('info', fileField.files[0]);
+
+//   console.log(formData)
+
+  // fetch('/marketing/image', {
+  //   method: 'PUT',
+  //   body: formData
+  // })
+  //   .then(response => response.json())
+  //   .catch(error => console.error('Error:', error))
+  //   .then(response => console.log('Success:', JSON.stringify(response)));
+// }
+
+

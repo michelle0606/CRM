@@ -16,3 +16,47 @@
 }
 
 
+.title-section {
+  display: flex;
+}
+
+.mail-template {
+  width: 30%;
+}
+
+.mail-title {
+  flex-basis: 100%;
+}
+
+.mail-input {
+  width: 100%;
+}
+
+.content-section {
+  display: flex
+}
+
+.mail-blank-section {
+  width: 30%;
+}
+
+.image-content-section {
+  display: flex
+}
+
+.upload-toggle {
+  width: 10%
+}
+
+.image-show {
+  flex-basis: 100%
+}
+
+.marketing-next-bar {
+  display: flex;
+}
+
+.marketing-next-select {
+  text-align: center;
+  flex-basis: 100%;
+}
