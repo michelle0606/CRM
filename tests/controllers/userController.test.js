@@ -7,8 +7,23 @@ const { expect } = require('chai')
 
 const app = require('../../app')
 const db = require('../../models')
+const bcrypt = require('bcrypt-nodejs')
 
 describe('# User controller', function() {
+  before(async function() {
+    await db.User.destroy({where: {},truncate: true})
+  })
+
+  after(async function() {
+    await db.User.destroy({where: {},truncate: true})
+  })
+
+  beforeEach(function() {
+  })
+
+  afterEach(function() {
+  })
+
   it('/signup', done => {
     request(app)
       .post('/signup')
@@ -20,8 +35,14 @@ describe('# User controller', function() {
             email: 'email'
           }
         }).then(shop => {
-          expect(shop.email).to.be.equal('email')
-          done()
+          db.User.findOne({
+            where: {},
+            order: [['createdAt', 'DESC']]
+          }).then(user => {
+            expect(shop.email).to.be.equal('email')
+            expect(bcrypt.compareSync('password', user.password)).to.be.equal(true)
+            done()
+          })
         })
       })
   })
