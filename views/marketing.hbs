@@ -6,7 +6,7 @@
     <button data-choose="filter">選擇目標客戶</button>
     <button data-choose="email">電子報內容</button>
   </div>
-  <form method="POST" action="/marketing">
+  <form>
     <div>
       <div class="filter-section">
         <form action="">
@@ -94,18 +94,27 @@
           <div class="image-show">
 
           </div>
-
-
         </div>
 
+        <div class="marketing-next-bar">
+          <div class="marketing-next-select">
+            <button type="submit">儲存此樣板</button>
+          </div>
+
+          <div class="marketing-next-select">
+            <span id="next" data-open="open">下一步</span>
+          </div>
+        </div>
       </div>
 
-      <div class="marketing-next-bar">
-        <div class="marketing-next-select">
-          <button type="submit">儲存</button>
-        </div>
-        <div class="marketing-next-select">
-          <a href="" onclick="">下一步</a>
+
+      <div class="modal-next">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <form method="POST" action="/marketing">
+            <div class="modal-data"></div>
+            <button type="submit">確認送出</button>
+          </form>
         </div>
       </div>
     </div>
@@ -113,3 +122,4 @@
 </div>
 
 <script src="/javascripts/marketingFilter.js"></script>
+<script src="/javascripts/mailModal.js"></script>

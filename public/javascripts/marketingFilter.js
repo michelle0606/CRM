@@ -51,6 +51,8 @@ function createCustomer(data) {
     ).innerHTML = `${customer.phoneNr}`
 
     filterList.appendChild(newRow)
+
+    copy()
   })
 }
 
@@ -97,33 +99,25 @@ filterButton.forEach(b => {
 
 getData()
 
-// function addRecipient() {
-//   const list = []
-
-//   list.push(...genderFilterData)
-
-//   localStorage.setItem('recipientList', JSON.stringify(list))
-// }
 
 
+// const formData = new FormData();
+// const fileField = document.querySelector('input[type="file"]');
 
-const formData = new FormData();
-const fileField = document.querySelector('input[type="file"]');
+// fileField.addEventListener('change', (e) => {
+//   for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
 
-fileField.addEventListener('change', (e) => {
-  for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+//     var file = e.originalEvent.srcElement.files[i];
 
-    var file = e.originalEvent.srcElement.files[i];
-
-    var img = document.createElement("img");
-    var reader = new FileReader();
-    reader.onloadend = function () {
-      img.src = reader.result;
-    }
-    reader.readAsDataURL(file);
-    fileField.after(img)
-  }
-})
+//     var img = document.createElement("img");
+//     var reader = new FileReader();
+//     reader.onloadend = function () {
+//       img.src = reader.result;
+//     }
+//     reader.readAsDataURL(file);
+//     fileField.after(img)
+//   }
+// })
 
 
 // function test() {
@@ -134,13 +128,70 @@ fileField.addEventListener('change', (e) => {
 
 //   console.log(formData)
 
-  // fetch('/marketing/image', {
-  //   method: 'PUT',
-  //   body: formData
-  // })
-  //   .then(response => response.json())
-  //   .catch(error => console.error('Error:', error))
-  //   .then(response => console.log('Success:', JSON.stringify(response)));
+// fetch('/marketing/image', {
+//   method: 'PUT',
+//   body: formData
+// })
+//   .then(response => response.json())
+//   .catch(error => console.error('Error:', error))
+//   .then(response => console.log('Success:', JSON.stringify(response)));
 // }
+
+
+
+//Modal partical
+
+const openButtons = document.querySelectorAll('[data-open="open"]')
+const modalNext = document.querySelector('.modal-next')
+const close = document.querySelectorAll('.close')
+
+const mailTitle = document.querySelector('.mail-title input')
+const contentSection = document.querySelector('.content-section textarea')
+const modalData = document.querySelector(".modal-data")
+const customerData = document.querySelector('.filter-list-section')
+let copyData = ''
+
+
+contentSection.addEventListener('input', e => {
+  contentSection.textContent = e.target.value
+})
+
+
+function copy() {
+  copyData = customerData.cloneNode(true)
+}
+
+
+function next() {
+  const titleInput = mailTitle.value
+  const contentInput = contentSection.textContent
+
+  modalData.innerHTML = `
+  <h1>傳送以下訊息：</h1>
+            <h2>主旨：<input type="text" name="subject" value="${titleInput}" class="mail-input" readonly></h2>
+            <span>訊息：<textarea name="message" class="mail-input" readonly>${contentInput}</textarea></span>
+            <br/>
+            <h1>目標客戶：</h1>
+  `
+
+  modalData.appendChild(copyData)
+
+}
+
+
+openButtons.forEach(open => {
+
+  open.addEventListener('click', () => {
+
+    if (open.id === "next") {
+      modalNext.style.display = "block"
+      next()
+    }
+  })
+})
+
+close.forEach(a => a.addEventListener('click', () => {
+  modalNext.style.display = "none"
+}))
 
 
