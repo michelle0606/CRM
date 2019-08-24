@@ -1,10 +1,10 @@
 <div class="container">
   {{#if profile}}
   <div class="Title">人員資料編輯</div>
-  <form action="/advance/users/{{profile.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+  <form action="/admin/users/{{profile.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
   {{else}}
-  <div class="Title">新增店員</div>
-  <form action="/advance/salespersons" method="POST" enctype="multipart/form-data">
+  <div class="Title">新增人員</div>
+  <form action="/admin/users" method="POST" enctype="multipart/form-data">
   {{/if}}
     <div class="form-group">
       <label for="name" class="edit-user-input">Name：</label>
@@ -15,13 +15,17 @@
       <input type="text" class="edit-user-input" name="password" id="password" placeholder="Enter password" value="">
     </div>
     <div class="form-group">
-      <label for="role" class="edit-user-input"></label>
-      <input type="hidden" class="edit-user-input" name="role" id="role" placeholder="Enter role" value="2">
+      <label for="role" class="edit-user-input">Role：</label>
+      <input type="radio" class="edit-user-input" name="role" value=1> 經理
+      <input type="radio" class="edit-user-input" name="role" value=2> 店員
     </div>
     <div class="form-group">
-      <label for="ShopId" class="edit-user-input"></label>
-      <input type="hidden" class="edit-user-input" name="ShopId" id="ShopId" placeholder="Enter ShopId"
-        value="{{user.ShopId}}">
+      <label for="ShopId" class="edit-user-input">店家：</label>
+      <select class="edit-user-input" id="ShopId" name="ShopId">
+        {{#each shops}}
+          <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
     </div>
     <div class="form-group">
       <label for="avatar" class="edit-user-input">Avatar：</label>

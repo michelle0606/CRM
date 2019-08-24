@@ -1,9 +1,9 @@
+{{> messages}}
 <div class="container">
   <div class="Title">人事管理</div>
   <ul class="manage-action">
-    <li><a href="/advance/users/create">新增人員</a></li>
+    <li><a href="/advance/salespersons/create">新增人員</a></li>
   </ul>
-
   <table>
     <tr>
       <th scope="col">編號</th>
@@ -31,7 +31,7 @@
             Edit
           </a>
         </button>
-        <form action="/advance/users/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+        <form action="/advance/salespersons/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
           <button type="submit" class="">Delete</button>
         </form>
       </td>
