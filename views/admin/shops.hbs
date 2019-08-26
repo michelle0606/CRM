@@ -1,16 +1,9 @@
 <div class="pad-mode">
-
-  <a href='/advance/shops/create'>
+  <a href='/admin/shops/create'>
     <button type="button" class="">New Shop</button>
   </a>
-
-  <!-- <a href='/advance/shops'>Shops</a> | -->
-  <!-- <a href='/advance/categories'>Categories</a> | -->
-  <!-- <a href='/advance/users'>Users</a> -->
-
   <br />
   <br />
-
   <table>
     <thead class="">
       <tr>
@@ -28,16 +21,16 @@
         <td>{{this.phoneNr}}</td>
         <td>
           <button type="button" class="">
-            <a href="/advance/shops/{{this.id}}">
+            <a href="/admin/shops/{{this.id}}">
               Show
             </a>
           </button>
           <button type="button" class="">
-            <a href="/advance/shops/{{this.id}}/edit">
+            <a href="/admin/shops/{{this.id}}/edit">
               Edit
             </a>
           </button>
-          <form action="/advance/shops/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <form action="/admin/shops/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
             <button type="submit" class="">Delete</button>
           </form>
         </td>

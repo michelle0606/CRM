@@ -1,23 +1,49 @@
 <div class="container">
-  <form action="/customers/{{customer.id}}/edit?_method=PUT" method="POST" enctype="multipart/form-data">
-    <div class="single-customer">
-      <div class="Title">{{title}}</div>
-      <ul class="single-customer-detail">
-        <li>Name：<input type="text" name="name" value="{{customer.name}}" class="edit-customer-input"></li>
-        <li>Gender：<input type="text" name="gender" value="{{customer.gender}}" class="edit-customer-input"></li>
-        <li>Tel：<input type="text" name="phoneNr" value="{{customer.phoneNr}}" class="edit-customer-input"></li>
-        <li>Birthday：<input type="date" name="birthday" value="{{customer.birthday}}" class="edit-customer-input"></li>
-        <li>E-mail：<input type="email" name="email" value="{{customer.email}}" class="edit-customer-input"></li>
-        <li>Address：<input type="text" name="address" value="{{customer.address}}" class="edit-customer-input"></li>
-        <li><i class="fas fa-window-close"></i> 是否願意收電子報</li>
-      </ul>
-      <div class="single-customer-bar">
-        <div class="single-customer-link">
-          <button type="submit" class="single-customer-button">確定修改</button>
-        </div>
-        <div class="single-customer-link">
-          <a href="/customers/{{customer.id}}">返回</a>
-        </div>
+  <div class="Title">{{title}}</div>
+  <form action="/customers/{{customer.id}}/edit?_method=PUT" method="POST" id="edit-form" enctype="multipart/form-data">
+    <div class="edit-item">
+      <aside><label for="name">姓名</label></aside>
+      <div><input type="text" name="name" id="name" value="{{customer.name}}"></div>
+    </div>
+    <div class="edit-item">
+      <aside>生理性別</label></aside>
+      <div>
+        <label for="female" style="
+    margin-right: 10px;"><input type="radio" name="gender" id="female" value="female" checked><span>女生</span></label>
+        <label for="male"><input type="radio" name="gender" id="male" value="male"><span>男生</span></label>
+      </div>
+    </div>
+    <div class="edit-item">
+      <aside><label for="phoneNr">電話</label></aside>
+      <div><input type="text" name="phoneNr" id="phoneNr" value="{{customer.phoneNr}}"></div>
+    </div>
+    <div class="edit-item">
+      <aside><label for="birthday">生日</label></aside>
+      <div><input type="date" name="birthday" id="birthday" value="{{customer.birthday}}"></div>
+    </div>
+    <div class="edit-item">
+      <aside><label for="email">電子郵件</label></aside>
+      <div><input type="email" name="email" id="email" value="{{customer.email}}"></div>
+    </div>
+    <div class="edit-item">
+      <aside><label for="address">地址</label></aside>
+      <div><input type="text" name="address" id="address" value="{{customer.address}}"></div>
+    </div>
+    <div class="edit-item">
+      <aside><label for="receiveEmail">電子報</label></aside>
+      <div>
+        <label for="receive" style="
+          margin-right: 10px;"><input type="radio" name="receiveEmail" id="receive" value="true"
+            checked><span>接收</span></label>
+        <label for="not-receive"><input type="radio" name="receiveEmail" id="not-receive"
+            value="false"><span>不接收</span></label>
+      </div>
+    </div>
+    <div class="edit-item">
+      <aside><label></label></aside>
+      <div class="edit-button-group">
+        <button type="submit">提交</button>
+        <a href="/customers/{{customer.id}}">返回</a>
       </div>
     </div>
   </form>

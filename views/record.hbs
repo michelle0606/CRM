@@ -1,3 +1,4 @@
+{{> messages}}
 <div class="container">
   <div class="record-content">
     <div class="Title">
@@ -25,7 +26,7 @@
         </tr>
         {{#each customer.Sales}}
         <tr>
-          <td>{{this.date}}</td>
+          <td>{{moment this.createdAt}}</td>
           <td>{{this.total}} 元</td>
           <td>{{this.User.name}}</td>
           <td><button class="search-button" value="{{this.id}}" data-open="open"><i class="fas fa-search"></i></button>
