@@ -1,5 +1,8 @@
 const db = require('../models')
-const { Sale, User, Product, Customer, Tag, CustomerDetail } = db
+const imgur = require('imgur-node-api')
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
+const { Sale, User, Product, Customer, CustomerDetail, Tag } = db
+
 
 const customerController = {
   createCustomerPage: (req, res) => {
