@@ -6,6 +6,7 @@ const { User, Shop, Customer } = db
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
 const accessController = require('../_accessController')
+const helpers = require('../_helpers')
 
 router.param('customers_id', async (req, res, next, id) => {
 	const customer = await Customer.findByPk(Number(id))
@@ -15,7 +16,7 @@ router.param('customers_id', async (req, res, next, id) => {
 
 router.param('shop_id', async (req, res, next, id) => {
 	const shop = await Shop.findByPk(Number(id))
-	if ((!shop) || (!req.isAuthenticated()) || (req.user.ShopId !== Number(id))) return res.redirect('/')
+	if ((!shop) || (!helpers.ensureAuthenticated(req)) || (helpers.getUser(req).ShopId !== Number(id))) return res.redirect('/')
 	next()
 })
 
