@@ -101,44 +101,6 @@ getData()
 
 
 
-// const formData = new FormData();
-// const fileField = document.querySelector('input[type="file"]');
-
-// fileField.addEventListener('change', (e) => {
-//   for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
-
-//     var file = e.originalEvent.srcElement.files[i];
-
-//     var img = document.createElement("img");
-//     var reader = new FileReader();
-//     reader.onloadend = function () {
-//       img.src = reader.result;
-//     }
-//     reader.readAsDataURL(file);
-//     fileField.after(img)
-//   }
-// })
-
-
-// function test() {
-//   console.log('hello')
-
-//   formData.append('username', 'abc123');
-//   formData.append('info', fileField.files[0]);
-
-//   console.log(formData)
-
-// fetch('/marketing/image', {
-//   method: 'PUT',
-//   body: formData
-// })
-//   .then(response => response.json())
-//   .catch(error => console.error('Error:', error))
-//   .then(response => console.log('Success:', JSON.stringify(response)));
-// }
-
-
-
 //Modal partical
 
 const openButtons = document.querySelectorAll('[data-open="open"]')
@@ -194,4 +156,56 @@ close.forEach(a => a.addEventListener('click', () => {
   modalNext.style.display = "none"
 }))
 
+
+//image show immediately
+const imageShow = document.querySelector('.image-show')
+const inputImage = document.querySelector("input[class='image']")
+
+
+inputImage.addEventListener('change', e => {
+  console.log(e.target.files)
+
+
+  for (let i = 0; i < e.target.files.length; i++) {
+
+    const file = e.target.files[i]
+
+    const imgDiv = document.createElement('div')
+    imgDiv.style.width = '150px'
+    imgDiv.style.padding = '5px'
+
+    const img = document.createElement("img")
+    img.style.width = '100%'
+
+
+    const reader = new FileReader()
+    reader.onloadend = function () {
+      img.src = reader.result
+    }
+    reader.readAsDataURL(file)
+
+    imgDiv.append(img)
+    imageShow.innerHTML = ''
+    imageShow.append(imgDiv)
+
+
+    //fetch 傳送至後端
+    // let form = new FormData()
+    // form.append("product[photos][]", e.target.files[i])
+
+    // fetch('/marketing/template', {
+    //   headers: {
+    //     version: 1,
+    //     "content-type": "application/json"
+    //   },
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     imageId: 1,
+    //     icon: Array.from(new Uint8Array(reader))
+    //   })
+    // })
+  }
+
+
+})
 

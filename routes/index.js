@@ -6,6 +6,8 @@ const productController = require('../controllers/productController')
 const tagController = require('../controllers/tagController')
 const marketingController = require('../controllers/marketingController')
 const passport = require('../config/passport')
+const multer = require('multer')
+const upload = multer({ dest: 'temp/' })
 
 const authenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -43,6 +45,7 @@ router.post('/inventory', authenticated, productController.postInventory)
 // marketing
 router.get('/marketing', authenticated, marketingController.getMarketingPage)
 router.post('/marketing', authenticated, marketingController.sendEmail)
+router.put('/marketing/template', authenticated, upload.single('info'), marketingController.updateTemplate)
 
 // customerDetail
 router.post(

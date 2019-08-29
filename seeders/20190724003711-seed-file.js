@@ -114,6 +114,28 @@ module.exports = {
       {}
     )
 
+    queryInterface.bulkInsert(
+      'MailTemplates',
+      [
+        {
+          id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          id: 2,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          id: 3,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      ],
+      {}
+    )
+
     return queryInterface.bulkInsert(
       'Products',
       Array.from({ length: 20 }).map(d => ({
@@ -130,12 +152,15 @@ module.exports = {
       })),
       {}
     )
+
+
   },
 
   down: (queryInterface, Sequelize) => {
     queryInterface.bulkDelete('Customers', null, {})
     queryInterface.bulkDelete('Users', null, {})
     queryInterface.bulkDelete('Shops', null, {})
+    queryInterface.bulkDelete('MailTemplates', null, {})
     return queryInterface.bulkDelete('Products', null, {})
   }
 }
