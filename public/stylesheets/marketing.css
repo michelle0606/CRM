@@ -42,11 +42,11 @@
 }
 
 .image-content-section {
-  display: flex
+  display: block
 }
 
 .upload-toggle {
-  width: 10%
+  width: 100%
 }
 
 .image-show {
