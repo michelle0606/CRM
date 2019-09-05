@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "pretest": "NODE_ENV=test npx sequelize db:drop;NODE_ENV=test npx sequelize db:create;NODE_ENV=test npx sequelize db:migrate;NODE_ENV=test npx sequelize db:seed:all;",
-    "test": "NODE_ENV=test mocha tests --exit --recursive --timeout 5000"
+    "pretest": "NODE_ENV=test npx sequelize db:drop;NODE_ENV=test npx sequelize db:create;NODE_ENV=test npx sequelize db:migrate;",
+    "test": "NODE_ENV=test mocha 'tests' --exit --recursive --timeout 5000"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
