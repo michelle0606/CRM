@@ -9,11 +9,12 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const MailTemplate = db.MailTemplate
 
 const marketingController = {
-  getMarketingPage: (req, res) => {
-    MailTemplate.findOne({ where: { id: 1 } }).then(template => {
-      res.render('marketing', { title: '廣告行銷', template })
-    })
+  getMarketingPage: async (req, res) => {
+    const template = await MailTemplate.findOne({ where: { id: 1 } })
 
+    const tags = await Tag.findAll()
+
+    res.render('marketing', { title: '廣告行銷', template, tags })
   },
 
   sendEmail: (req, res) => {
@@ -84,6 +85,9 @@ const marketingController = {
   updateTemplate: (req, res) => {
     const { template, title, message } = req.body
     const { file } = req
+
+    console.log(req.body)
+
     if (file) {
       imgur.setClientID(IMGUR_CLIENT_ID)
       imgur.upload(file.path, (err, img) => {
