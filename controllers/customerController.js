@@ -90,7 +90,8 @@ const customerController = {
   },
 
   APIGetAllCustomers: (req, res) => {
-    Customer.findAll({ where: { ShopId: req.user.ShopId } }).then(customers => {
+    Customer.findAll({ where: { ShopId: req.user.ShopId }, include: { model: Tag, as: 'associatedTags' } }).then(customers => {
+
       res.send(customers)
     })
   }

@@ -1,5 +1,5 @@
 const db = require('../models')
-const { Customer, Product, Sale, SaleDetail } = db
+const { Customer, Product, Sale, SaleDetail, Tag, CustomerDetail } = db
 
 const tradeController = {
   getCustomerTradePage: (req, res) => {
@@ -14,6 +14,21 @@ const tradeController = {
     const totalPrice = req.body.total
     const allProducts = req.body.productId
     const allCounts = req.body.count
+
+    allProducts.forEach(id => {
+      Product.findByPk(Number(id)).then(product => {
+        Tag.create({
+          tag: product.category,
+          ShopId: req.user.ShopId,
+        }).then(tag => {
+          CustomerDetail.create({
+            CustomerId: req.params.customers_id,
+            TagId: tag.id
+          })
+        })
+      })
+    })
+
 
     Sale.create({
       total: totalPrice,

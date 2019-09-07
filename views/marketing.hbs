@@ -16,6 +16,10 @@
             <li>
               <select name="tag" id="" data-filter="filter">
                 <option value="all">全部標籤</option>
+                {{#each tags}}
+                <option>{{this}}</option>
+                {{/each}}
+
               </select></li>
             <li>
               <select name="birthday" id="" data-filter="filter">
@@ -34,11 +38,11 @@
                 <option value="12">十二月</option>
               </select>
             </li>
-            <li>
+            {{!-- <li>
               <select name="price" id="" data-filter="filter">
                 <option value="all">不限消費金額</option>
               </select>
-            </li>
+            </li> --}}
             <li>
               <select name="gender" id="" data-filter="filter">
                 <option value="all">不限性別</option>
