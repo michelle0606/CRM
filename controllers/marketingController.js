@@ -21,12 +21,11 @@ const marketingController = {
     array.forEach(item => {
       tags.includes(item) ? false : tags.push(item);
     })
-
     res.render('marketing', { title: '廣告行銷', template, tags })
+
   },
 
   sendEmail: (req, res) => {
-
     const { name, email, subject, message } = req.body
 
     let data = { name: name, message: message }
@@ -53,11 +52,9 @@ const marketingController = {
           })
         }
         main()
-          .then(() => {
-
-          })
+          .then(() => {})
           .catch(console.error)
-      });
+      })
       res.render('marketing', { msg: '信件成功發送！' })
     } else {
       async function main() {
@@ -84,10 +81,7 @@ const marketingController = {
           res.render('marketing', { msg: '信件成功發送！' })
         })
         .catch(console.error)
-
     }
-
-
   },
 
   updateTemplate: (req, res) => {
@@ -109,20 +103,17 @@ const marketingController = {
           })
         })
       })
-
     } else {
       MailTemplate.findOne({ where: { id: template } }).then(t => {
         t.update({
           title,
-          message,
+          message
         }).then(t => {
           res.redirect('back')
         })
       })
     }
-
   }
-
 }
 
 module.exports = marketingController
