@@ -12,7 +12,15 @@ const marketingController = {
   getMarketingPage: async (req, res) => {
     const template = await MailTemplate.findOne({ where: { id: 1 } })
 
-    const tags = await Tag.findAll()
+    const originTags = await Tag.findAll()
+
+    const array = originTags.map(a => a.tag)
+
+    const tags = []
+
+    array.forEach(item => {
+      tags.includes(item) ? false : tags.push(item);
+    })
 
     res.render('marketing', { title: '廣告行銷', template, tags })
   },

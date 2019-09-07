@@ -15,15 +15,20 @@ const tradeController = {
     const allProducts = req.body.productId
     const allCounts = req.body.count
 
-    await Tag.create({
-      tag: '我試一下',
-      ShopId: req.user.ShopId,
-    }).then(tag => {
-      CustomerDetail.create({
-        CustomerId: req.params.customers_id,
-        TagId: tag.id
+    allProducts.forEach(id => {
+      Product.findByPk(Number(id)).then(product => {
+        Tag.create({
+          tag: product.category,
+          ShopId: req.user.ShopId,
+        }).then(tag => {
+          CustomerDetail.create({
+            CustomerId: req.params.customers_id,
+            TagId: tag.id
+          })
+        })
       })
     })
+
 
     Sale.create({
       total: totalPrice,
