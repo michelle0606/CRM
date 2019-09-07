@@ -3,7 +3,6 @@ const Customer = db.Customer
 const Tag = db.Tag
 const CustomerDetail = db.CustomerDetail
 const nodemailer = require('nodemailer')
-const credentials = require('../credentials')
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const MailTemplate = db.MailTemplate
@@ -17,17 +16,17 @@ const marketingController = {
 
   sendEmail: (req, res) => {
     const { name, email, subject, message } = req.body
-
     let data = { name: name, message: message }
 
     if (typeof email !== 'string') {
-      email.forEach(mail => {
+      let trueMail = email.filter(mail => mail !== 'null')
+      trueMail.forEach(mail => {
         async function main() {
           let transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-              user: credentials.gmail.user,
-              pass: credentials.gmail.pass
+              user: process.env.GMAIL_USER,
+              pass: process.env.GMAIL_PASS
             }
           })
 
@@ -45,17 +44,15 @@ const marketingController = {
           .then(() => {})
           .catch(console.error)
       })
-      res.render('marketing', { msg: '信件成功發送！' })
     } else {
       async function main() {
         let transporter = nodemailer.createTransport({
           service: 'Gmail',
           auth: {
-            user: credentials.gmail.user,
-            pass: credentials.gmail.pass
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS
           }
         })
-
         res.render('email/hello', { layout: null, data }, (err, html) => {
           if (err) return console.log('error in email template')
           transporter.sendMail({
@@ -67,11 +64,11 @@ const marketingController = {
         })
       }
       main()
-        .then(() => {
-          res.render('marketing', { msg: '信件成功發送！' })
-        })
+        .then(() => {})
         .catch(console.error)
     }
+    req.flash('top_messages', '信件成功發送！')
+    res.redirect('/marketing')
   },
 
   updateTemplate: (req, res) => {

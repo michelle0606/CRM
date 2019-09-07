@@ -4,6 +4,7 @@
   --bgColor1: #edd3d5;
   --bgColor2: #4350b1;
   --linkColor: #b278a2;
+  --brownColor: #af887c;
   --logoFont: 'Playfair Display SC', serif;
   --normalFont: 'Noto Serif TC', serif;
 }
@@ -17,7 +18,7 @@
 }
 
 .Button2 {
-  color: #af887c;
+  color: var(--brownColor);
   border: 10px double;
   font-size: 22px;
   border-radius: 15px;

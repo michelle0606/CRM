@@ -73,7 +73,7 @@
   margin-left: 20px;
   font-size: 14px;
   padding: 0px 15px;
-  background-color: #af887c;
+  background-color: var(--brownColor);
   color: #fff;
   border: 1px solid var(--bgColor1);
 }
