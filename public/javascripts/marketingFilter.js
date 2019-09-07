@@ -4,13 +4,13 @@ const filterSection = document.querySelector('.filter-section')
 const emailSection = document.querySelector('.mail-section')
 
 chooseFilter.addEventListener('click', () => {
-  filterSection.style['display'] = "block"
-  emailSection.style['display'] = "none"
+  filterSection.style['display'] = 'block'
+  emailSection.style['display'] = 'none'
 })
 
 chooseEmail.addEventListener('click', () => {
-  filterSection.style['display'] = "none"
-  emailSection.style['display'] = "block"
+  filterSection.style['display'] = 'none'
+  emailSection.style['display'] = 'block'
 })
 
 const endpoint = '/api/customers'
@@ -46,7 +46,9 @@ function createCustomer(data) {
     newRow.appendChild(
       document.createElement('td')
     ).innerHTML = `${customer.name}`
-    newRow.appendChild(document.createElement('td')).innerHTML = `<input type="email" name="email" value="${customer.email}" readonly="readonly">`
+    newRow.appendChild(
+      document.createElement('td')
+    ).innerHTML = `<input type="email" name="email" value="${customer.email}" readonly="readonly">`
     newRow.appendChild(
       document.createElement('td')
     ).innerHTML = `${customer.phoneNr}`
@@ -57,14 +59,13 @@ function createCustomer(data) {
   })
 }
 
-
 filterButton.forEach(b => {
-
   b.addEventListener('change', () => {
     const filterSelect = []
     filterButton.forEach(filter => {
       filterSelect.push(filter.value)
     })
+
     const tagValue = filterSelect[0]
     const birthdayValue = filterSelect[1]
     const genderValue = filterSelect[2]
@@ -83,6 +84,7 @@ filterButton.forEach(b => {
       }
       const date = new Date(a.birthday)
       if ((date.getMonth() + 1) === Number(birthdayValue)) {
+
         return a
       }
     })
@@ -95,17 +97,12 @@ filterButton.forEach(b => {
       } else if (a.gender === genderValue) {
         return a
       }
-    }
-    )
+    })
     createCustomer(genderFilterData)
-
   })
 })
 
-
 getData()
-
-
 
 //Modal partical
 
@@ -115,20 +112,17 @@ const close = document.querySelectorAll('.close')
 
 const mailTitle = document.querySelector('.mail-title input')
 const contentSection = document.querySelector('.content-section textarea')
-const modalData = document.querySelector(".modal-data")
+const modalData = document.querySelector('.modal-data')
 const customerData = document.querySelector('.filter-list-section')
 let copyData = ''
-
 
 contentSection.addEventListener('input', e => {
   contentSection.textContent = e.target.value
 })
 
-
 function copy() {
   copyData = customerData.cloneNode(true)
 }
-
 
 function next() {
   const titleInput = mailTitle.value
@@ -143,49 +137,42 @@ function next() {
   `
 
   modalData.appendChild(copyData)
-
 }
 
-
 openButtons.forEach(open => {
-
   open.addEventListener('click', () => {
-
-    if (open.id === "next") {
-      modalNext.style.display = "block"
+    if (open.id === 'next') {
+      modalNext.style.display = 'block'
       next()
     }
   })
 })
 
-close.forEach(a => a.addEventListener('click', () => {
-  modalNext.style.display = "none"
-}))
-
+close.forEach(a =>
+  a.addEventListener('click', () => {
+    modalNext.style.display = 'none'
+  })
+)
 
 //image show immediately
 const imageShow = document.querySelector('.image-show')
-const inputImage = document.querySelector("input[class='image']")
-
+const inputImage = document.querySelector("input[class='marketing-image']")
 
 inputImage.addEventListener('change', e => {
   console.log(e.target.files)
 
-
   for (let i = 0; i < e.target.files.length; i++) {
-
     const file = e.target.files[i]
 
     const imgDiv = document.createElement('div')
     imgDiv.style.width = '150px'
     imgDiv.style.padding = '5px'
 
-    const img = document.createElement("img")
+    const img = document.createElement('img')
     img.style.width = '100%'
 
-
     const reader = new FileReader()
-    reader.onloadend = function () {
+    reader.onloadend = function() {
       img.src = reader.result
     }
     reader.readAsDataURL(file)
@@ -193,7 +180,6 @@ inputImage.addEventListener('change', e => {
     imgDiv.append(img)
     imageShow.innerHTML = ''
     imageShow.append(imgDiv)
-
 
     //fetch 傳送至後端
     // let form = new FormData()
@@ -211,7 +197,4 @@ inputImage.addEventListener('change', e => {
     //   })
     // })
   }
-
-
 })
-
