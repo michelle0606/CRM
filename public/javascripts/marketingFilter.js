@@ -22,6 +22,7 @@ async function getData() {
     .then(data => {
       customers.push(...data)
       createCustomer(customers)
+      console.log(data)
     })
 }
 
@@ -64,17 +65,26 @@ filterButton.forEach(b => {
     filterButton.forEach(filter => {
       filterSelect.push(filter.value)
     })
-    const tag = filterSelect[0]
-    const birthday = filterSelect[1]
-    const price = filterSelect[2]
-    const gender = filterSelect[3]
 
-    birthdayFilterData = customers.filter(a => {
-      if (birthday === 'all') {
+    const tagValue = filterSelect[0]
+    const birthdayValue = filterSelect[1]
+    const genderValue = filterSelect[2]
+
+    tagFilterData = customers.filter(customer => {
+      if (tagValue === 'all') {
+        return customer
+      } else {
+        return customer.associatedTags.map(a => a.tag).includes(tagValue)
+      }
+    })
+
+    birthdayFilterData = tagFilterData.filter(a => {
+      if (birthdayValue === 'all') {
         return a
       }
       const date = new Date(a.birthday)
-      if (date.getMonth() + 1 === Number(birthday)) {
+      if ((date.getMonth() + 1) === Number(birthdayValue)) {
+
         return a
       }
     })
@@ -82,9 +92,9 @@ filterButton.forEach(b => {
     // priceFilterData = birthdayFilterData.filter(a => { })
 
     genderFilterData = birthdayFilterData.filter(a => {
-      if (gender === 'all') {
+      if (genderValue === 'all') {
         return a
-      } else if (a.gender === gender) {
+      } else if (a.gender === genderValue) {
         return a
       }
     })
