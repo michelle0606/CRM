@@ -41,7 +41,9 @@ const customerController = {
 
   editCustomerPage: (req, res) => {
     Customer.findByPk(req.params.customers_id).then(customer => {
-      return res.render('editCustomer', { customer, title: '編輯資料' })
+      const d = new Date(customer.birthday)
+      const date = `${d.getFullYear()}-0${d.getMonth() + 1}-${d.getDate()}`
+      return res.render('editCustomer', { customer, date, title: '編輯資料' })
     })
   },
 

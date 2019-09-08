@@ -9,8 +9,10 @@
       <aside>生理性別</label></aside>
       <div>
         <label for="female" style="
-    margin-right: 10px;"><input type="radio" name="gender" id="female" value="female" checked><span>女生</span></label>
-        <label for="male"><input type="radio" name="gender" id="male" value="male"><span>男生</span></label>
+    margin-right: 10px;"><input type="radio" name="gender" id="female" value="female"
+            {{#ifCond customer.gender "female"}}checked{{/ifCond}}><span>女生</span></label>
+        <label for="male"><input type="radio" name="gender" id="male" value="male"
+            {{#ifCond customer.gender "male"}}checked{{/ifCond}}><span>男生</span></label>
       </div>
     </div>
     <div class="edit-item">
@@ -19,7 +21,7 @@
     </div>
     <div class="edit-item">
       <aside><label for="birthday">生日</label></aside>
-      <div><input type="date" name="birthday" id="birthday" value="{{customer.birthday}}"></div>
+      <div><input type="date" name="birthday" id="birthday" value="{{date}}"></div>
     </div>
     <div class="edit-item">
       <aside><label for="email">電子郵件</label></aside>
@@ -34,9 +36,9 @@
       <div>
         <label for="receive" style="
           margin-right: 10px;"><input type="radio" name="receiveEmail" id="receive" value="true"
-            checked><span>接收</span></label>
-        <label for="not-receive"><input type="radio" name="receiveEmail" id="not-receive"
-            value="false"><span>不接收</span></label>
+            {{#ifCond customer.receiveEmail ture}}checked{{/ifCond}}><span>接收</span></label>
+        <label for="not-receive"><input type="radio" name="receiveEmail" id="not-receive" value="false"
+            {{#ifCond customer.receiveEmail false}}checked{{/ifCond}}><span>不接收</span></label>
       </div>
     </div>
     <div class="edit-item">
