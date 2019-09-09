@@ -22,7 +22,6 @@ async function getData() {
     .then(data => {
       customers.push(...data)
       createCustomer(customers)
-      console.log(data)
     })
 }
 
@@ -35,13 +34,23 @@ let priceFilterData = []
 let genderFilterData = []
 
 function createCustomer(data) {
+
+  const receiveEmail = data.filter(customer => {
+    if (customer.receiveEmail) {
+      return true
+    } else {
+      return false
+    }
+  })
+
+
   filterList.innerHTML = `<table class="filter-list">
           <tr>
             <th>Name</th>
             <th>E-mail</th>
             <th>Phone</th>
           </tr>`
-  data.forEach(customer => {
+  receiveEmail.forEach(customer => {
     const newRow = document.createElement('tr')
     newRow.appendChild(
       document.createElement('td')
@@ -172,7 +181,7 @@ inputImage.addEventListener('change', e => {
     img.style.width = '100%'
 
     const reader = new FileReader()
-    reader.onloadend = function() {
+    reader.onloadend = function () {
       img.src = reader.result
     }
     reader.readAsDataURL(file)
