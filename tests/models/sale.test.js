@@ -1,8 +1,59 @@
+const chai = require('chai')
+chai.use(require('sinon-chai'))
 const { expect } = require('chai')
+const {
+  sequelize,
+  dataTypes,
+  checkModelName,
+  checkUniqueIndex,
+  checkPropertyExists
+} = require('sequelize-test-helpers')
 const db = require('../../models')
+const SaleModel = require('../../models/sale')
 
 describe('# Sale Model', () => {
-  context('CRUD', () => {
+
+  const Sale = SaleModel(sequelize, dataTypes)
+  const sale = new Sale()
+
+  context('check model name', () => {
+    checkModelName(Sale)('Sale')
+  })
+
+  context('check properties', () => {
+    ;[
+      'total', 'CustomerId', 'ShopId'
+    ].forEach(checkPropertyExists(sale))
+  })
+
+  context('check associations', () => {
+    const Customer = ''
+    const User = ''
+    const Product = ''
+    const Shop = ''
+
+    before(() => {
+      Sale.associate({ Customer })
+      Sale.associate({ User })
+      Sale.associate({ Product })
+      Sale.associate({ Shop })
+    })
+
+    it('defined a hasMany association with Product', () => {
+      expect(Sale.belongsToMany).to.have.been.calledWith(Product)
+    })
+    it('defined a belongsTo association with Customer', () => {
+      expect(Sale.belongsTo).to.have.been.calledWith(Customer)
+    })
+    it('defined a belongsTo association with User', () => {
+      expect(Sale.belongsTo).to.have.been.calledWith(User)
+    })
+    it('defined a belongsTo association with Shop', () => {
+      expect(Sale.belongsTo).to.have.been.calledWith(Shop)
+    })
+  })
+
+  context('check CRUD', () => {
     let data = null
 
     it('create', done => {

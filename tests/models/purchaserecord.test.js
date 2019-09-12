@@ -1,8 +1,55 @@
+const chai = require('chai')
+chai.use(require('sinon-chai'))
 const { expect } = require('chai')
+const {
+  sequelize,
+  dataTypes,
+  checkModelName,
+  checkUniqueIndex,
+  checkPropertyExists
+} = require('sequelize-test-helpers')
 const db = require('../../models')
+const PurchaseRecordModel = require('../../models/purchaserecord')
+
 
 describe('# PurchaseRecord Model', () => {
-  describe('CRUD', () => {
+
+  const PurchaseRecord = PurchaseRecordModel(sequelize, dataTypes)
+  const purchaseRecord = new PurchaseRecord()
+
+  context('check model name', () => {
+    checkModelName(PurchaseRecord)('PurchaseRecord')
+  })
+
+  context('check properties', () => {
+    ;[
+      'UserId', 'ShopId'
+    ].forEach(checkPropertyExists(purchaseRecord))
+  })
+
+  context('check associations', () => {
+    const User = ''
+    const Product = ''
+    const Shop = ''
+
+    before(() => {
+      PurchaseRecord.associate({ User })
+      PurchaseRecord.associate({ Product })
+      PurchaseRecord.associate({ Shop })
+    })
+
+   it('defined a belongsToMany association with Product', () => {
+      expect(PurchaseRecord.belongsToMany).to.have.been.calledWith(Product)
+    })
+    it('defined a belongsTo association with User', () => {
+      expect(PurchaseRecord.belongsTo).to.have.been.calledWith(User)
+    })
+    it('defined a belongsTo association with Shop', () => {
+      expect(PurchaseRecord.belongsTo).to.have.been.calledWith(Shop)
+    })
+  })
+
+  describe('check CRUD', () => {
     let data = null
 
     it('create', done => {
