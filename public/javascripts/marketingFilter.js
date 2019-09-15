@@ -28,7 +28,6 @@ async function getData() {
 
   await fetch(templateEndPoint).then(blob => blob.json()).then(data => {
     templates.push(...data)
-    console.log(templates)
   })
 }
 
@@ -71,7 +70,6 @@ function createCustomer(data) {
 
     filterList.appendChild(newRow)
 
-    copy()
   })
 }
 
@@ -122,57 +120,61 @@ getData()
 
 //Modal partical
 
-const openButtons = document.querySelectorAll('[data-open="open"]')
+const openButtons = document.querySelector('[data-open="open"]')
 const modalNext = document.querySelector('.modal-next')
-const close = document.querySelectorAll('.close')
-
+const close = document.querySelector('.close')
 const mailTitle = document.querySelector('.mail-title input')
 const contentSection = document.querySelector('.content-section textarea')
 const modalData = document.querySelector('.modal-data')
 const customerData = document.querySelector('.filter-list-section')
-let copyData = ''
+
 
 contentSection.addEventListener('input', e => {
   contentSection.textContent = e.target.value
 })
 
-function copy() {
-  copyData = customerData.cloneNode(true)
-}
 
 function next() {
   const titleInput = mailTitle.value
   const contentInput = contentSection.textContent
+  const copyData = customerData.cloneNode(true)
+  const h2fCustomerList = document.createElement('h2')
+  const imgPreview = img.cloneNode(true) //copy upload img and could use commonly
+  imgPreview.style.width = '100%'
+  const imgDiv = document.createElement('div')
+  imgDiv.style.width = '100%'
+  imgDiv.innerHTML = `<h2>圖檔：</h2>`
+  imgDiv.append(imgPreview)
+  h2fCustomerList.innerHTML = '<h2>目標客戶:</h2>'
+  imgDiv.append(h2fCustomerList)
 
   modalData.innerHTML = `
   <h1>傳送以下訊息：</h1>
             <h2>主旨：<input type="text" name="subject" value="${titleInput}" class="mail-input" readonly></h2>
-            <span>訊息：<textarea name="message" class="mail-input" readonly>${contentInput}</textarea></span>
-            <br/>
-            <h1>目標客戶：</h1>
+            <h2>訊息：<textarea name="message" class="mail-input" readonly>${contentInput}</textarea></h2>
   `
 
+  modalData.append(imgDiv)
   modalData.appendChild(copyData)
 }
 
-openButtons.forEach(open => {
-  open.addEventListener('click', () => {
-    if (open.id === 'next') {
-      modalNext.style.display = 'block'
-      next()
-    }
-  })
+
+openButtons.addEventListener('click', () => {
+  modalNext.style.display = 'block'
+  next()
 })
 
-close.forEach(a =>
-  a.addEventListener('click', () => {
-    modalNext.style.display = 'none'
-  })
-)
+close.addEventListener('click', () => {
+  modalNext.style.display = 'none'
+})
+
 
 //image show immediately
 const imageShow = document.querySelector('.image-show')
 const inputImage = document.querySelector("input[class='marketing-image']")
+const img = document.createElement('img') // put on the global to let modal partial can use this
+img.style.height = '100%'
+
 
 inputImage.addEventListener('change', e => {
 
@@ -183,8 +185,6 @@ inputImage.addEventListener('change', e => {
     imgDiv.style.width = '100%'
     imgDiv.style.height = '100%'
 
-    const img = document.createElement('img')
-    img.style.height = '100%'
 
     const reader = new FileReader()
     reader.onloadend = function () {
@@ -198,22 +198,7 @@ inputImage.addEventListener('change', e => {
     imageShow.innerHTML = ''
     imageShow.append(imgDiv)
 
-    clear()
-    //fetch 傳送至後端
-    // let form = new FormData()
-    // form.append("product[photos][]", e.target.files[i])
-
-    // fetch('/marketing/template', {
-    //   headers: {
-    //     version: 1,
-    //     "content-type": "application/json"
-    //   },
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     imageId: 1,
-    //     icon: Array.from(new Uint8Array(reader))
-    //   })
-    // })
+    clear() // create delete button and function
   }
 })
 
@@ -225,7 +210,9 @@ function clear() {
     imageShow.innerHTML = `
   <i class="far fa-image"></i>
   `
+    img.src = ''
   })
+
 }
 
 const templateSelect = document.querySelector('.template-select')
@@ -262,4 +249,4 @@ templateSelect.addEventListener('change', () => {
 })
 
 
-clear()
+clear() // When you render marketing page, if your template has img that will create a delete button/function on the img

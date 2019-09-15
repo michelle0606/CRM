@@ -125,6 +125,7 @@
 
 .marketing-next-select {
   margin-left: 10px;
+  cursor: pointer;
 }
 
 .marketing-next-select > button {
