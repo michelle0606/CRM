@@ -13,16 +13,23 @@ chooseEmail.addEventListener('click', () => {
   emailSection.style['display'] = 'block'
 })
 
-const endpoint = '/api/customers'
+const customerEndPoint = '/api/customers'
 const customers = []
 
+const templateEndPoint = '/api/template'
+const templates = []
+
+
 async function getData() {
-  await fetch(endpoint)
-    .then(blob => blob.json())
-    .then(data => {
-      customers.push(...data)
-      createCustomer(customers)
-    })
+  await fetch(customerEndPoint).then(blob => blob.json()).then(data => {
+    customers.push(...data)
+    createCustomer(customers)
+  })
+
+  await fetch(templateEndPoint).then(blob => blob.json()).then(data => {
+    templates.push(...data)
+    console.log(templates)
+  })
 }
 
 const filterButton = document.querySelectorAll('[data-filter="filter"]')
@@ -220,5 +227,39 @@ function clear() {
   `
   })
 }
+
+const templateSelect = document.querySelector('.template-select')
+
+
+templateSelect.addEventListener('change', () => {
+
+  const template = templates.filter(a => a.id === Number(templateSelect.value))
+  const mailTitle = document.querySelector('.mail-title')
+  const mailContent = document.querySelector('.content-section')
+
+
+  mailTitle.innerHTML = `
+  <input type="text" name="title" placeholder="郵件標題" class="mail-input" value="${template[0].title}">
+  `
+  mailContent.innerHTML = `
+  <div class="mail-blank-section"></div>
+  <textarea name="message" rows="10" placeholder="郵件內容" class="mail-input">${template[0].message}</textarea>
+  `
+
+  if (template[0].image === null) {
+    imageShow.innerHTML = `
+    <i class="far fa-image"></i>
+    `
+  } else {
+    imageShow.innerHTML = `
+    <div class="image-section">
+      <i class="fa fa-times-circle fa-2x delete-mark"></i>
+      <img src="${template[0].image}" class="template-image">
+    </div>
+    `
+  }
+
+})
+
 
 clear()

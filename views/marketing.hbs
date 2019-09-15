@@ -13,6 +13,9 @@
       <li>
         <select name="tag" data-filter="filter">
           <option value="all">全部標籤</option>
+          {{#each tags}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
         </select>
       </li>
       <li>
@@ -30,11 +33,6 @@
           <option value="10">十月</option>
           <option value="11">十一月</option>
           <option value="12">十二月</option>
-        </select>
-      </li>
-      <li>
-        <select name="price" data-filter="filter">
-          <option value="all">不限消費金額</option>
         </select>
       </li>
       <li>
@@ -63,17 +61,14 @@
     <div class="mail-section">
       <div class="title-section">
         <div class="mail-template">
-          <select name="template" id="">
-            <option value="">選擇樣板</option>
-            <option value="1" selected>1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+          <select name="template" id="" class="template-select">
+            <option value="1" selected>樣板1</option>
+            <option value="2">樣板2</option>
+            <option value="3">樣板3</option>
           </select>
         </div>
         <div class="mail-title">
           <input type="text" name="title" placeholder="郵件標題" class="mail-input" value="{{template.title}}">
-
-
         </div>
       </div>
 
@@ -93,7 +88,7 @@
           <i class="far fa-image"></i>
           {{else}}
           <div class="image-section">
-            <i class="fa fa-times-circle fa-2x delete-mark" onclick="clear()"></i>
+            <i class="fa fa-times-circle fa-2x delete-mark"></i>
             <img src="{{template.image}}" class="template-image">
           </div>
 

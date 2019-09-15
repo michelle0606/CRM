@@ -120,16 +120,22 @@ module.exports = {
       [
         {
           id: 1,
+          title: '',
+          message: '',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           id: 2,
+          title: '',
+          message: '',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           id: 3,
+          title: '',
+          message: '',
           createdAt: new Date(),
           updatedAt: new Date()
         }

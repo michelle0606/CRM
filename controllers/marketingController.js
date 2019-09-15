@@ -108,6 +108,12 @@ const marketingController = {
         })
       })
     }
+  },
+
+  APIGetAllMailTemplate: (req, res) => {
+    MailTemplate.findAll().then(template => {
+      res.send(template)
+    })
   }
 }
 

@@ -48,6 +48,7 @@ router.get('/marketing', authenticated, marketingController.getMarketingPage)
 router.post('/marketing', authenticated, marketingController.sendEmail)
 router.put('/marketing/template', authenticated, upload.single('info'), marketingController.updateTemplate)
 
+
 // customerDetail
 router.post(
   '/customerDetail/:customers_id',
@@ -68,5 +69,7 @@ router.get(
 )
 
 router.get('/api/products', authenticated, productController.APIGetAllProducts)
+
+router.get('/api/template', authenticated, marketingController.APIGetAllMailTemplate)
 
 module.exports = router
