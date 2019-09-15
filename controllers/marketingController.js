@@ -4,7 +4,6 @@ const Tag = db.Tag
 const CustomerDetail = db.CustomerDetail
 const nodemailer = require('nodemailer')
 const imgur = require('imgur-node-api')
-const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const MailTemplate = db.MailTemplate
 
 const marketingController = {
@@ -51,7 +50,7 @@ const marketingController = {
           })
         }
         main()
-          .then(() => {})
+          .then(() => { })
           .catch(console.error)
       })
     } else {
@@ -74,7 +73,7 @@ const marketingController = {
         })
       }
       main()
-        .then(() => {})
+        .then(() => { })
         .catch(console.error)
     }
     req.flash('top_messages', '信件成功發送！')
@@ -85,10 +84,8 @@ const marketingController = {
     const { template, title, message } = req.body
     const { file } = req
 
-    console.log(req.body)
-
     if (file) {
-      imgur.setClientID(IMGUR_CLIENT_ID)
+      imgur.setClientID(process.env.IMGUR_CLIENT_ID)
       imgur.upload(file.path, (err, img) => {
         MailTemplate.findOne({ where: { id: template } }).then(t => {
           t.update({
@@ -104,7 +101,8 @@ const marketingController = {
       MailTemplate.findOne({ where: { id: template } }).then(t => {
         t.update({
           title,
-          message
+          message,
+          image: null
         }).then(t => {
           res.redirect('back')
         })

@@ -73,7 +73,7 @@
         <div class="mail-title">
           <input type="text" name="title" placeholder="郵件標題" class="mail-input" value="{{template.title}}">
 
-      
+
         </div>
       </div>
 
@@ -89,7 +89,15 @@
           </label>
         </div>
         <div class="image-show">
+          {{#ifCond template.image null}}
           <i class="far fa-image"></i>
+          {{else}}
+          <div class="image-section">
+            <i class="fa fa-times-circle fa-2x delete-mark" onclick="clear()"></i>
+            <img src="{{template.image}}" class="template-image">
+          </div>
+
+          {{/ifCond}}
         </div>
       </div>
 

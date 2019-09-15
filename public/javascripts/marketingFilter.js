@@ -168,17 +168,16 @@ const imageShow = document.querySelector('.image-show')
 const inputImage = document.querySelector("input[class='marketing-image']")
 
 inputImage.addEventListener('change', e => {
-  console.log(e.target.files)
 
   for (let i = 0; i < e.target.files.length; i++) {
     const file = e.target.files[i]
 
     const imgDiv = document.createElement('div')
-    imgDiv.style.width = '150px'
-    imgDiv.style.padding = '5px'
+    imgDiv.style.width = '100%'
+    imgDiv.style.height = '100%'
 
     const img = document.createElement('img')
-    img.style.width = '100%'
+    img.style.height = '100%'
 
     const reader = new FileReader()
     reader.onloadend = function () {
@@ -186,10 +185,13 @@ inputImage.addEventListener('change', e => {
     }
     reader.readAsDataURL(file)
 
-    imgDiv.append(img)
+
+    imgDiv.innerHTML = '<i class="fa fa-times-circle fa-2x delete-mark"></i>'
+    imgDiv.appendChild(img)
     imageShow.innerHTML = ''
     imageShow.append(imgDiv)
 
+    clear()
     //fetch 傳送至後端
     // let form = new FormData()
     // form.append("product[photos][]", e.target.files[i])
@@ -207,3 +209,16 @@ inputImage.addEventListener('change', e => {
     // })
   }
 })
+
+function clear() {
+  const deleteButton = document.querySelector('.delete-mark')
+
+  deleteButton.addEventListener('click', () => {
+    inputImage.value = ''
+    imageShow.innerHTML = `
+  <i class="far fa-image"></i>
+  `
+  })
+}
+
+clear()

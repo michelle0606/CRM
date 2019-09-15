@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
   dotenv.config()
 }
 
-app.use(fileUpload())
+// app.use(fileUpload())
 
 app.use(
   session({
@@ -70,7 +70,7 @@ app.use('/customers', customersRouter)
 app.use('/admin', adminRouter)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404))
 })
 
