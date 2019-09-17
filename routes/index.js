@@ -8,9 +8,10 @@ const marketingController = require('../controllers/marketingController')
 const passport = require('../config/passport')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
+const helpers = require('../_helpers')
 
 const authenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
+  if (helpers.ensureAuthenticated(req)) {
     return next()
   }
   res.redirect('/login')
@@ -47,6 +48,7 @@ router.get('/marketing', authenticated, marketingController.getMarketingPage)
 router.post('/marketing', authenticated, marketingController.sendEmail)
 router.put('/marketing/template', authenticated, upload.single('info'), marketingController.updateTemplate)
 
+
 // customerDetail
 router.post(
   '/customerDetail/:customers_id',
@@ -67,5 +69,7 @@ router.get(
 )
 
 router.get('/api/products', authenticated, productController.APIGetAllProducts)
+
+router.get('/api/template', authenticated, marketingController.APIGetAllMailTemplate)
 
 module.exports = router

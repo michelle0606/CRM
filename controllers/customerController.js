@@ -42,7 +42,23 @@ const customerController = {
   editCustomerPage: (req, res) => {
     Customer.findByPk(req.params.customers_id).then(customer => {
       const d = new Date(customer.birthday)
-      const date = `${d.getFullYear()}-0${d.getMonth() + 1}-${d.getDate()}`
+      let month = ''
+      let day = ''
+
+      if (d.getMonth() < 10) {
+        month = `0${d.getMonth() + 1}`
+      } else {
+        month = d.getMonth() + 1
+      }
+
+      if (d.getDate() < 10) {
+        day = `0${d.getDate() + 1}`
+      } else {
+        day = d.getDate()
+      }
+      const date = `${d.getFullYear()}-${month}-${day}`
+
+      console.log(customer)
       return res.render('editCustomer', { customer, date, title: '編輯資料' })
     })
   },

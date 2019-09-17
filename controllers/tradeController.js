@@ -12,8 +12,14 @@ const tradeController = {
 
   createNewTradeRecord: async (req, res) => {
     const totalPrice = req.body.total
-    const allProducts = req.body.productId
+    const allProducts = []
     const allCounts = req.body.count
+
+    if (typeof req.body.productId !== Array) {
+      allProducts.push(req.body.productId)
+    } else {
+      allProducts.push(...req.body.productId)
+    }
 
     allProducts.forEach(id => {
       Product.findByPk(Number(id)).then(product => {
@@ -29,7 +35,6 @@ const tradeController = {
       })
     })
 
-
     Sale.create({
       total: totalPrice,
       CustomerId: req.params.customers_id,
@@ -38,27 +43,10 @@ const tradeController = {
     })
       .then(sale => {
         let connect = 0
-        if (typeof allCounts !== 'string') {
-          allProducts.forEach(product => {
-            SaleDetail.create({
-              quantity: Number(allCounts[connect]),
-              ProductId: Number(product),
-              SaleId: sale.id
-            }).then(data => {
-              Product.findByPk(data.ProductId).then(product => {
-                const newInventory =
-                  Number(product.inventory) - Number(data.quantity)
-                product.update({
-                  inventory: newInventory
-                })
-              })
-            })
-            connect += 1
-          })
-        } else {
+        allProducts.forEach(product => {
           SaleDetail.create({
-            quantity: Number(allCounts),
-            ProductId: Number(allProducts),
+            quantity: Number(allCounts[connect]),
+            ProductId: Number(product),
             SaleId: sale.id
           }).then(data => {
             Product.findByPk(data.ProductId).then(product => {
@@ -69,7 +57,8 @@ const tradeController = {
               })
             })
           })
-        }
+          connect += 1
+        })
       })
       .then(() => {
         Product.findAll({ where: { ShopId: req.user.ShopId } }).then(

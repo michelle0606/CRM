@@ -13,16 +13,22 @@ chooseEmail.addEventListener('click', () => {
   emailSection.style['display'] = 'block'
 })
 
-const endpoint = '/api/customers'
+const customerEndPoint = '/api/customers'
 const customers = []
 
+const templateEndPoint = '/api/template'
+const templates = []
+
+
 async function getData() {
-  await fetch(endpoint)
-    .then(blob => blob.json())
-    .then(data => {
-      customers.push(...data)
-      createCustomer(customers)
-    })
+  await fetch(customerEndPoint).then(blob => blob.json()).then(data => {
+    customers.push(...data)
+    createCustomer(customers)
+  })
+
+  await fetch(templateEndPoint).then(blob => blob.json()).then(data => {
+    templates.push(...data)
+  })
 }
 
 const filterButton = document.querySelectorAll('[data-filter="filter"]')
@@ -64,7 +70,6 @@ function createCustomer(data) {
 
     filterList.appendChild(newRow)
 
-    copy()
   })
 }
 
@@ -115,70 +120,71 @@ getData()
 
 //Modal partical
 
-const openButtons = document.querySelectorAll('[data-open="open"]')
+const openButtons = document.querySelector('[data-open="open"]')
 const modalNext = document.querySelector('.modal-next')
-const close = document.querySelectorAll('.close')
-
+const close = document.querySelector('.close')
 const mailTitle = document.querySelector('.mail-title input')
 const contentSection = document.querySelector('.content-section textarea')
 const modalData = document.querySelector('.modal-data')
 const customerData = document.querySelector('.filter-list-section')
-let copyData = ''
+
 
 contentSection.addEventListener('input', e => {
   contentSection.textContent = e.target.value
 })
 
-function copy() {
-  copyData = customerData.cloneNode(true)
-}
 
 function next() {
   const titleInput = mailTitle.value
   const contentInput = contentSection.textContent
+  const copyData = customerData.cloneNode(true)
+  const h2fCustomerList = document.createElement('h2')
+  const imgPreview = img.cloneNode(true) //copy upload img and could use commonly
+  imgPreview.style.width = '100%'
+  const imgDiv = document.createElement('div')
+  imgDiv.style.width = '100%'
+  imgDiv.innerHTML = `<h2>圖檔：</h2>`
+  imgDiv.append(imgPreview)
+  h2fCustomerList.innerHTML = '<h2>目標客戶:</h2>'
+  imgDiv.append(h2fCustomerList)
 
   modalData.innerHTML = `
   <h1>傳送以下訊息：</h1>
             <h2>主旨：<input type="text" name="subject" value="${titleInput}" class="mail-input" readonly></h2>
-            <span>訊息：<textarea name="message" class="mail-input" readonly>${contentInput}</textarea></span>
-            <br/>
-            <h1>目標客戶：</h1>
+            <h2>訊息：<textarea name="message" class="mail-input" readonly>${contentInput}</textarea></h2>
   `
 
+  modalData.append(imgDiv)
   modalData.appendChild(copyData)
 }
 
-openButtons.forEach(open => {
-  open.addEventListener('click', () => {
-    if (open.id === 'next') {
-      modalNext.style.display = 'block'
-      next()
-    }
-  })
+
+openButtons.addEventListener('click', () => {
+  modalNext.style.display = 'block'
+  next()
 })
 
-close.forEach(a =>
-  a.addEventListener('click', () => {
-    modalNext.style.display = 'none'
-  })
-)
+close.addEventListener('click', () => {
+  modalNext.style.display = 'none'
+})
+
 
 //image show immediately
 const imageShow = document.querySelector('.image-show')
 const inputImage = document.querySelector("input[class='marketing-image']")
+const img = document.createElement('img') // put on the global to let modal partial can use this
+img.style.height = '100%'
+
 
 inputImage.addEventListener('change', e => {
-  console.log(e.target.files)
 
   for (let i = 0; i < e.target.files.length; i++) {
     const file = e.target.files[i]
 
     const imgDiv = document.createElement('div')
-    imgDiv.style.width = '150px'
-    imgDiv.style.padding = '5px'
+    imgDiv.style.width = '100%'
+    imgDiv.style.height = '100%'
 
-    const img = document.createElement('img')
-    img.style.width = '100%'
 
     const reader = new FileReader()
     reader.onloadend = function () {
@@ -186,24 +192,61 @@ inputImage.addEventListener('change', e => {
     }
     reader.readAsDataURL(file)
 
-    imgDiv.append(img)
+
+    imgDiv.innerHTML = '<i class="fa fa-times-circle fa-2x delete-mark"></i>'
+    imgDiv.appendChild(img)
     imageShow.innerHTML = ''
     imageShow.append(imgDiv)
 
-    //fetch 傳送至後端
-    // let form = new FormData()
-    // form.append("product[photos][]", e.target.files[i])
-
-    // fetch('/marketing/template', {
-    //   headers: {
-    //     version: 1,
-    //     "content-type": "application/json"
-    //   },
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     imageId: 1,
-    //     icon: Array.from(new Uint8Array(reader))
-    //   })
-    // })
+    clear() // create delete button and function
   }
 })
+
+function clear() {
+  const deleteButton = document.querySelector('.delete-mark')
+
+  deleteButton.addEventListener('click', () => {
+    inputImage.value = ''
+    imageShow.innerHTML = `
+  <i class="far fa-image"></i>
+  `
+    img.src = ''
+  })
+
+}
+
+const templateSelect = document.querySelector('.template-select')
+
+
+templateSelect.addEventListener('change', () => {
+
+  const template = templates.filter(a => a.id === Number(templateSelect.value))
+  const mailTitle = document.querySelector('.mail-title')
+  const mailContent = document.querySelector('.content-section')
+
+
+  mailTitle.innerHTML = `
+  <input type="text" name="title" placeholder="郵件標題" class="mail-input" value="${template[0].title}">
+  `
+  mailContent.innerHTML = `
+  <div class="mail-blank-section"></div>
+  <textarea name="message" rows="10" placeholder="郵件內容" class="mail-input">${template[0].message}</textarea>
+  `
+
+  if (template[0].image === null) {
+    imageShow.innerHTML = `
+    <i class="far fa-image"></i>
+    `
+  } else {
+    imageShow.innerHTML = `
+    <div class="image-section">
+      <i class="fa fa-times-circle fa-2x delete-mark"></i>
+      <img src="${template[0].image}" class="template-image">
+    </div>
+    `
+  }
+
+})
+
+
+clear() // When you render marketing page, if your template has img that will create a delete button/function on the img

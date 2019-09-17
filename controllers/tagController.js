@@ -1,6 +1,7 @@
 const db = require('../models')
 const Tag = db.Tag
 const CustomerDetail = db.CustomerDetail
+const helpers = require('../_helpers')
 
 const tagController = {
   postTag: async (req, res) => {
@@ -15,7 +16,7 @@ const tagController = {
     else {
       Tag.create({
         tag: tag,
-        ShopId: req.user.id
+        ShopId: helpers.getUser(req).ShopId
       })
         .then(newTag => {
           CustomerDetail.create({
