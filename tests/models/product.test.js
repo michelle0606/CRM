@@ -1,8 +1,55 @@
+const chai = require('chai')
+chai.use(require('sinon-chai'))
 const { expect } = require('chai')
+const {
+  sequelize,
+  dataTypes,
+  checkModelName,
+  checkUniqueIndex,
+  checkPropertyExists
+} = require('sequelize-test-helpers')
 const db = require('../../models')
+const ProductModel = require('../../models/product')
 
 describe('# Product Model', () => {
-  describe('CRUD', () => {
+
+  const Product = ProductModel(sequelize, dataTypes)
+  const product = new Product()
+
+  context('check model name', () => {
+    checkModelName(Product)('Product')
+  })
+
+  context('check properties', () => {
+    ;[
+      'name', 'salePrice', 'ShopId', 'inventory'
+    ].forEach(checkPropertyExists(product))
+  })
+
+  context('check associations', () => {
+    const ExpirationDate = ''
+    const Sale = ''
+    const Shop = ''
+
+    before(() => {
+      Product.associate({ ExpirationDate })
+      Product.associate({ Sale })
+      Product.associate({ Shop })
+    })
+
+   it('defined a belongsToMany association with ExpirationDate', () => {
+      expect(Product.belongsToMany).to.have.been.calledWith(ExpirationDate)
+    })
+    it('defined a belongsToMany association with Sale', () => {
+      expect(Product.belongsToMany).to.have.been.calledWith(Sale)
+    })
+    it('defined a belongsTo association with Shop', () => {
+      expect(Product.belongsTo).to.have.been.calledWith(Shop)
+    })
+  })
+
+
+  describe('chech CRUD', () => {
     let data = null
 
     it('create', done => {
