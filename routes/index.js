@@ -9,6 +9,7 @@ const passport = require('../config/passport')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
 const helpers = require('../_helpers')
+const fileUpload = require('express-fileupload')
 
 const authenticated = (req, res, next) => {
   if (helpers.ensureAuthenticated(req)) {
@@ -18,7 +19,7 @@ const authenticated = (req, res, next) => {
 }
 
 // user login system
-router.get('/', authenticated, (req, res) => res.redirect('/customers/create'))
+router.get('/', authenticated, customerController.getHomePage)
 router.get('/login', userController.signInPage)
 router.post(
   '/login',
@@ -41,7 +42,7 @@ router.post('/signup', userController.signUp)
 
 // inventory
 router.get('/inventory', authenticated, productController.getInventory)
-router.post('/inventory', authenticated, productController.postInventory)
+router.post('/inventory', authenticated, fileUpload(), productController.postInventory)
 
 // marketing
 router.get('/marketing', authenticated, marketingController.getMarketingPage)

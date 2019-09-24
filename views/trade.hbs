@@ -5,9 +5,12 @@
     </div>
     <div class="trade">
       <div>
-        <span>會員</span>
+        {{#ifCond customer.name '非會員'}}
         <span>{{customer.name}}</span>
-        <span>{{customer.phoneNr}}</span>
+        {{else}}
+        <span>會員姓名：{{customer.name}}</span>
+        <span>電話：{{customer.phoneNr}}</span>
+        {{/ifCond}}
       </div>
       <form action="/customers/{{customer.id}}/record" method="POST">
         <div class="creat-trade-page">
