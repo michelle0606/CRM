@@ -13,19 +13,20 @@ const tradeController = {
   createNewTradeRecord: async (req, res) => {
     const totalPrice = req.body.total
     const allProducts = []
-    const allCounts = req.body.count
-
-    if (typeof req.body.productId !== Array) {
+    const allCounts = []
+    if (typeof req.body.productId !== 'object') {
       allProducts.push(req.body.productId)
+      allCounts.push(req.body.count)
     } else {
       allProducts.push(...req.body.productId)
+      allCounts.push(...req.body.count)
     }
 
     allProducts.forEach(id => {
       Product.findByPk(Number(id)).then(product => {
         Tag.create({
           tag: product.category,
-          ShopId: req.user.ShopId,
+          ShopId: req.user.ShopId
         }).then(tag => {
           CustomerDetail.create({
             CustomerId: req.params.customers_id,
