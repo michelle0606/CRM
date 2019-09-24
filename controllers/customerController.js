@@ -97,7 +97,7 @@ const customerController = {
     })
   },
 
-  downloadCustomerInfo: (req, res) => {
+  APIGetCustomerInfo: (req, res) => {
     const id = req.params.customers_id
     Customer.findByPk(id, {
       include: [
@@ -107,7 +107,7 @@ const customerController = {
         }
       ]
     }).then(customer => {
-      res.json(customer)
+      res.send(customer)
     })
   }
 }

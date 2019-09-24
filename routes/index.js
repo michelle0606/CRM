@@ -66,9 +66,9 @@ router.get(
 router.get('/api/products', authenticated, productController.APIGetAllProducts)
 
 router.get(
-  '/api/downloadInfo/:customers_id',
+  '/api/customer/:customers_id',
   authenticated,
-  customerController.downloadCustomerInfo
+  customerController.APIGetCustomerInfo
 )
 
 module.exports = router
