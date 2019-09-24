@@ -13,13 +13,21 @@ const tradeController = {
   createNewTradeRecord: async (req, res) => {
     const totalPrice = req.body.total
     const allProducts = []
-    const allCounts = req.body.count
+    const allCounts = []
 
-    if (typeof req.body.productId !== Array) {
+    if (!Array.isArray(req.body.count)) {
+      allCounts.push(req.body.count)
+    } else {
+      allCounts.push(...req.body.count)
+    }
+
+
+    if (!Array.isArray(req.body.productId)) {
       allProducts.push(req.body.productId)
     } else {
       allProducts.push(...req.body.productId)
     }
+
 
     allProducts.forEach(id => {
       Product.findByPk(Number(id)).then(product => {
