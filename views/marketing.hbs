@@ -1,25 +1,125 @@
+{{> messages}}
 <div class="container">
   <div class="Title">廣告行銷</div>
   {{msg}}
-  <form method="POST" action="/marketing">
-    <p>
-      <label>Name</label>
-      <input type="text" name="name">
-    </p>
-    <p>
-      <label>Email Address</label>
-      <input type="email" name="email">
-    </p>
-    <p>
-      <label>Subject</label>
-      <input type="text" name="subject">
-    </p>
-    <p class="full">
-      <label>Message</label>
-      <textarea name="message" rows="5"></textarea>
-    </p>
-    <p class="full">
-      <button type="submit">Submit</button>
-    </p>
+  <div class="choose-bar">
+    <button data-choose="filter">選擇目標客戶</button>
+    <button data-choose="email">電子報內容</button>
+  </div>
+
+  {{!-- 選擇目標客戶 --}}
+  <div class="filter-section">
+    <ul class="filter-select">
+      <li>
+        <select name="tag" data-filter="filter">
+          <option value="all">全部標籤</option>
+          {{#each tags}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </li>
+      <li>
+        <select name="birthday" data-filter="filter">
+          <option value="all">不限生日</option>
+          <option value="1">一月 </option>
+          <option value="2">二月</option>
+          <option value="3">三月</option>
+          <option value="4">四月</option>
+          <option value="5">五月</option>
+          <option value="6">六月</option>
+          <option value="7">七月</option>
+          <option value="8">八月</option>
+          <option value="9">九月</option>
+          <option value="10">十月</option>
+          <option value="11">十一月</option>
+          <option value="12">十二月</option>
+        </select>
+      </li>
+      <li>
+        <select name="gender" data-filter="filter">
+          <option value="all">不限性別</option>
+          <option value="male">男性</option>
+          <option value="female">女性</option>
+        </select>
+      </li>
+    </ul>
+
+
+    <div class="filter-list-section">
+      <table class="filter-list">
+        <tr>
+          <th>Name</th>
+          <th>E-mail</th>
+          <th>Phone</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  {{!-- 電子報內容 --}}
+  <form action="/marketing/template?_method=PUT" method="POST" enctype="multipart/form-data">
+    <div class="mail-section">
+      <div class="title-section">
+        <div class="mail-template">
+          <select name="template" id="" class="template-select">
+            <option value="1" selected>樣板1</option>
+            <option value="2">樣板2</option>
+            <option value="3">樣板3</option>
+          </select>
+        </div>
+        <div class="mail-title">
+          <input type="text" name="title" placeholder="郵件標題" class="mail-input" value="{{template.title}}">
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="mail-blank-section"></div>
+        <textarea name="message" rows="10" placeholder="郵件內容" class="mail-input">{{template.message}}</textarea>
+      </div>
+
+      <div class="image-content-section">
+        <div class="upload-toggle">
+          <label for="info">上傳圖片
+            <input type="file" name="info" id="info" class='marketing-image'>
+          </label>
+        </div>
+        <div class="image-show">
+          {{#ifCond template.image null}}
+          <i class="far fa-image"></i>
+          {{else}}
+          <div class="image-section">
+            <i class="fa fa-times-circle fa-2x delete-mark"></i>
+            <img src="{{template.image}}" class="template-image">
+          </div>
+
+          {{/ifCond}}
+        </div>
+      </div>
+
+      <div class="marketing-next-bar">
+        <div class="marketing-next-select">
+          <button type="submit">儲存此樣板</button>
+        </div>
+
+        <div class="marketing-next-select">
+          <span id="next" data-open="open">下一步</span>
+        </div>
+      </div>
+    </div>
   </form>
+
+
+  {{!-- 預覽郵件 --}}
+  <div class="modal-next">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form method="POST" action="/marketing">
+        <div class="modal-data"></div>
+        <button type="submit">確認送出</button>
+      </form>
+    </div>
+  </div>
+
 </div>
+
+<script src="/javascripts/marketingFilter.js"></script>

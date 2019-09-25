@@ -4,16 +4,15 @@
     "password": "password",
     "database": "crm",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
+    "password": "password",
+    "database": "crm_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorsAliases": false
+    "logging": false
   },
   "production": {
     "use_env_variable": "DATABASE_URL",
@@ -21,7 +20,6 @@
     "protocol": "postgres",
     "dialectOptions": {
       "ssl": true
-    },
-    "operatorsAliases": false
+    }
   }
 }

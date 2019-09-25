@@ -4,6 +4,7 @@
   --bgColor1: #edd3d5;
   --bgColor2: #4350b1;
   --linkColor: #b278a2;
+  --brownColor: #af887c;
   --logoFont: 'Playfair Display SC', serif;
   --normalFont: 'Noto Serif TC', serif;
 }
@@ -13,11 +14,11 @@
   background-color: var(--bgColor1);
   font-size: 30px;
   padding: 10px 50px;
-  border: none;
+  border: 2px solid var(--bgColor1);
 }
 
 .Button2 {
-  color: #af887c;
+  color: var(--brownColor);
   border: 10px double;
   font-size: 22px;
   border-radius: 15px;
@@ -26,6 +27,21 @@
 
 .Button2:hover {
   background-color: #e6b2a3;
+}
+
+.Button3 {
+  color: var(--bgColor1);
+  background-color: var(--bgColor2);
+  font-size: 30px;
+  padding: 10px 50px;
+  border: 2px solid var(--bgColor1);
+}
+
+.Title2 {
+  color: #fff;
+  text-align: center;
+  font-size: 40px;
+  padding-bottom: 20px;
 }
 
 .Logo {
@@ -150,7 +166,7 @@ table td {
   border: 1px solid #ddd;
   text-align: center;
   padding: 15px 8px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 table tr:nth-child(even) {

@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt-nodejs')
 const faker = require('faker')
 const genders = ['female', 'male']
+const category = ['美妝達人', '服飾達人', '美食達人']
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -114,12 +115,40 @@ module.exports = {
       {}
     )
 
+    queryInterface.bulkInsert(
+      'MailTemplates',
+      [
+        {
+          id: 1,
+          title: '',
+          message: '',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          id: 2,
+          title: '',
+          message: '',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          id: 3,
+          title: '',
+          message: '',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      ],
+      {}
+    )
+
     return queryInterface.bulkInsert(
       'Products',
       Array.from({ length: 20 }).map(d => ({
         name: faker.commerce.productName(),
         manufacturer: '',
-        category: '',
+        category: faker.random.arrayElement(category),
         purchasePrice: Math.floor(Math.random() * 200) + 100,
         salePrice: Math.floor(Math.random() * 200) + 300,
         image: faker.image.imageUrl(),
@@ -130,12 +159,15 @@ module.exports = {
       })),
       {}
     )
+
+
   },
 
   down: (queryInterface, Sequelize) => {
     queryInterface.bulkDelete('Customers', null, {})
     queryInterface.bulkDelete('Users', null, {})
     queryInterface.bulkDelete('Shops', null, {})
+    queryInterface.bulkDelete('MailTemplates', null, {})
     return queryInterface.bulkDelete('Products', null, {})
   }
 }

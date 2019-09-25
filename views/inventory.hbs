@@ -24,7 +24,14 @@
       <td>{{this.id}}</a></td>
       <td>{{this.name}}</td>
       <td>{{this.salePrice}}</td>
+      {{#CompareNumber this.inventory this.minimumStock}}
+      <td style="color: red">{{this.inventory}} <div>
+          <small>少於最低庫存</small>
+        </div>
+      </td>
+      {{else}}
       <td>{{this.inventory}}</td>
+      {{/CompareNumber}}
     </tr>
     {{/each}}
   </table>

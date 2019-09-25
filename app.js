@@ -5,6 +5,7 @@ const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const advanceRouter = require('./routes/advance')
 const customersRouter = require('./routes/customers')
+const adminRouter = require('./routes/admin')
 const passport = require('./config/passport')
 const flash = require('connect-flash')
 const session = require('express-session')
@@ -13,13 +14,10 @@ const methodOverride = require('method-override')
 const dotenv = require('dotenv')
 const hbs = require('express-handlebars')
 const app = express()
-const fileUpload = require('express-fileupload')
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config()
 }
-
-app.use(fileUpload())
 
 app.use(
   session({
@@ -66,6 +64,8 @@ app.use((req, res, next) => {
 app.use('/', indexRouter)
 app.use('/advance', advanceRouter)
 app.use('/customers', customersRouter)
+app.use('/admin', adminRouter)
+app.get('*', (req, res) => { res.render('NotFound', { layout: 'preLayout.hbs' }) })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

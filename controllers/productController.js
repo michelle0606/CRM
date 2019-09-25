@@ -13,7 +13,7 @@ const productController = {
 
   postInventory: async (req, res) => {
     let productsFile = req.files.products
-    let uploadPath = '/Users/walle/CRM/uploadCsv/' + productsFile.name
+    let uploadPath = '../uploadCsv' + productsFile.name
 
     // 先把上傳的csv檔案存到指定資料夾
     productsFile.mv(uploadPath, function(err) {

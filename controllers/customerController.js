@@ -1,10 +1,8 @@
 const db = require('../models')
-const Customer = db.Customer
-const Tag = db.Tag
-const CustomerDetail = db.CustomerDetail
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
-const { Sale, User, Product } = db
+const { Sale, User, Product, Customer, CustomerDetail, Tag } = db
+
 
 const customerController = {
   createCustomerPage: (req, res) => {
@@ -43,7 +41,25 @@ const customerController = {
 
   editCustomerPage: (req, res) => {
     Customer.findByPk(req.params.customers_id).then(customer => {
-      return res.render('editCustomer', { customer, title: '編輯資料' })
+      const d = new Date(customer.birthday)
+      let month = ''
+      let day = ''
+
+      if (d.getMonth() < 10) {
+        month = `0${d.getMonth() + 1}`
+      } else {
+        month = d.getMonth() + 1
+      }
+
+      if (d.getDate() < 10) {
+        day = `0${d.getDate() + 1}`
+      } else {
+        day = d.getDate()
+      }
+      const date = `${d.getFullYear()}-${month}-${day}`
+
+      console.log(customer)
+      return res.render('editCustomer', { customer, date, title: '編輯資料' })
     })
   },
 
@@ -92,7 +108,8 @@ const customerController = {
   },
 
   APIGetAllCustomers: (req, res) => {
-    Customer.findAll({ where: { ShopId: req.user.ShopId } }).then(customers => {
+    Customer.findAll({ where: { ShopId: req.user.ShopId }, include: { model: Tag, as: 'associatedTags' } }).then(customers => {
+
       res.send(customers)
     })
   },

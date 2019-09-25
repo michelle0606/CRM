@@ -6,9 +6,13 @@ const productController = require('../controllers/productController')
 const tagController = require('../controllers/tagController')
 const marketingController = require('../controllers/marketingController')
 const passport = require('../config/passport')
+const multer = require('multer')
+const upload = multer({ dest: 'temp/' })
+const helpers = require('../_helpers')
+const fileUpload = require('express-fileupload')
 
 const authenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
+  if (helpers.ensureAuthenticated(req)) {
     return next()
   }
   res.redirect('/login')
@@ -38,11 +42,22 @@ router.post('/signup', userController.signUp)
 
 // inventory
 router.get('/inventory', authenticated, productController.getInventory)
-router.post('/inventory', authenticated, productController.postInventory)
+router.post(
+  '/inventory',
+  authenticated,
+  fileUpload(),
+  productController.postInventory
+)
 
 // marketing
 router.get('/marketing', authenticated, marketingController.getMarketingPage)
 router.post('/marketing', authenticated, marketingController.sendEmail)
+router.put(
+  '/marketing/template',
+  authenticated,
+  upload.single('info'),
+  marketingController.updateTemplate
+)
 
 // customerDetail
 router.post(
@@ -69,6 +84,12 @@ router.get(
   '/api/customer/:customers_id',
   authenticated,
   customerController.APIGetCustomerInfo
+)
+
+router.get(
+  '/api/template',
+  authenticated,
+  marketingController.APIGetAllMailTemplate
 )
 
 module.exports = router
