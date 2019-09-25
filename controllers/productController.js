@@ -25,7 +25,7 @@ const productController = {
     // 到指定資料夾讀取csv檔，轉換成json格式
     const jsonArrayObj = await csv().fromFile(uploadPath)
 
-    // 把json格式個進貨資料，儲存到資料庫
+    // 把json格式的進貨資料，儲存到資料庫
     const record = await PurchaseRecord.create({
       UserId: req.user.id,
       ShopId: req.user.ShopId
@@ -37,16 +37,29 @@ const productController = {
         ProductId: Number(el.ProductId),
         RecordId: record.id
       })
-      const product = await Product.findByPk(data.ProductId, {
+
+      const existProduct = await Product.findByPk(data.ProductId, {
         where: { ShopId: req.user.ShopId }
       })
-      // 更新產品資訊
-      const newInventory = Number(product.inventory) + Number(data.quantity)
-      product.update({
-        name: el.name,
-        salePrice: el.salePrice,
-        inventory: newInventory
-      })
+      if (existProduct) {
+        // 現有產品更新資訊
+        const newInventory =
+          Number(existProduct.inventory) + Number(data.quantity)
+        existProduct.update({
+          name: el.name,
+          salePrice: el.salePrice,
+          inventory: newInventory
+        })
+      } else {
+        // 新產品
+        Product.create({
+          id: el.ProductId,
+          name: el.name,
+          salePrice: el.salePrice,
+          ShopId: req.user.ShopId,
+          inventory: el.quantity
+        })
+      }
     })
 
     res.redirect('/inventory')

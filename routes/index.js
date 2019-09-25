@@ -81,6 +81,12 @@ router.get(
 router.get('/api/products', authenticated, productController.APIGetAllProducts)
 
 router.get(
+  '/api/customer/:customers_id',
+  authenticated,
+  customerController.APIGetCustomerInfo
+)
+
+router.get(
   '/api/template',
   authenticated,
   marketingController.APIGetAllMailTemplate
