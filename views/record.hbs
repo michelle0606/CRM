@@ -6,11 +6,17 @@
     </div>
     <div class="record">
       <div>
-        <span>會員：</span>
-        <span>{{customer.name}}</span>
+        {{#ifCond customer.name '非會員'}}
+        <span>非會員</span>
+        {{else}}
+        <span>會員：{{customer.name}}</span>
+        {{/ifCond}}
         <br>
+        {{#ifCond customer.phoneNr ''}}
+        {{else}}
         <span>電話：</span>
         <span>{{customer.phoneNr}}</span>
+        {{/ifCond}}
         <br>
         <span>已消費金額：</span>
         <span>{{totalPrice}} 元</span>

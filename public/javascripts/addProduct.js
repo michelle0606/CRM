@@ -26,7 +26,7 @@ function addProduct(productId, count) {
       document.createElement('td')
     ).innerHTML = `<input type='number' value='${
       product[0].id
-    }' name="productId" readonly="readonly">`
+      }' name="productId" readonly="readonly">`
     newRow.appendChild(document.createElement('td')).innerHTML = product[0].name
     newRow.appendChild(
       document.createElement('td')

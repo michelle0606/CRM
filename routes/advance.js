@@ -36,8 +36,10 @@ router.get('/customers', accessController.permit('mgr'), advanceController.getAl
 router.get('/customers/:customers_id', accessController.permit('mgr'), advanceController.getCustomer)
 
 
-router.get('/products', advanceController.getAllProducts)
-router.get('/users', advanceController.getAllSales)
+router.get('/products', accessController.permit('mgr'), advanceController.getAllProducts)
+router.get('/products/edit', accessController.permit('mgr'), advanceController.editAllProducts)
+router.put('/products/', accessController.permit('mgr'), advanceController.putProducts)
+router.get('/users', accessController.permit('mgr'), advanceController.getAllSales)
 
 
 // shop read

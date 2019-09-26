@@ -3,7 +3,11 @@
   <form action="/customers/{{customer.id}}/edit?_method=PUT" method="POST" id="edit-form" enctype="multipart/form-data">
     <div class="edit-item">
       <aside><label for="name">姓名</label></aside>
+      {{#ifCond customer.name '非會員'}}
+      <div><input type="text" name="name" id="name" value="{{customer.name}}" readonly></div>
+      {{else}}
       <div><input type="text" name="name" id="name" value="{{customer.name}}"></div>
+      {{/ifCond}}
     </div>
     <div class="edit-item">
       <aside>生理性別</label></aside>

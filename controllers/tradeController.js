@@ -14,13 +14,21 @@ const tradeController = {
     const totalPrice = req.body.total
     const allProducts = []
     const allCounts = []
-    if (typeof req.body.productId !== 'object') {
-      allProducts.push(req.body.productId)
+    
+    
+    if (!Array.isArray(req.body.count)) {
       allCounts.push(req.body.count)
     } else {
-      allProducts.push(...req.body.productId)
       allCounts.push(...req.body.count)
     }
+
+
+    if (!Array.isArray(req.body.productId)) {
+      allProducts.push(req.body.productId)
+    } else {
+      allProducts.push(...req.body.productId)
+    }
+
 
     allProducts.forEach(id => {
       Product.findByPk(Number(id)).then(product => {

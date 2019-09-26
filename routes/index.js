@@ -19,7 +19,7 @@ const authenticated = (req, res, next) => {
 }
 
 // user login system
-router.get('/', authenticated, (req, res) => res.redirect('/customers/create'))
+router.get('/', authenticated, customerController.getHomePage)
 router.get('/login', userController.signInPage)
 router.post(
   '/login',
@@ -42,12 +42,14 @@ router.post('/signup', userController.signUp)
 
 // inventory
 router.get('/inventory', authenticated, productController.getInventory)
+
 router.post(
   '/inventory',
   authenticated,
   fileUpload(),
   productController.postInventory
 )
+
 
 // marketing
 router.get('/marketing', authenticated, marketingController.getMarketingPage)

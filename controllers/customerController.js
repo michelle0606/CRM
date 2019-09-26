@@ -5,8 +5,43 @@ const { Sale, User, Product, Customer, CustomerDetail, Tag } = db
 
 
 const customerController = {
-  createCustomerPage: (req, res) => {
-    res.render('index', { title: '新增會員' })
+  getHomePage: (req, res) => {
+
+    console.log('hello')
+    // const directBuy = 100000
+
+    // console.log(directBuy)
+
+
+    // await Customer.findAll
+    res.render('index')
+  },
+
+
+  createCustomerPage: async (req, res) => {
+    const lastNubmer = 100000 + req.user.ShopId
+
+    const directBuy = await Customer.findByPk(lastNubmer)
+    // console.log('here', directBuy)
+
+    if (directBuy === null) {
+      Customer.create({
+        id: lastNubmer,
+        name: '非會員',
+        ShopId: req.user.ShopId,
+        email: '',
+        phoneNr: '',
+        receiveEmail: false,
+        birthday: '2019-01-01',
+      }).then(directBuy => {
+
+        res.render('index', { title: '新增會員', directBuy })
+      })
+
+    } else {
+      res.render('index', { title: '新增會員', directBuy })
+    }
+
   },
 
   addCustomer: (req, res) => {
