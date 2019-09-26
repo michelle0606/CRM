@@ -24,7 +24,41 @@ describe('# User controller', function() {
   afterEach(function() {
   })
 
-  it('/signup', done => {
+  it('signup with inccorect password', done => {
+    request(app)
+      .post('/signup')
+      .send('name=name&email=email&password=password&password2=password123')
+      .expect(302)
+      .end(function(err, res) {
+        db.Shop.findOne({
+          where: {
+            email: 'email'
+          }
+        }).then(shop => {
+          expect(shop).to.be.equal(null)
+          done()
+        })
+      })
+  })
+
+  it('signup with unsave password', done => {
+    request(app)
+      .post('/signup')
+      .send('name=name&email=email&password=pass&password2=pass')
+      .expect(302)
+      .end(function(err, res) {
+        db.Shop.findOne({
+          where: {
+            email: 'email'
+          }
+        }).then(shop => {
+          expect(shop).to.be.equal(null)
+          done()
+        })
+      })
+  })
+
+   it('signup successfully', done => {
     request(app)
       .post('/signup')
       .send('name=name&email=email&password=password&password2=password')

@@ -14,7 +14,8 @@ const tradeController = {
     const totalPrice = req.body.total
     const allProducts = []
     const allCounts = []
-
+    
+    
     if (!Array.isArray(req.body.count)) {
       allCounts.push(req.body.count)
     } else {
@@ -33,7 +34,7 @@ const tradeController = {
       Product.findByPk(Number(id)).then(product => {
         Tag.create({
           tag: product.category,
-          ShopId: req.user.ShopId,
+          ShopId: req.user.ShopId
         }).then(tag => {
           CustomerDetail.create({
             CustomerId: req.params.customers_id,

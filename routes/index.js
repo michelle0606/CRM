@@ -42,13 +42,24 @@ router.post('/signup', userController.signUp)
 
 // inventory
 router.get('/inventory', authenticated, productController.getInventory)
-router.post('/inventory', authenticated, fileUpload(), productController.postInventory)
+
+router.post(
+  '/inventory',
+  authenticated,
+  fileUpload(),
+  productController.postInventory
+)
+
 
 // marketing
 router.get('/marketing', authenticated, marketingController.getMarketingPage)
 router.post('/marketing', authenticated, marketingController.sendEmail)
-router.put('/marketing/template', authenticated, upload.single('info'), marketingController.updateTemplate)
-
+router.put(
+  '/marketing/template',
+  authenticated,
+  upload.single('info'),
+  marketingController.updateTemplate
+)
 
 // customerDetail
 router.post(
@@ -71,6 +82,16 @@ router.get(
 
 router.get('/api/products', authenticated, productController.APIGetAllProducts)
 
-router.get('/api/template', authenticated, marketingController.APIGetAllMailTemplate)
+router.get(
+  '/api/customer/:customers_id',
+  authenticated,
+  customerController.APIGetCustomerInfo
+)
+
+router.get(
+  '/api/template',
+  authenticated,
+  marketingController.APIGetAllMailTemplate
+)
 
 module.exports = router
