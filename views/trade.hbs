@@ -14,9 +14,10 @@
       </div>
       <form action="/customers/{{customer.id}}/record" method="POST">
         <div class="creat-trade-page">
-          <input type="text" class="productId" placeholder="輸入產品編號">
-          <input type="number" class="count" placeholder="數量" value="1">
+          <input type="text" class="productId" placeholder="輸入產品編號" required>
+          <input type="number" class="count" placeholder="數量" value="1" required>
           <div><i class="fas fa-plus-circle"></i></div>
+          <div class="suggestions"></div>
         </div>
         <div class="table-head">
           <table class="trade-product-list">

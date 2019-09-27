@@ -79,30 +79,39 @@
 }
 
 .suggestions {
-  width: 354px;
-  margin: auto;
+  width: 293px;
+  margin: 0 !important;
   max-height: 200px;
+  position: absolute;
+  top: 37px;
   overflow: scroll;
   background: #fff;
   border: solid 1px var(--color4);
-  border-radius: 3px;
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
+  border-radius: 2px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-.suggestions > a {
-  letter-spacing: 1.5px;
-  border-bottom: solid 1px #efefef;
-  color: black;
-  padding: 5px 10px;
-  display: block;
-  font-size: 16px;
+.product-name {
+  font-size: 14px;
+  color: #5c5c5c;
+  font-style: italic;
 }
 
-.suggestions > a:hover {
+.suggestions > li {
+  padding: 5px 0px;
+  border-top: 1px solid #ddd;
+  font-size: 18px;
+  margin: 0px 10px;
+}
+
+.suggestions > li:nth-child(1) {
+  border: none;
+}
+.suggestions > li:hover {
   background-color: #fafafa;
 }
 
 .match {
-  background: #dd9ba5;
+  font-weight: bold;
 }
