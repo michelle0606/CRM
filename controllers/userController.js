@@ -7,23 +7,20 @@ const userController = {
     return res.render('signup', {
       layout: 'preLayout.hbs',
       title: '開啟服務',
-      error_messages: req.flash('error_messages')
     })
   },
 
   signUp: async (req, res) => {
     const { name, email, password, password2 } = req.body
     if (password2 !== password) {
-      req.flash('error_messages', '兩次密碼輸入不同！')
-      return res.redirect('/signup')
-    } else if (password.length < 8) {
-      req.flash('error_messages', '密碼安全性不足，請重新輸入！')
-      return res.redirect('/signup')
+      return res.render('signup', { name, email, password, password2, error_messages: '兩次密碼輸入不同！' })
+    }
+    else if (password.length < 8) {
+      return res.render('signup', { name, email, password, password2, error_messages: '密碼安全性不足，請重新輸入！' })
     } else {
       const oldShop = await Shop.findOne({ where: { email: email } })
       if (oldShop) {
-        req.flash('error_messages', '信箱重複！')
-        return res.redirect('/signup')
+        return res.render('signup', { name, email, password, password2, error_messages: '信箱重複！' })
       } else {
         const newShop = await Shop.create({ name: name, email: email })
         const newUser = await User.create({
