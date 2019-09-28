@@ -18,6 +18,7 @@
 
 .creat-trade-page {
   margin-bottom: 15px;
+  position: relative;
   display: flex;
 }
 
