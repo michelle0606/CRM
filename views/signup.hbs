@@ -4,23 +4,23 @@
   </header>
   <main>
     <form action="/signup" method="POST">
-      <h1 class="Title2">{{title}}</h1>
+      <h1 class="Title2">開啟服務</h1>
       {{> messages}}
       <div class="form-item">
-        <input type="text" name="name" placeholder="商店名稱" required autofocus>
+        <input type="text" name="name" placeholder="商店名稱" value="{{name}}" required autofocus>
       </div>
       <div class="form-item">
-        <input type="email" name="email" placeholder="電子郵件" required>
+        <input type="email" name="email" placeholder="電子郵件" value="{{email}}" required>
       </div>
       <div class="form-item">
-        <input type="password" name="password" placeholder="密碼" required>
+        <input type="password" name="password" placeholder="密碼" value="{{password}}" required>
       </div>
       <div class="form-item">
-        <input type="password" name="password2" placeholder="確認密碼" required>
+        <input type="password" name="password2" placeholder="確認密碼" value="{{password2}}" required>
       </div>
       <div style="text-align:center">
         <button type="submit" class="Button1">完成</button>
-        <a href="javascript:history.back()" class="Button3">返回</a>
+        <a href="/login" class="Button3">返回</a>
       </div>
     </form>
   </main>
