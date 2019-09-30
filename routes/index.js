@@ -5,6 +5,7 @@ const customerController = require('../controllers/customerController')
 const productController = require('../controllers/productController')
 const tagController = require('../controllers/tagController')
 const marketingController = require('../controllers/marketingController')
+const tradeController = require('../controllers/tradeController')
 const passport = require('../config/passport')
 
 const authenticated = (req, res, next) => {
@@ -64,5 +65,9 @@ router.get(
 )
 
 router.get('/api/products', authenticated, productController.APIGetAllProducts)
+
+// dashboard
+router.get('/dashboard', tradeController.getDashboard)
+router.get('/dashboard/:nameOfTheStats', tradeController.getStats)
 
 module.exports = router
