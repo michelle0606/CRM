@@ -43,6 +43,7 @@ const products = Array.from({ length: numOfProductsGenerated }).map(d => ({
 }))
 const salesDetails = []
 const sales = []
+const category = ['美妝達人', '服飾達人', '美食達人']
 
 function shuffle(arr) {
   let i = arr.length, j = 0, tmp
@@ -104,8 +105,6 @@ function generateSalesRecords() {
 
 generateSalesRecords()
 
-const category = ['美妝達人', '服飾達人', '美食達人']
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
     queryInterface.bulkInsert(
@@ -119,7 +118,7 @@ module.exports = {
       [
         {
           id: 1,
-          password: bcrypt.hashSync('12345', bcrypt.genSaltSync(10), null),
+          password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10), null),
           name: 'admin',
           avatar: 'https://i.imgur.com/Uzs2ty3.jpg',
           role: 0,
@@ -129,7 +128,7 @@ module.exports = {
         },
         {
           id: 2,
-          password: bcrypt.hashSync('12345', bcrypt.genSaltSync(10), null),
+          password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10), null),
           name: 'shop2_mgr',
           avatar: 'https://i.imgur.com/Uzs2ty3.jpg',
           role: 1,
@@ -139,7 +138,7 @@ module.exports = {
         },
         {
           id: 3,
-          password: bcrypt.hashSync('12345', bcrypt.genSaltSync(10), null),
+          password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10), null),
           name: 'shop2_salesperson',
           avatar: 'https://i.imgur.com/Uzs2ty3.jpg',
           role: 2,
@@ -149,7 +148,7 @@ module.exports = {
         },
         {
           id: 4,
-          password: bcrypt.hashSync('12345', bcrypt.genSaltSync(10), null),
+          password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10), null),
           name: 'shop3_mgr',
           avatar: 'https://i.imgur.com/Uzs2ty3.jpg',
           role: 1,
@@ -159,7 +158,7 @@ module.exports = {
         },
         {
           id: 5,
-          password: bcrypt.hashSync('12345', bcrypt.genSaltSync(10), null),
+          password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10), null),
           name: 'shop3_salesperson',
           avatar: 'https://i.imgur.com/Uzs2ty3.jpg',
           role: 2,
@@ -220,9 +219,13 @@ module.exports = {
       {}
     )
 
-    return queryInterface.bulkInsert(
+    queryInterface.bulkInsert(
       'Sales',
       sales,
+      {}
+    )
+
+    return queryInterface.bulkInsert(
       'MailTemplates',
       [
         {
