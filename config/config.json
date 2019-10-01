@@ -4,7 +4,8 @@
     "password": "password",
     "database": "crm",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "Asia/Taipei"
   },
   "test": {
     "username": "root",
