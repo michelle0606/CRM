@@ -104,6 +104,8 @@ function generateSalesRecords() {
 
 generateSalesRecords()
 
+const category = ['美妝達人', '服飾達人', '美食達人']
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     queryInterface.bulkInsert(
@@ -221,6 +223,30 @@ module.exports = {
     return queryInterface.bulkInsert(
       'Sales',
       sales,
+      'MailTemplates',
+      [
+        {
+          id: 1,
+          title: '',
+          message: '',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          id: 2,
+          title: '',
+          message: '',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          id: 3,
+          title: '',
+          message: '',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      ],
       {}
     )
   },
@@ -231,6 +257,7 @@ module.exports = {
     queryInterface.bulkDelete('Shops', null, {})
     queryInterface.bulkDelete('Products', null, {})
     queryInterface.bulkDelete('SaleDetails', null, {})
-    return queryInterface.bulkDelete('Sales', null, {})
+    queryInterface.bulkDelete('Sales', null, {})
+    return queryInterface.bulkDelete('MailTemplates', null, {})
   }
 }

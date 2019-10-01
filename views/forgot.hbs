@@ -3,7 +3,9 @@
     <a href="/login">waromen</a>
   </header>
   <main>
+
     <form action="/forgot" method="POST">
+      <h1 class="Title2">{{title}}</h1>
       {{> messages}}
       <div class="form-item">
         <input type="text" name="id" placeholder="店員編號" value='{{id}}' required autofocus>
@@ -23,6 +25,7 @@
       </div>
       <div style="text-align:center">
         <button type="submit" class="Button1">確定</button>
+        <a href="javascript:history.back()" class="Button3">返回</a>
       </div>
     </form>
   </main>

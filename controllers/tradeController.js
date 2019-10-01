@@ -2,9 +2,10 @@ const db = require('../models')
 const moment = require('moment')
 const helpers = require('../_helpers')
 // var momentTZ = require('moment-timezone')
-const { Customer, Product, Sale, SaleDetail } = db
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
+const { Customer, Product, Sale, SaleDetail, Tag, CustomerDetail } = db
+
 
 const tradeController = {
   getCustomerTradePage: (req, res) => {
@@ -17,8 +18,37 @@ const tradeController = {
 
   createNewTradeRecord: async (req, res) => {
     const totalPrice = req.body.total
-    const allProducts = req.body.productId
-    const allCounts = req.body.count
+    const allProducts = []
+    const allCounts = []
+    
+    
+    if (!Array.isArray(req.body.count)) {
+      allCounts.push(req.body.count)
+    } else {
+      allCounts.push(...req.body.count)
+    }
+
+
+    if (!Array.isArray(req.body.productId)) {
+      allProducts.push(req.body.productId)
+    } else {
+      allProducts.push(...req.body.productId)
+    }
+
+
+    allProducts.forEach(id => {
+      Product.findByPk(Number(id)).then(product => {
+        Tag.create({
+          tag: product.category,
+          ShopId: req.user.ShopId
+        }).then(tag => {
+          CustomerDetail.create({
+            CustomerId: req.params.customers_id,
+            TagId: tag.id
+          })
+        })
+      })
+    })
 
     Sale.create({
       total: totalPrice,
@@ -28,27 +58,10 @@ const tradeController = {
     })
       .then(sale => {
         let connect = 0
-        if (typeof allCounts !== 'string') {
-          allProducts.forEach(product => {
-            SaleDetail.create({
-              quantity: Number(allCounts[connect]),
-              ProductId: Number(product),
-              SaleId: sale.id
-            }).then(data => {
-              Product.findByPk(data.ProductId).then(product => {
-                const newInventory =
-                  Number(product.inventory) - Number(data.quantity)
-                product.update({
-                  inventory: newInventory
-                })
-              })
-            })
-            connect += 1
-          })
-        } else {
+        allProducts.forEach(product => {
           SaleDetail.create({
-            quantity: Number(allCounts),
-            ProductId: Number(allProducts),
+            quantity: Number(allCounts[connect]),
+            ProductId: Number(product),
             SaleId: sale.id
           }).then(data => {
             Product.findByPk(data.ProductId).then(product => {
@@ -59,7 +72,8 @@ const tradeController = {
               })
             })
           })
-        }
+          connect += 1
+        })
       })
       .then(() => {
         Product.findAll({ where: { ShopId: req.user.ShopId } }).then(

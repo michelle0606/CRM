@@ -17,13 +17,55 @@ const advanceController = {
   },
 
   getAllProducts: (req, res) => {
-    Product.findAll().then(products => {
+    Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
       res.render('advance/advanceProducts', { layout: 'advanceLayout.hbs', products })
     })
   },
 
+  editAllProducts: (req, res) => {
+    Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
+      res.render('advance/advanceProductsEdit', { layout: 'advanceLayout.hbs', products })
+    })
+  },
+
+  putProducts: (req, res) => {
+    const idArray = req.body.id
+    const nameArray = req.body.name
+    const priceArray = req.body.price
+    const inventoryArray = req.body.inventory
+    const minimumStockArray = req.body.minimumStock
+
+    if (priceArray.some(a => Number(a) <= 0)) {
+      req.flash('error_messages', '價格不能小於等於0, 請重新輸入')
+      return res.render('back')
+    }
+
+    if (inventoryArray.some(a => Number(a) < 0)) {
+      req.flash('error_messages', '庫存不能小於0, 請重新輸入')
+      return res.redirect('back')
+    }
+
+    if (minimumStockArray.some(a => Number(a) < 0)) {
+      req.flash('error_messages', '庫存警示需大於0, 請重新輸入')
+      return res.redirect('back')
+    } else {
+      for (let i = 0; i < idArray.length; i++) {
+        Product.findByPk(idArray[i]).then(product => {
+          product.update({
+            salePrice: priceArray[i],
+            name: nameArray[i],
+            inventory: inventoryArray[i],
+            minimumStock: minimumStockArray[i]
+          })
+        }).then(p => {
+        })
+      }
+      res.redirect('/advance/products')
+    }
+
+  },
+
   getAllSales: (req, res) => {
-    console.log(req.user.ShopId)
     User.findAll({ where: { ShopId: req.user.ShopId } }).then(sales => {
       res.render('advance/sales', { layout: 'advanceLayout.hbs', sales })
     })
@@ -110,10 +152,10 @@ const advanceController = {
           ShopId: req.body.ShopId,
           avatar: file ? img.data.link : null,
         })
-        .then((user) => {
-          req.flash('success_messages', '新增成功')
-          res.redirect('/advance/users')
-        })
+          .then((user) => {
+            req.flash('success_messages', '新增成功')
+            res.redirect('/advance/users')
+          })
       })
     } else {
       return User.create({
@@ -126,10 +168,10 @@ const advanceController = {
         role: req.body.role,
         ShopId: req.body.ShopId,
       })
-      .then((user) => {
-        req.flash('success_messages', '新增成功')
-        res.redirect('/advance/users')
-      })
+        .then((user) => {
+          req.flash('success_messages', '新增成功')
+          res.redirect('/advance/users')
+        })
     }
   },
 

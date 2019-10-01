@@ -5,8 +5,43 @@ const { Sale, User, Product, Customer, CustomerDetail, Tag } = db
 
 
 const customerController = {
-  createCustomerPage: (req, res) => {
-    res.render('index', { title: '新增會員' })
+  getHomePage: (req, res) => {
+
+    console.log('hello')
+    // const directBuy = 100000
+
+    // console.log(directBuy)
+
+
+    // await Customer.findAll
+    res.render('index')
+  },
+
+
+  createCustomerPage: async (req, res) => {
+    const lastNubmer = 100000 + req.user.ShopId
+
+    const directBuy = await Customer.findByPk(lastNubmer)
+    // console.log('here', directBuy)
+
+    if (directBuy === null) {
+      Customer.create({
+        id: lastNubmer,
+        name: '非會員',
+        ShopId: req.user.ShopId,
+        email: '',
+        phoneNr: '',
+        receiveEmail: false,
+        birthday: '2019-01-01',
+      }).then(directBuy => {
+
+        res.render('index', { title: '新增會員', directBuy })
+      })
+
+    } else {
+      res.render('index', { title: '新增會員', directBuy })
+    }
+
   },
 
   addCustomer: (req, res) => {
@@ -41,7 +76,25 @@ const customerController = {
 
   editCustomerPage: (req, res) => {
     Customer.findByPk(req.params.customers_id).then(customer => {
-      return res.render('editCustomer', { customer, title: '編輯資料' })
+      const d = new Date(customer.birthday)
+      let month = ''
+      let day = ''
+
+      if (d.getMonth() < 10) {
+        month = `0${d.getMonth() + 1}`
+      } else {
+        month = d.getMonth() + 1
+      }
+
+      if (d.getDate() < 10) {
+        day = `0${d.getDate() + 1}`
+      } else {
+        day = d.getDate()
+      }
+      const date = `${d.getFullYear()}-${month}-${day}`
+
+      console.log(customer)
+      return res.render('editCustomer', { customer, date, title: '編輯資料' })
     })
   },
 
@@ -90,8 +143,23 @@ const customerController = {
   },
 
   APIGetAllCustomers: (req, res) => {
-    Customer.findAll({ where: { ShopId: req.user.ShopId } }).then(customers => {
+    Customer.findAll({ where: { ShopId: req.user.ShopId }, include: { model: Tag, as: 'associatedTags' } }).then(customers => {
+
       res.send(customers)
+    })
+  },
+
+  APIGetCustomerInfo: (req, res) => {
+    const id = req.params.customers_id
+    Customer.findByPk(id, {
+      include: [
+        {
+          model: Sale,
+          include: [User, { model: Product, as: 'associatedProducts' }]
+        }
+      ]
+    }).then(customer => {
+      res.send(customer)
     })
   }
 }

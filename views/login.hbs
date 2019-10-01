@@ -5,16 +5,17 @@
   <main>
 
     <form action="/login" method="POST">
+      <h1 class="Title2">{{title}}</h1>
       {{> messages}}
       <div class="form-item">
         <input type="text" name="account" placeholder="帳號" required autofocus>
       </div>
       <div class="form-item">
         <input type="password" name="password" placeholder="密碼" required>
-        <a href="/forgot" class="forget">忘記密碼？</a>
       </div>
       <div style="text-align:center">
         <button type="submit" class="Button1">登入</button>
+        <a href="/forgot" class="forget">忘記密碼？</a>
       </div>
       <div class="line"></div>
       <div class="open-signup-page">
