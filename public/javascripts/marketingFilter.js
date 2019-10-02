@@ -246,6 +246,7 @@ templateSelect.addEventListener('change', () => {
     `
   }
 
+  clear()
 })
 
 

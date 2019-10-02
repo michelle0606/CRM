@@ -70,7 +70,6 @@ const customerController = {
           tags.push(allTags[i].tag)
         }
       }
-
       return res.render('customer', { customer, tags, title: '會員資料' })
     })
   },
