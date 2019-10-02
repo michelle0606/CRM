@@ -61,7 +61,16 @@ const customerController = {
         as: 'associatedTags'
       }
     }).then(customer => {
-      const tags = customer.associatedTags
+      const allTags = customer.associatedTags
+
+      const tags = []
+
+      for (i = 0; i < allTags.length; i++) {
+        if (tags.indexOf(allTags[i].tag) < 0) {
+          tags.push(allTags[i].tag)
+        }
+      }
+
       return res.render('customer', { customer, tags, title: '會員資料' })
     })
   },

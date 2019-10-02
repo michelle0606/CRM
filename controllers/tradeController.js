@@ -20,8 +20,8 @@ const tradeController = {
     const totalPrice = req.body.total
     const allProducts = []
     const allCounts = []
-    
-    
+
+
     if (!Array.isArray(req.body.count)) {
       allCounts.push(req.body.count)
     } else {
@@ -36,8 +36,11 @@ const tradeController = {
     }
 
 
+    const thisCustomer = await Customer.findByPk(req.params.customers_id)
+
     allProducts.forEach(id => {
       Product.findByPk(Number(id)).then(product => {
+
         Tag.create({
           tag: product.category,
           ShopId: req.user.ShopId
@@ -101,7 +104,7 @@ const tradeController = {
     // console.log(req.params.nameOfTheStats)
     // console.log(req.query.start)
     // console.log(req.query.end)
-    
+
     const dailyRevenueLineChart = {
       title: {
         text: ''
@@ -160,7 +163,7 @@ const tradeController = {
       const mm = parseInt(startDate.substring(5, 7)) - 1// zero-based
       const dd = parseInt(startDate.substring(8, 10))
 
-      switch(req.params.nameOfTheStats) {
+      switch (req.params.nameOfTheStats) {
         case 'dailyRevenueToday':
           dailyRevenueLineChart.title.text = '今日營業額'
           break
@@ -201,18 +204,18 @@ const tradeController = {
             [Op.lte]: moment(req.query.end).endOf('day')
           },
           // ShopId: helpers.getUser(req).ShopId,
-        },        
+        },
         include: [
           {
             model: SaleDetail,
           }, {
             model: Product,
             as: 'associatedProducts',
-            where: { 
+            where: {
               id: {
                 [Op.eq]: db.sequelize.col('SaleDetails.ProductId')
               }
-            } 
+            }
           }
         ],
         attributes: [
@@ -227,7 +230,7 @@ const tradeController = {
         raw: true,
       })
 
-      switch(req.params.nameOfTheStats) {
+      switch (req.params.nameOfTheStats) {
         case 'bestSellersToday':
           bestSellersColumnChart.title.text = '今日熱銷'
           break
@@ -261,7 +264,7 @@ const tradeController = {
       }
 
       res.header('Access-Control-Allow-Origin', '*')
-      return res.json(bestSellersColumnChart)      
+      return res.json(bestSellersColumnChart)
     } else {
       const sales = await Sale.findAndCountAll({
         where: {
@@ -296,7 +299,7 @@ const tradeController = {
         raw: true,
       })
 
-      switch(req.params.nameOfTheStats) {
+      switch (req.params.nameOfTheStats) {
         case 'mostMentionedToday':
           mostMentionedColumnChart.title.text = '今日熱門討論商品'
           break
