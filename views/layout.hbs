@@ -26,7 +26,7 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-  
+
   <title>{{title}} | Waromen</title>
 </head>
 
@@ -47,7 +47,10 @@
         <i class="fas fa-users-cog"></i>
       </div>
       <div class="option">
+        {{#ifCond user.role 2}}
+        {{else}}
         <a href="/advance/customers">進階管理</a>
+        {{/ifCond}}
         <a href="/privacy/{{user.id}}">修改密碼</a>
         <form action="/logout" method="GET">
           <button type="submit">登出@{{user.name}}</button>

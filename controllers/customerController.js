@@ -6,14 +6,6 @@ const { Sale, User, Product, Customer, CustomerDetail, Tag } = db
 
 const customerController = {
   getHomePage: (req, res) => {
-
-    console.log('hello')
-    // const directBuy = 100000
-
-    // console.log(directBuy)
-
-
-    // await Customer.findAll
     res.render('index')
   },
 
@@ -22,7 +14,6 @@ const customerController = {
     const lastNubmer = 100000 + req.user.ShopId
 
     const directBuy = await Customer.findByPk(lastNubmer)
-    // console.log('here', directBuy)
 
     if (directBuy === null) {
       Customer.create({
@@ -39,6 +30,7 @@ const customerController = {
       })
 
     } else {
+      console.log(req.user)
       res.render('index', { title: '新增會員', directBuy })
     }
 
