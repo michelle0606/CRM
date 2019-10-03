@@ -1,13 +1,12 @@
-<div class="pad-mode">
-  <a href='/admin/users/create'>
-    <button type="button" class="">New User</button>
-  </a>
-  <br />
-  <br />
-
+<div class="container">
+  <div class="Title">人事管理</div>
+  <ul class="manage-action">
+    <li><a href="/admin/users/create">New User</a></li>
+  </ul>
   <table>
     <thead class="">
       <tr>
+        <th scope="col">編號</th>
         <th scope="col">姓名</th>
         <th scope="col">角色</th>
         <th scope="col">所屬店家ID</th>
@@ -17,7 +16,8 @@
     <tbody>
       {{#each users}}
       <tr>
-        <td><a href="">{{this.name}}</a></td>
+        <td>{{this.id}}</td>
+        <td>{{this.name}}</td>
         <td>{{this.role}}</td>
         <td>{{this.ShopId}}</td>
         <td>
