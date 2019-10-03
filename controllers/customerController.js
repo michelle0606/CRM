@@ -30,7 +30,6 @@ const customerController = {
       })
 
     } else {
-      console.log(req.user)
       res.render('index', { title: '新增會員', directBuy })
     }
 
@@ -70,6 +69,9 @@ const customerController = {
           tags.push(allTags[i].tag)
         }
       }
+
+      customer.note = customer.note.slice(0, 20) + '...'
+
       return res.render('customer', { customer, tags, title: '會員資料' })
     })
   },
@@ -93,7 +95,6 @@ const customerController = {
       }
       const date = `${d.getFullYear()}-${month}-${day}`
 
-      console.log(customer)
       return res.render('editCustomer', { customer, date, title: '編輯資料' })
     })
   },
@@ -108,7 +109,8 @@ const customerController = {
           address: req.body.address,
           gender: req.body.gender,
           birthday: req.body.birthday,
-          receiveEmail: req.body.receiveEmail
+          receiveEmail: req.body.receiveEmail,
+          note: req.body.note
         })
         .then(() => {
           res.redirect(`/customers/${req.params.customers_id}`)
