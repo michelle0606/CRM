@@ -1,9 +1,8 @@
-<div class="pad-mode">
-  <a href='/admin/shops/create'>
-    <button type="button" class="">New Shop</button>
-  </a>
-  <br />
-  <br />
+<div class="container">
+  <div class="Title">店管理</div>
+  <ul class="manage-action">
+    <li><a href="/admin/shops/create">New Shop</a></li>
+  </ul>
   <table>
     <thead class="">
       <tr>
@@ -16,7 +15,7 @@
     <tbody>
       {{#each shops}}
       <tr>
-        <td><a href="">{{this.name}}</a></td>
+        <td>{{this.name}}</td>
         <td>{{this.email}}</td>
         <td>{{this.phoneNr}}</td>
         <td>

@@ -10,7 +10,7 @@ const adminController = {
 
   postShop: (req, res) => {
     if (!req.body.name) {
-      req.flash('error_messages', '需要有店名')
+      req.flash('error_messages', '需要提供店名！')
       return res.redirect('back')
     }
     const { file } = req // equal to const file = req.file
@@ -24,7 +24,7 @@ const adminController = {
           address: req.body.address,
           logo: file ? img.data.link : null,
         }).then((shop) => {
-          req.flash('success_messages', '新增成功')
+          // req.flash('success_messages', '新增成功')
           res.redirect('/admin/shops')
         })
       })
@@ -35,7 +35,7 @@ const adminController = {
         email: req.body.email,
         address: req.body.address,
       }).then((shop) => {
-        req.flash('success_messages', '新增成功')
+        // req.flash('success_messages', '新增成功')
         res.redirect('/admin/shops')
       })
     }
@@ -58,7 +58,7 @@ const adminController = {
 
   putShop: (req, res) => {
     if (!req.body.name) {
-      req.flash('error_messages', '需填店名');
+      req.flash('error_messages', '需要提供店名！');
       return res.redirect('back');
     }
 
@@ -78,9 +78,8 @@ const adminController = {
                 logo: file ? img.data.link : shop.logo,
               })
               .then(() => {
-                req.flash('success_messages', '修改成功');
+                // req.flash('success_messages', '修改成功');
                 res.redirect('/admin/shops')
-                // res.redirect(`/admin/shops/${req.params.shop_id}`);
               });
           });
       });
@@ -97,9 +96,8 @@ const adminController = {
               logo: shop.logo,
             })
             .then(() => {
-              req.flash('success_messages', '修改成功');
+              // req.flash('success_messages', '修改成功');
               res.redirect('/admin/shops')
-              // res.redirect(`/admin/shops/${req.params.shop_id}`);
             });
         });
     }
@@ -117,9 +115,18 @@ const adminController = {
 
   postUser: (req, res) => {
     if (!req.body.name) {
-      req.flash('error_messages', '需要有名字')
+      req.flash('error_messages', '需要提供店員名字！')
       return res.redirect('back')
     }
+    if (req.body.password !== req.body.password2) {
+      req.flash('error_messages', '兩次輸入密碼不同！')
+      return res.redirect('back')
+    }
+    if (req.body.password.length < 8) {
+      req.flash('error_messages', '請提供長度8以上之密碼！')
+      return res.redirect('back')
+    }
+
     const { file } = req // equal to const file = req.file
     if (file) {
       imgur.setClientID(process.env.IMGUR_CLIENT_ID)
@@ -135,7 +142,7 @@ const adminController = {
           ShopId: req.body.ShopId,
           avatar: file ? img.data.link : null,
         }).then((user) => {
-          req.flash('success_messages', '新增成功')
+          // req.flash('success_messages', '新增成功')
           res.redirect('/admin/users')
         })
       })
@@ -151,7 +158,7 @@ const adminController = {
         ShopId: req.body.ShopId,
       })
         .then((user) => {
-          req.flash('success_messages', '新增成功')
+          // req.flash('success_messages', '新增成功')
           res.redirect('/admin/users')
         })
     }
@@ -175,8 +182,16 @@ const adminController = {
 
   putUser: (req, res) => {
     if (!req.body.name) {
-      req.flash('error_messages', '需要有名字');
+      req.flash('error_messages', '需要提供店員名字！');
       return res.redirect('back');
+    }
+    if (req.body.password !== req.body.password2) {
+      req.flash('error_messages', '兩次輸入密碼不同！')
+      return res.redirect('back')
+    }
+    if (req.body.password.length < 8) {
+      req.flash('error_messages', '請提供長度8以上之密碼！')
+      return res.redirect('back')
     }
 
     const { file } = req
@@ -199,9 +214,8 @@ const adminController = {
                 avatar: file ? img.data.link : user.avatar,
               })
               .then(() => {
-                req.flash('success_messages', '修改成功');
+                // req.flash('success_messages', '修改成功');
                 res.redirect('/admin/users')
-                // res.redirect(`/admin/users/${req.params.user_id}`);
               });
           });
       });
@@ -222,9 +236,8 @@ const adminController = {
               avatar: user.avatar,
             })
             .then(() => {
-              req.flash('success_messages', '修改成功');
+              // req.flash('success_messages', '修改成功');
               res.redirect('/admin/users')
-              // res.redirect(`/admin/users/${req.params.user_id}`);
             });
         });
     }
