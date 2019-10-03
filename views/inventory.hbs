@@ -1,6 +1,8 @@
 <div class="container">
   <div class="Title">庫存管理</div>
   <ul class="manage-action">
+    {{#ifCond user.role 2}}
+    {{else}}
     <li class="upload-products">
       <form action="/inventory" id="upload-form" method="POST" enctype="multipart/form-data">
         <label>上傳檔案
@@ -9,6 +11,7 @@
         <button type="submit">確認</button>
       </form>
     </li>
+    {{/ifCond}}
     <li class="download" id="download-invertory">匯出庫存</li>
     <li class="purchase-record">進貨紀錄</li>
   </ul>
