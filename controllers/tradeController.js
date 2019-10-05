@@ -14,21 +14,22 @@ const tradeController = {
     const totalPrice = req.body.total
     const allProducts = []
     const allCounts = []
-    
-    
+    if (!req.body.productId) {
+      req.flash('top_messages', '無品項不可以新增交易！')
+      return res.redirect(`/customers/${req.params.customers_id}/record`)
+    }
+
     if (!Array.isArray(req.body.count)) {
       allCounts.push(req.body.count)
     } else {
       allCounts.push(...req.body.count)
     }
 
-
     if (!Array.isArray(req.body.productId)) {
       allProducts.push(req.body.productId)
     } else {
       allProducts.push(...req.body.productId)
     }
-
 
     allProducts.forEach(id => {
       Product.findByPk(Number(id)).then(product => {
