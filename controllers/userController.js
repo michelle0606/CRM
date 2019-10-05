@@ -6,21 +6,38 @@ const userController = {
   signUpPage: (req, res) => {
     return res.render('signup', {
       layout: 'preLayout.hbs',
-      title: '開啟服務',
+      title: '開啟服務'
     })
   },
 
   signUp: async (req, res) => {
     const { name, email, password, password2 } = req.body
     if (password2 !== password) {
-      return res.render('signup', { name, email, password, password2, error_messages: '兩次密碼輸入不同！' })
-    }
-    else if (password.length < 8) {
-      return res.render('signup', { name, email, password, password2, error_messages: '密碼安全性不足，請重新輸入！' })
+      return res.render('signup', {
+        name,
+        email,
+        password,
+        password2,
+        error_messages: '兩次密碼輸入不同！'
+      })
+    } else if (password.length < 8) {
+      return res.render('signup', {
+        name,
+        email,
+        password,
+        password2,
+        error_messages: '密碼安全性不足，請重新輸入！'
+      })
     } else {
       const oldShop = await Shop.findOne({ where: { email: email } })
       if (oldShop) {
-        return res.render('signup', { name, email, password, password2, error_messages: '信箱重複！' })
+        return res.render('signup', {
+          name,
+          email,
+          password,
+          password2,
+          error_messages: '信箱重複！'
+        })
       } else {
         const newShop = await Shop.create({ name: name, email: email })
         const newUser = await User.create({
@@ -102,7 +119,7 @@ const userController = {
   //user edit own information
   privacyInfoPage: (req, res) => {
     User.findByPk(req.params.id).then(user => {
-      res.render('privacy', { user })
+      res.render('privacy', { user, title: '更改密碼' })
     })
   },
 
