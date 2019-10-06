@@ -12,21 +12,17 @@ const customerController = {
     const lastNubmer = 100000 + req.user.ShopId
 
     const directBuy = await Customer.findByPk(lastNubmer)
-
     if (directBuy === null) {
       Customer.create({
         id: lastNubmer,
         name: '非會員',
         ShopId: req.user.ShopId,
-        email: '',
-        phoneNr: '',
-        receiveEmail: false,
-        birthday: '2019-01-01'
-      }).then(directBuy => {
-        res.render('index', { title: '新增會員', directBuy })
+        receiveEmail: false
+      }).then(() => {
+        res.render('index', { title: '新增會員' })
       })
     } else {
-      res.render('index', { title: '新增會員', directBuy })
+      res.render('index', { title: '新增會員' })
     }
   },
 
@@ -55,7 +51,7 @@ const customerController = {
         as: 'associatedTags'
       }
     }).then(customer => {
-      const allTags = customer.associatedTags
+      const allTags = customer.associatedTags ? customer.associatedTags : []
 
       const tags = []
 
@@ -65,7 +61,9 @@ const customerController = {
         }
       }
 
-      customer.note = customer.note.slice(0, 20) + '...'
+      if (customer.note) {
+        customer.note = customer.note.slice(0, 20) + '...'
+      }
 
       return res.render('customer', { customer, tags, title: '會員資料' })
     })
