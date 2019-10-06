@@ -3,19 +3,32 @@
 		<div class="Title">會員資料</div>
 		<div class="single-customer-detail">
 			<ul>
-				<li>Name：{{customer.name}}</li>
-				<li>Age：{{customer.age}}</li>
-				<li>Gender：{{customer.gender}}</li>
-				<li>Tel：{{customer.phoneNr}}</li>
-				<li>E-mail：{{customer.email}}</li>
-				<li><i class="fas fa-window-close"></i> 是否願意收電子報</li>
+				<li>{{customer.name}}
+					{{#ifCond customer.gender "male"}}
+					<i class="fas fa-mars"></i> 男性
+					{{else}}
+					<i class="fas fa-venus"></i> 女性
+					{{/ifCond}}
+				</li>
+				<li><i class="fas fa-phone"></i> {{customer.phoneNr}}</li>
+				<li><i class="fas fa-birthday-cake"></i> {{moment customer.birthday}}</li>
+				<li><i class="fas fa-envelope"></i> {{customer.email}}</li>
+				<li><i class="fas fa-map-marker-alt"></i> {{customer.address}}</li>
+
+				{{#if customer.receiveEmail}}
+				<li><i class="far fa-check-circle"></i> 願意接收電子報</li>
+				{{else}}
+				<li><i class="far fa-times-circle"></i> 不接收電子報</li>
+				{{/if}}
+				<li><i class="fas fa-sticky-note"></i> <span>備註：</span></li>
+				<div>{{customer.note}}</div>
 			</ul>
 			<div class="single-customer-bar">
 				<div>
 					<a href="/advance/customers">返回上一頁</a>
 				</div>
 				<div>
-					<a href="/advance/customers/{{customer.id}}/edit">編輯資料</a>
+					<a href="/customers/{{customer.id}}/edit">編輯資料</a>
 				</div>
 				<div>
 					<form action="/advance/customers/{{customer.id}}?_method=DELETE" method="POST">
