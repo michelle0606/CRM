@@ -50,7 +50,7 @@ const userController = {
       )
       if (alertItem.length > 0) {
         req.flash('top_messages', '商品庫存過低！')
-        res.redirect('/customers/create')
+        // res.redirect('/customers/create')
       }
       res.redirect('/customers/create')
     })
