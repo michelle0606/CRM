@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt-nodejs')
 const db = require('../models')
-const { User, Shop, Product } = db
+const { User, Shop, Product, Customer } = db
 
 const userController = {
   signUpPage: (req, res) => {
@@ -45,7 +45,16 @@ const userController = {
           role: 1,
           ShopId: newShop.id
         })
-        if (newUser) {
+
+        const lastNubmer = `10000${newUser.ShopId}`
+        const directBuy = await Customer.create({
+          id: lastNubmer,
+          name: '非會員',
+          ShopId: newShop.id,
+          receiveEmail: false
+        })
+
+        if (newUser && directBuy) {
           req.flash('success_messages', '成功註冊帳號！')
           return res.redirect('/login')
         }
