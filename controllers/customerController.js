@@ -65,7 +65,9 @@ const customerController = {
         }
       }
 
-      customer.note = customer.note.slice(0, 20) + '...'
+      if (customer.note) {
+        customer.note = customer.note.slice(0, 20) + '...'
+      }
 
       return res.render('customer', { customer, tags, title: '會員資料' })
     })

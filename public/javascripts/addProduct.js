@@ -1,6 +1,5 @@
 const endpoint = '/api/products'
 const products = []
-
 const addButton = document.querySelector('.fa-plus-circle')
 const productList = document.querySelector('.trade-product-list')
 const productId = document.querySelector('.productId')
@@ -17,28 +16,23 @@ function addProduct(productId, count) {
 
   if (Number(productId) === 0) {
     alert('請輸入產品編號！')
+    return
   } else if (Number(count) === 0) {
     alert('請輸入產品數量！')
+    return
   } else if (product.length === 0) {
     alert('產品編號錯誤！')
+    return
   } else {
-    const newRow = document.createElement('tr')
-
-    newRow.appendChild(
-      document.createElement('td')
-    ).innerHTML = `<input type='number' value='${product[0].id}' name="productId">`
-    newRow.appendChild(document.createElement('td')).innerHTML = product[0].name
-    newRow.appendChild(
-      document.createElement('td')
-    ).innerHTML = `<input type='number' value='${count}' name="count">`
-    newRow.appendChild(
-      document.createElement('td')
-    ).innerHTML = `<span class="price">${product[0].salePrice * count}</span>`
-    newRow.appendChild(
-      document.createElement('td')
-    ).innerHTML = `<i class="fas fa-minus-square"></i>`
-
-    productList.appendChild(newRow)
+    const newRow = `<tr>
+    <td><input type='number' value='${product[0].id}' name="productId"></td>
+    <td>${product[0].name}</td>
+    <td class="trade-product-count"><input type='number' value='${count}' name="count"><i class="fas fa-sort"></i></td>
+    <td><span class="price">${product[0].salePrice * count}</span></td>
+    <td class="cancel"><i class="fas fa-minus-square"></i></td>
+    </tr>
+    `
+    productList.innerHTML += newRow
   }
 }
 
@@ -104,4 +98,11 @@ function autocomplete() {
 
 container.addEventListener('click', event => {
   suggestions.style.display = event.target !== productId ? 'none' : 'block'
+
+  if (event.target.closest('.cancel')) {
+    const canceltarget = event.target.closest('.cancel')
+    setTimeout(function() {
+      canceltarget.parentElement.remove()
+    }, 800)
+  }
 })
