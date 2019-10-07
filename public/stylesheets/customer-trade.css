@@ -51,7 +51,7 @@
 
 .trade-content .trade table tr th:nth-child(1),
 .trade-content .trade table tr td:nth-child(1) {
-  width: 100px;
+  width: 90px;
 }
 
 .trade-content .trade table tr th:nth-child(2),
@@ -60,11 +60,11 @@
 }
 .trade-content .trade table tr th:nth-child(3),
 .trade-content .trade table tr td:nth-child(3) {
-  width: 50px;
+  width: 65px;
 }
 .trade-content .trade table tr th:nth-child(4),
 .trade-content .trade table tr td:nth-child(4) {
-  width: 100px;
+  width: 95px;
 }
 .trade-content .trade table tr th:nth-child(5),
 .trade-content .trade table tr td:nth-child(5) {
@@ -84,4 +84,37 @@
   overflow: scroll;
   background-color: #fff;
   border: 1px solid #ddd;
+}
+
+.cancel {
+  position: relative;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cancel:after {
+  content: '';
+  background: var(--brownColor);
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s;
+}
+
+.cancel:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s;
+}
+
+.trade-product-count > input {
+  width: 35px !important;
+  font-size: 16px;
 }
