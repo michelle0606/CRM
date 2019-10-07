@@ -54,7 +54,11 @@
       <div class="option">
         {{#ifCond user.role 2}}
         {{else}}
+        {{#ifCond user.role 1}}
         <a href="/advance/customers">進階管理</a>
+        {{else}}
+        <a href="/admin/users">平台管理</a>
+        {{/ifCond}}
         {{/ifCond}}
         <a href="/privacy/{{user.id}}">修改密碼</a>
         <form action="/logout" method="GET">
