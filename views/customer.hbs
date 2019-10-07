@@ -21,6 +21,8 @@
 				{{else}}
 				<li><i class="far fa-times-circle"></i> 不接收電子報</li>
 				{{/if}}
+				<li><i class="fas fa-sticky-note"></i> <span>備註：</span></li>
+				<div>{{customer.note}}</div>
 			</ul>
 			<div class="download" id="download-customer" data-id="{{customer.id}}"><i class="fas fa-print"></i>
 				<small>下載會員資料</small>
@@ -44,9 +46,9 @@
 			<button type="submit">新增</button>
 		</form>
 		{{#each tags}}
-		<div class="each-tag">{{this.tag}}
+		<div class="each-tag">{{this}}
 			<form action="/customerDetail/{{../customer.id}}?_method=DELETE" method="POST">
-				<input type="hidden" name="tagId" value="{{this.id}}">
+				<input type="hidden" name="tagId" value="{{this}}">
 				<button type="submit"><i class="fas fa-times"></i></button>
 			</form>
 		</div>

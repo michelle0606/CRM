@@ -101,11 +101,13 @@
 
 /***** advanceCustomer&customer *****/
 .single-customer {
+  width: 500px;
   text-align: center;
   margin-top: 30px;
 }
 
 .single-customer-detail {
+  width: 100%;
   position: relative;
   font-size: 20px;
   margin: 0 auto;
@@ -149,8 +151,13 @@
   align-items: center;
 }
 
-.single-customer-bar > div > a {
+.single-customer-bar > div > a,
+.single-customer-bar > div > form > button {
   color: #fff;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 /** edit **/

@@ -1,6 +1,5 @@
 const db = require('../models')
-const Tag = db.Tag
-const CustomerDetail = db.CustomerDetail
+const { Tag, CustomerDetail, Customer } = db
 const helpers = require('../_helpers')
 
 const tagController = {
@@ -29,14 +28,17 @@ const tagController = {
   },
 
   deleteTag: (req, res) => {
-    return CustomerDetail.destroy({
-      where: {
-        CustomerId: req.params.customers_id,
-        TagId: req.body.tagId
-      }
-    }).then(() => {
-      res.redirect(`/customers/${req.params.customers_id}`)
-    })
+
+    Customer.findByPk(req.params.customers_id, { include: [{ model: Tag, as: 'associatedTags' }] })
+      .then(customer => {
+        customer.associatedTags.forEach(a => {
+          if (a.tag === req.body.tagId) {
+            Tag.destroy({ where: { id: a.id } }).then(() => {
+            })
+          }
+        });
+        return res.redirect(`/customers/${req.params.customers_id}`)
+      })
   }
 }
 

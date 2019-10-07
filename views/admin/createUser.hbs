@@ -6,29 +6,34 @@
   <div class="Title">新增人員</div>
   <form action="/admin/users" method="POST" enctype="multipart/form-data">
   {{/if}}
+    {{> messages}}
     <div class="form-group">
-      <label for="name" class="edit-user-input">Name：</label>
-      <input type="text" class="edit-user-input" name="name" id="name" placeholder="Enter name" value="{{profile.name}}">
+      <label for="name" class="edit-user-input">Name: </label>
+      <input type="text" class="edit-user-input" name="name" id="name" placeholder="Enter Name" value="{{profile.name}}">
     </div>
     <div class="form-group">
-      <label for="password" class="edit-user-input">Password：</label>
-      <input type="text" class="edit-user-input" name="password" id="password" placeholder="Enter password" value="">
+      <label for="password" class="edit-user-input">Password: </label>
+      <input type="text" class="edit-user-input" name="password" id="password" placeholder="Enter Password" value="">
     </div>
     <div class="form-group">
-      <label for="role" class="edit-user-input">Role：</label>
-      <input type="radio" class="edit-user-input" name="role" value=1> 經理
-      <input type="radio" class="edit-user-input" name="role" value=2> 店員
+      <label for="password2" class="edit-user-input">Confirm Password: </label>
+      <input type="text" class="edit-user-input" name="password2" id="password2" placeholder="Enter Password" value="">
     </div>
     <div class="form-group">
-      <label for="ShopId" class="edit-user-input">店家：</label>
+      <label for="role" class="edit-user-input">Role: </label>
+      <input type="radio" class="edit-user-input" name="role" value=1 {{#ifCond profile.role 1}}checked{{/ifCond}}> 經理
+      <input type="radio" class="edit-user-input" name="role" value=2 {{#ifCond profile.role 2}}checked{{/ifCond}}> 店員
+    </div>
+    <div class="form-group">
+      <label for="ShopId" class="edit-user-input">Shop: </label>
       <select class="edit-user-input" id="ShopId" name="ShopId">
         {{#each shops}}
-          <option value="{{this.id}}">{{this.name}}</option>
+          <option value="{{this.id}}"{{#ifCond this.id ../profile.ShopId}}selected{{/ifCond}}>{{this.name}}</option>
         {{/each}}
       </select>
     </div>
     <div class="form-group">
-      <label for="avatar" class="edit-user-input">Avatar：</label>
+      <label for="avatar" class="edit-user-input">Avatar: </label>
       <input type="file" class="form-control-file" id="avatar" name="avatar">
     </div>
     <button type="submit" class="edit-user-input">Submit</button>

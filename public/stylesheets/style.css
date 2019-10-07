@@ -186,3 +186,7 @@ table tr:nth-child(even) {
   font-size: 20px;
   padding: 10px 20px;
 }
+
+.note {
+  resize: none;
+}
