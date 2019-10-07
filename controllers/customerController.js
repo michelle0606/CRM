@@ -9,25 +9,26 @@ const customerController = {
   },
 
   createCustomerPage: async (req, res) => {
-    const lastNubmer = 100000 + req.user.ShopId
 
-    const directBuy = await Customer.findByPk(lastNubmer)
+    res.render('index', { title: '新增會員' })
+    // const lastNubmer = 100000 + req.user.ShopId
+    // const directBuy = await Customer.findByPk(lastNubmer)
 
-    if (directBuy === null) {
-      Customer.create({
-        id: lastNubmer,
-        name: '非會員',
-        ShopId: req.user.ShopId,
-        email: '',
-        phoneNr: '',
-        receiveEmail: false,
-        birthday: '2019-01-01'
-      }).then(directBuy => {
-        res.render('index', { title: '新增會員', directBuy })
-      })
-    } else {
-      res.render('index', { title: '新增會員', directBuy })
-    }
+    // if (directBuy === null) {
+    //   Customer.create({
+    //     id: lastNubmer,
+    //     name: '非會員',
+    //     ShopId: req.user.ShopId,
+    //     email: '',
+    //     phoneNr: '',
+    //     receiveEmail: false,
+    //     birthday: '2019-01-01'
+    //   }).then(directBuy => {
+    //     res.render('index', { title: '新增會員', directBuy })
+    //   })
+    // } else {
+    //   res.render('index', { title: '新增會員', directBuy })
+    // }
   },
 
   addCustomer: (req, res) => {

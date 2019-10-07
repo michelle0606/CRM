@@ -204,7 +204,6 @@ inputImage.addEventListener('change', e => {
 
 function clear() {
   const deleteButton = document.querySelector('.delete-mark')
-
   deleteButton.addEventListener('click', () => {
     inputImage.value = ''
     imageShow.innerHTML = `
@@ -245,7 +244,6 @@ templateSelect.addEventListener('change', () => {
     </div>
     `
   }
-
   clear()
 })
 
