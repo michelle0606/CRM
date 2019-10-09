@@ -85,7 +85,7 @@ router.get('/api/products', authenticated, productController.APIGetAllProducts)
 
 // dashboard
 router.get('/dashboard', tradeController.getDashboard)
-router.get('/dashboard/:shop_id/:nameOfTheStats', tradeController.getStats)
+router.get('/api/dashboard/:shop_id/:nameOfTheStats', tradeController.getStats)
 router.get(
   '/api/customer/:customers_id',
   authenticated,

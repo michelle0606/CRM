@@ -31,9 +31,11 @@
               Edit
             </a>
           </button>
+          {{#if this.role}}
           <form action="/admin/users/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
             <button type="submit" class="">Delete</button>
           </form>
+          {{/if}}
         </td>
       </tr>
       {{/each}}
