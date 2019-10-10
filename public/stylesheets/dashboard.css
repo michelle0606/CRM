@@ -1,0 +1,4 @@
+.daterangepicker .calendar-table th,
+ .daterangepicker .calendar-table td { 
+  padding: 0 !important; 
+} 
