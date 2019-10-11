@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt-nodejs')
 const db = require('../models')
-const { User, Shop, Product } = db
+const { User, Shop, Product, Customer } = db
 
 const userController = {
   signUpPage: (req, res) => {
@@ -43,17 +43,32 @@ const userController = {
     })
   },
 
-  signIn: (req, res) => {
-    Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
-      const alertItem = products.filter(
-        product => product.inventory < product.minimumStock
-      )
-      if (alertItem.length > 0) {
-        req.flash('top_messages', '商品庫存過低！')
-        // res.redirect('/customers/create')
+  signIn: async (req, res) => {
+    const lastNubmer = 100000 + req.user.ShopId
+    const directBuy = await Customer.findByPk(lastNubmer)
+    let flag = 0
+    const products = await Product.findAll({
+      where: { 
+        ShopId: req.user.ShopId
       }
-      res.redirect('/customers/create')
     })
+    const alertItem = products.filter(
+      product => product.inventory < product.minimumStock
+    )
+
+    if (alertItem.length > 0) flag = 1
+    if (directBuy === null) {
+      directBuy = await Customer.create({
+        id: lastNubmer,
+        name: '非會員',
+        ShopId: req.user.ShopId,
+        email: '',
+        phoneNr: '',
+        receiveEmail: false,
+        birthday: '2019-01-01',
+      })
+    }
+    res.render('index', { title: '新增會員', directBuy, flag })
   },
 
   logout: (req, res) => {
