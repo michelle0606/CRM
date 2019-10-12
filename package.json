@@ -15,6 +15,7 @@
     "connect-flash": "^0.1.1",
     "connect-session-sequelize": "^6.0.0",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
     "debug": "^2.6.9",
     "dotenv": "^8.0.0",
@@ -28,6 +29,7 @@
     "hbs": "^4.0.4",
     "http-errors": "^1.7.3",
     "imgur-node-api": "^0.1.0",
+    "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.26",
@@ -36,11 +38,13 @@
     "mysql2": "^1.6.5",
     "nodemailer": "^6.3.0",
     "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.12.0",
     "sequelize": "^5.10.3",
     "sequelize-cli": "^5.5.0",
-    "sinon-chai": "^3.3.0"
+    "sinon-chai": "^3.3.0",
+    "sweetalert2": "^8.18.3"
   },
   "main": "app.js",
   "devDependencies": {

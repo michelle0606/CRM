@@ -14,12 +14,16 @@ const methodOverride = require('method-override')
 const dotenv = require('dotenv')
 const hbs = require('express-handlebars')
 const app = express()
+const cors = require('cors')
 const db = require('./models')
 const { Customer } = db
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config()
 }
+
+// cors 的預設為全開放
+app.use(cors())
 
 app.use(
   session({
