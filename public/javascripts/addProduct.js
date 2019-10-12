@@ -1,10 +1,11 @@
 const endpoint = '/api/products'
 const products = []
-
+const container = document.querySelector('.container')
 const addButton = document.querySelector('.fa-plus-circle')
 const productList = document.querySelector('.trade-product-list')
-const productId = document.querySelector('.productId')
-const count = document.querySelector('.count')
+const productIdInputField = document.querySelector('.productId')
+const countInputField = document.querySelector('.count')
+const newRecord = []
 
 fetch(endpoint)
   .then(blob => blob.json())
@@ -13,95 +14,116 @@ fetch(endpoint)
   })
 
 function addProduct(productId, count) {
-  const product = products.filter(a => a.id === Number(productId))
+  const product = products.filter(a => a.id === productId)
+  const existProduct = newRecord.find(item => item.id === productId)
 
-  if (Number(productId) === 0) {
+  if (productId === 0) {
     alert('請輸入產品編號！')
-  } else if (Number(count) === 0) {
+    return
+  } else if (count === 0) {
     alert('請輸入產品數量！')
+    return
   } else if (product.length === 0) {
     alert('產品編號錯誤！')
+    return
+  } else if (existProduct !== undefined) {
+    existProduct.count += count
+    renderRecord(newRecord)
+    return newRecord
   } else {
-    const newRow = document.createElement('tr')
-
-    newRow.appendChild(
-      document.createElement('td')
-    ).innerHTML = `<input type='number' value='${product[0].id}' name="productId">`
-    newRow.appendChild(document.createElement('td')).innerHTML = product[0].name
-    newRow.appendChild(
-      document.createElement('td')
-    ).innerHTML = `<input type='number' value='${count}' name="count">`
-    newRow.appendChild(
-      document.createElement('td')
-    ).innerHTML = `<span class="price">${product[0].salePrice * count}</span>`
-    newRow.appendChild(
-      document.createElement('td')
-    ).innerHTML = `<i class="fas fa-minus-square"></i>`
-
-    productList.appendChild(newRow)
+    const newProduct = {
+      id: product[0].id,
+      name: product[0].name,
+      count: count,
+      salePrice: product[0].salePrice
+    }
+    newRecord.push(newProduct)
+    renderRecord(newRecord)
+    return newRecord
   }
 }
 
-function cleanInput(productId, count) {
-  productId.value = ''
-  count.value = ''
+function creatTableHeader() {
+  let str = `
+    <tr>
+      <th scope="col">產品編號</th>
+      <th scope="col">產品名稱</th>
+      <th scope="col">數量</th>
+      <th scope="col">價格</th>
+      <th scope="col"></th>
+    </tr>
+  `
+  return str
 }
 
-function total() {
+function renderRecord(record) {
+  productList.innerHTML = creatTableHeader()
+
+  record.forEach(product => {
+    productList.innerHTML += `
+      <tr>
+        <td><input type='number' value='${product.id}' name="productId"></td>
+        <td>${product.name}</td>
+        <td class="trade-product-count"><input type='number' value='${
+          product.count
+        }' name="count" id="count" data-id="${
+      product.id
+    }"><i class="fas fa-sort"></i></td>
+        <td><span class="price">${product.salePrice * product.count}</span></td>
+        <td class="cancel" data-id="${
+          product.id
+        }"><i class="fas fa-minus-square"></i></td>
+      </tr>
+    `
+  })
+}
+
+function calculateTotalPrice(record) {
   const totalPrice = document.querySelector('.total-price')
-  const allPrice = document.querySelectorAll('.price')
   let price = 0
-  allPrice.forEach(a => {
-    price += Number(a.innerHTML)
+  record.forEach(product => {
+    price += product.salePrice * product.count
   })
   totalPrice.value = price
 }
 
+function cancelProduct(productId) {
+  const removeData = newRecord.find(item => item.id === Number(productId))
+  let index = newRecord.indexOf(removeData)
+  newRecord.splice(index, 1)
+  renderRecord(newRecord)
+  calculateTotalPrice(newRecord)
+}
+
+function changeProductCount(productId, changeValue) {
+  newRecord.filter(product => {
+    if (product.id === productId) {
+      product.count = Number(changeValue)
+    }
+  })
+  renderRecord(newRecord)
+  calculateTotalPrice(newRecord)
+}
+
 addButton.addEventListener('click', () => {
-  addProduct(productId.value, count.value)
-  total()
-  cleanInput(productId, count)
+  calculateTotalPrice(
+    addProduct(Number(productIdInputField.value), Number(countInputField.value))
+  )
+  productIdInputField.value = ''
 })
 
-// Below is autocomplete function
-
-const suggestions = document.querySelector('.suggestions')
-const container = document.querySelector('.container')
-
-function findMatches(wordToMatch, products) {
-  return products.filter(product => {
-    return String(product.id).match(wordToMatch) // Type 'Number' can't use match method
-  })
-}
-
-function displayMatches() {
-  const matchArray = findMatches(String(this.value), products)
-  suggestions.innerHTML = matchArray
-    .map(product => {
-      const regex = new RegExp(this.value, 'gi')
-      const productId = String(product.id).replace(
-        regex,
-        `<span class="match">${this.value}</span>`
-      )
-      return `
-      <li data-id="${product.id}" class="target-product">
-        ${productId} <span class="product-name">${product.name}</span>
-      </li>
-      `
-    })
-    .join('')
-}
-
-productId.addEventListener('change', displayMatches)
-productId.addEventListener('keyup', displayMatches)
-suggestions.addEventListener('click', autocomplete)
-
-function autocomplete() {
-  const target = event.target.closest('.target-product')
-
-  productId.value = Number(target.dataset.id)
-}
+container.addEventListener('change', event => {
+  if (event.target.id === 'count') {
+    const productId = Number(event.target.dataset.id)
+    changeProductCount(productId, event.target.value)
+  }
+})
 
 container.addEventListener('click', event => {
-  suggestions.style.display = event.target !== productId ? 'none' : 'block'
+  if (event.target.closest('.cancel')) {
+    const canceltarget = event.target.closest('.cancel').dataset.id
+    setTimeout(function() {
+      cancelProduct(canceltarget)
+    }, 400)
+  }
 })

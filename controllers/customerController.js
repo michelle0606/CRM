@@ -3,36 +3,32 @@ const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const { Sale, User, Product, Customer, CustomerDetail, Tag } = db
 
-
 const customerController = {
   getHomePage: (req, res) => {
-    res.render('index')
+    res.redirect('/customers/create')
   },
 
-
   createCustomerPage: async (req, res) => {
-    const lastNubmer = 100000 + req.user.ShopId
 
-    const directBuy = await Customer.findByPk(lastNubmer)
+    res.render('index', { title: '新增會員' })
+    // const lastNubmer = 100000 + req.user.ShopId
+    // const directBuy = await Customer.findByPk(lastNubmer)
 
-    if (directBuy === null) {
-      Customer.create({
-        id: lastNubmer,
-        name: '非會員',
-        ShopId: req.user.ShopId,
-        email: '',
-        phoneNr: '',
-        receiveEmail: false,
-        birthday: '2019-01-01',
-      }).then(directBuy => {
-
-        res.render('index', { title: '新增會員', directBuy })
-      })
-
-    } else {
-      res.render('index', { title: '新增會員', directBuy })
-    }
-
+    // if (directBuy === null) {
+    //   Customer.create({
+    //     id: lastNubmer,
+    //     name: '非會員',
+    //     ShopId: req.user.ShopId,
+    //     email: '',
+    //     phoneNr: '',
+    //     receiveEmail: false,
+    //     birthday: '2019-01-01'
+    //   }).then(directBuy => {
+    //     res.render('index', { title: '新增會員', directBuy })
+    //   })
+    // } else {
+    //   res.render('index', { title: '新增會員', directBuy })
+    // }
   },
 
   addCustomer: (req, res) => {
@@ -70,7 +66,9 @@ const customerController = {
         }
       }
 
-      customer.note = customer.note.slice(0, 20) + '...'
+      if (customer.note) {
+        customer.note = customer.note.slice(0, 20) + '...'
+      }
 
       return res.render('customer', { customer, tags, title: '會員資料' })
     })
@@ -145,8 +143,10 @@ const customerController = {
   },
 
   APIGetAllCustomers: (req, res) => {
-    Customer.findAll({ where: { ShopId: req.user.ShopId }, include: { model: Tag, as: 'associatedTags' } }).then(customers => {
-
+    Customer.findAll({
+      where: { ShopId: req.user.ShopId },
+      include: { model: Tag, as: 'associatedTags' }
+    }).then(customers => {
       res.send(customers)
     })
   },

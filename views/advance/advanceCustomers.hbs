@@ -1,11 +1,10 @@
 <div class="container">
   <div class="Title">客戶管理</div>
   <div class="results">
-    <form action="/" method="GET">
-      <input type="text" name="phone_nr" placeholder="請輸入電話號碼或email">
-      <button type="submit">查詢</button>
-      <button type="button">清除</button>
-    </form>
+    <div class="search-all-customers">
+      <input type="text" id="keyword" placeholder="輸入電話號碼查詢">
+      <button id="clear" type="button">清除</button>
+    </div>
     <table>
       <tr>
         <th scope="col">姓名</th>
@@ -20,9 +19,6 @@
       </tr>
       {{/each}}
     </table>
-    <form action="/customers" method="POST" style="display: none;">
-      <input type="hidden" name="phone_nr" value="0912-345-678">
-      <span>0912-345-678 尚未加入會員</span><button type="submit">立即加入</button>
-    </form>
   </div>
 </div>
+<script src="/javascripts/search.js"></script>
