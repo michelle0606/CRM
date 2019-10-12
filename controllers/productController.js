@@ -1,5 +1,6 @@
 const db = require('../models')
 const Product = db.Product
+const User = db.User
 const PurchaseRecord = db.PurchaseRecord
 const PurchaseRecordDetail = db.PurchaseRecordDetail
 const csv = require('csvtojson')
@@ -35,7 +36,7 @@ const productController = {
       const data = await PurchaseRecordDetail.create({
         quantity: el.quantity,
         ProductId: Number(el.ProductId),
-        RecordId: record.id
+        PurchaseRecordId: record.id
       })
 
       const existProduct = await Product.findByPk(data.ProductId, {
@@ -63,6 +64,15 @@ const productController = {
     })
 
     res.redirect('/inventory')
+  },
+
+  getPurchaseRecords: (req, res) => {
+    PurchaseRecord.findAll({
+      where: { ShopId: req.user.ShopId },
+      include: [User, { model: Product, as: 'associatedProducts' }]
+    }).then(purchaseRecords => {
+      res.render('purchaseRecord', { purchaseRecords, title: '進貨紀錄' })
+    })
   },
 
   APIGetAllProducts: (req, res) => {

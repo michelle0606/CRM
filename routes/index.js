@@ -51,6 +51,11 @@ router.post(
   productController.postInventory
 )
 
+router.get(
+  '/purchaseRecord',
+  authenticated,
+  productController.getPurchaseRecords
+)
 
 // marketing
 router.get('/marketing', authenticated, marketingController.getMarketingPage)

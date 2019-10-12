@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="record-content">
+    <div class="Title">
+      {{title}}
+    </div>
+    <div class="record-table-head">
+      <table class="trade-product-list">
+        <tr>
+          <th scope="col">進貨時間</th>
+          <th scope="col">負責人</th>
+          <th scope="col">詳細內容</th>
+        </tr>
+        {{#each purchaseRecords}}
+        <tr>
+          <td>{{moment this.createdAt}}</td>
+          <td>{{this.User.name}}</td>
+          <td><button class="search-button" value="{{this.id}}" data-open="open"><i class="fas fa-search"></i></button>
+          </td>
+        </tr>
+        {{/each}}
+      </table>
+      {{#each purchaseRecords}}
+      <div id="{{this.id}}" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <table>
+            <tr>
+              <th scope="col">商品名稱</th>
+
+              <th scope="col">當次進貨數量</th>
+            </tr>
+            {{#each this.associatedProducts}}
+            <tr>
+              <td>{{this.name}}</td>
+              <td>{{this.PurchaseRecordDetail.quantity}}</td>
+            </tr>
+            {{/each}}
+          </table>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+<script src="/javascripts/popup.js"></script>
+<script src="/javascripts/itemTotalPrice.js"></script>
