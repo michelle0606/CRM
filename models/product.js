@@ -33,6 +33,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       foreignKey: 'ProductId'
     })
+    Product.belongsToMany(models.PurchaseRecord, {
+      as: 'associatedPurchaseRecords',
+      through: {
+        model: models.PurchaseRecordDetail,
+        unique: false
+      },
+      foreignKey: 'ProductId'
+    })
     Product.belongsTo(models.Shop)
   }
   return Product

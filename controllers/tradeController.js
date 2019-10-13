@@ -20,7 +20,11 @@ const tradeController = {
     const totalPrice = req.body.total
     const allProducts = []
     const allCounts = []
-
+    
+    if (!req.body.productId) {
+      req.flash('top_messages', '無品項不可以新增交易！')
+      return res.redirect(`/customers/${req.params.customers_id}/record`)
+    }
 
     if (!Array.isArray(req.body.count)) {
       allCounts.push(req.body.count)
@@ -28,13 +32,11 @@ const tradeController = {
       allCounts.push(...req.body.count)
     }
 
-
     if (!Array.isArray(req.body.productId)) {
       allProducts.push(req.body.productId)
     } else {
       allProducts.push(...req.body.productId)
     }
-
 
     const thisCustomer = await Customer.findByPk(req.params.customers_id)
 
@@ -97,13 +99,14 @@ const tradeController = {
   },
 
   getDashboard: (req, res) => {
-    return res.render('dashboard')
+    return res.render('dashboard', { shopId: helpers.getUser(req).ShopId })
   },
 
   getStats: async (req, res) => {
     // console.log(req.params.nameOfTheStats)
     // console.log(req.query.start)
     // console.log(req.query.end)
+    // console.log(helpers.getUser(req).ShopId)//error
 
     const dailyRevenueLineChart = {
       title: {
@@ -144,8 +147,8 @@ const tradeController = {
           createdAt: {
             [Op.gte]: moment(req.query.start).startOf('day'),
             [Op.lte]: moment(req.query.end).endOf('day')
-          }
-          // add ShopId condition
+          },
+          ShopId: req.params.shop_id
         },
         attributes: [
           [db.sequelize.fn('DATE', db.sequelize.col('createdAt')), 'date'],
@@ -194,7 +197,6 @@ const tradeController = {
         startDate = moment(startDate).add(1, 'days').format('YYYY-MM-DD')
       }
 
-      res.header('Access-Control-Allow-Origin', '*')
       return res.json(dailyRevenueLineChart)
     } else if ((req.params.nameOfTheStats).includes('bestSellers')) {
       const bestSellers = await Sale.findAll({
@@ -203,7 +205,7 @@ const tradeController = {
             [Op.gte]: moment(req.query.start).startOf('day'),
             [Op.lte]: moment(req.query.end).endOf('day')
           },
-          // ShopId: helpers.getUser(req).ShopId,
+          ShopId: req.params.shop_id
         },
         include: [
           {
@@ -263,7 +265,6 @@ const tradeController = {
         bestSellersColumnChart.series[0].data.push(tmp)
       }
 
-      res.header('Access-Control-Allow-Origin', '*')
       return res.json(bestSellersColumnChart)
     } else {
       const sales = await Sale.findAndCountAll({
@@ -272,7 +273,7 @@ const tradeController = {
             [Op.gte]: moment(req.query.start).startOf('day'),
             [Op.lte]: moment(req.query.end).endOf('day')
           },
-          // ShopId: helpers.getUser(req).ShopId,
+          ShopId: req.params.shop_id
         },
       })
       const mostMentioned = await Sale.findAll({
@@ -281,7 +282,7 @@ const tradeController = {
             [Op.gte]: moment(req.query.start).startOf('day'),
             [Op.lte]: moment(req.query.end).endOf('day')
           },
-          // ShopId: helpers.getUser(req).ShopId,
+          ShopId: req.params.shop_id
         },
         include: [{
           model: Product,
@@ -333,7 +334,6 @@ const tradeController = {
         mostMentionedColumnChart.series[0].data.push(tmp)
       }
 
-      res.header('Access-Control-Allow-Origin', '*')
       return res.json(mostMentionedColumnChart)
     }
   }

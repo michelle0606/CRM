@@ -166,6 +166,7 @@ $(function() {
       ]
     }
   });
+  const shopId = document.getElementById("shopId").value
   var start = moment().subtract(29, 'days');
   var end = moment();
 
@@ -197,7 +198,7 @@ $(function() {
         param = 'dailyRevenueCustomRange'
     }
 
-    const url = 'http://127.0.0.1:3000/dashboard/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
+    const url = 'http://127.0.0.1:3000/api/dashboard/' + shopId + '/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
 
     $.getJSON(url, function(data) {
       dailyRevenueLineChart.title = data.title
@@ -248,7 +249,7 @@ $(function() {
         param = 'bestSellersCustomRange'
     }
 
-    const url = 'http://127.0.0.1:3000/dashboard/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
+    const url = 'http://127.0.0.1:3000/api/dashboard/' + shopId + '/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
 
     $.getJSON(url, function(data) {
       bestSellersColumnChart.title = data.title
@@ -298,7 +299,7 @@ $(function() {
         param = 'mostMentionedCustomRange'
     }
 
-    const url = 'http://127.0.0.1:3000/dashboard/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
+    const url = 'http://127.0.0.1:3000/api/dashboard/' + shopId + '/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
 
     $.getJSON(url, function(data) {
       mostMentionedColumnChart.title = data.title

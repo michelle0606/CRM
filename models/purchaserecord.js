@@ -15,10 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         model: models.PurchaseRecordDetail,
         unique: false
       },
-      foreignKey: 'RecordId'
+      foreignKey: 'PurchaseRecordId'
     })
     PurchaseRecord.belongsTo(models.User)
     PurchaseRecord.belongsTo(models.Shop)
+    PurchaseRecord.hasMany(models.PurchaseRecordDetail)
   }
   return PurchaseRecord
 }

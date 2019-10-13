@@ -29,9 +29,11 @@
               Edit
             </a>
           </button>
+          {{#ifNotCond this.id 1}}
           <form action="/admin/shops/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
             <button type="submit" class="">Delete</button>
           </form>
+          {{/ifNotCond}}
         </td>
       </tr>
       {{/each}}

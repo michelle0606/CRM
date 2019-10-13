@@ -9,7 +9,7 @@
         {{#ifCond customer.name '非會員'}}
         <span>非會員</span>
         {{else}}
-        <span>會員：{{customer.name}}</span>
+        <span>會員：<a href="/customers/{{customer.id}}">{{customer.name}} <i class="far fa-user-circle"></i></a></span>
         {{/ifCond}}
         <br>
         {{#ifCond customer.phoneNr ''}}

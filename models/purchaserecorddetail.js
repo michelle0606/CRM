@@ -6,16 +6,17 @@ module.exports = (sequelize, DataTypes) => {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true,
+        primaryKey: true
       },
       quantity: DataTypes.INTEGER, //該產品當次進貨數量
       ProductId: DataTypes.INTEGER,
-      RecordId: DataTypes.INTEGER //屬於哪一次進貨紀錄
+      PurchaseRecordId: DataTypes.INTEGER //屬於哪一次進貨紀錄
     },
     {}
   )
   PurchaseRecordDetail.associate = function(models) {
     // associations can be defined here
+    PurchaseRecordDetail.belongsTo(models.PurchaseRecord)
   }
   return PurchaseRecordDetail
 }

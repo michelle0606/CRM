@@ -51,6 +51,11 @@ router.post(
   productController.postInventory
 )
 
+router.get(
+  '/purchaseRecord',
+  authenticated,
+  productController.getPurchaseRecords
+)
 
 // marketing
 router.get('/marketing', authenticated, marketingController.getMarketingPage)
@@ -85,7 +90,7 @@ router.get('/api/products', authenticated, productController.APIGetAllProducts)
 
 // dashboard
 router.get('/dashboard', tradeController.getDashboard)
-router.get('/dashboard/:nameOfTheStats', tradeController.getStats)
+router.get('/api/dashboard/:shop_id/:nameOfTheStats', tradeController.getStats)
 router.get(
   '/api/customer/:customers_id',
   authenticated,
