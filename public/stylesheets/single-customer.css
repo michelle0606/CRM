@@ -221,3 +221,9 @@
 .table > tbody > tr > th:nth-child(1) {
   width: 140px;
 }
+
+.note {
+  resize: none;
+  border: 1px solid #efefef;
+  border-radius: 3px;
+}

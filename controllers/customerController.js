@@ -9,7 +9,6 @@ const customerController = {
   },
 
   createCustomerPage: async (req, res) => {
-
     res.render('index', { title: '新增會員' })
     // const lastNubmer = 100000 + req.user.ShopId
     // const directBuy = await Customer.findByPk(lastNubmer)
@@ -56,7 +55,7 @@ const customerController = {
         as: 'associatedTags'
       }
     }).then(customer => {
-      const allTags = customer.associatedTags
+      const allTags = customer.associatedTags ? customer.associatedTags : []
 
       const tags = []
 

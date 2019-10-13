@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Customers', {
@@ -9,16 +9,23 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
+        allowNull: false,
+        defaultValue: '尚未登錄',
         type: Sequelize.STRING
       },
       phoneNr: {
+        allowNull: false,
+        defaultValue: '尚未登錄',
         type: Sequelize.STRING
       },
       name: {
+        allowNull: false,
+        defaultValue: '尚未登錄',
         type: Sequelize.STRING
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: '尚未登錄'
       },
       gender: {
         type: Sequelize.STRING
@@ -43,9 +50,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Customers');
+    return queryInterface.dropTable('Customers')
   }
-};
+}
