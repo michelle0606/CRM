@@ -62,7 +62,7 @@ const userController = {
 
   signIn: async (req, res) => {
     const lastNubmer = 100000 + req.user.ShopId
-    const directBuy = await Customer.findByPk(lastNubmer)
+    let directBuy = await Customer.findByPk(lastNubmer)
     let flag = 0
     const products = await Product.findAll({
       where: { 
