@@ -62,10 +62,10 @@ const userController = {
 
   signIn: async (req, res) => {
     const lastNubmer = 100000 + req.user.ShopId
-    const directBuy = await Customer.findByPk(lastNubmer)
+    let directBuy = await Customer.findByPk(lastNubmer)
     let flag = 0
     const products = await Product.findAll({
-      where: { 
+      where: {
         ShopId: req.user.ShopId
       }
     })
@@ -82,7 +82,7 @@ const userController = {
         email: '',
         phoneNr: '',
         receiveEmail: false,
-        birthday: '2019-01-01',
+        birthday: '2019-01-01'
       })
     }
     res.render('index', { title: '新增會員', directBuy, flag })
