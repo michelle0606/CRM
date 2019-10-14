@@ -2,7 +2,7 @@
 
 Simple, elegant, the easiest CRM (customer relationship management) to get started.
 
-Visit [our website](https://lit-plains-36905.herokuapp.com/login).
+Visit [our website](https://waromen.herokuapp.com/login).
 
 ![](./public/images/cover.png)
 
