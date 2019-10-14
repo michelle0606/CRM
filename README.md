@@ -19,10 +19,10 @@ Visit [our website](https://waromen.herokuapp.com/login).
 ### In progress
 
 - 增加會員累積消費後的紅利回饋機制
-- 讓購買清單中的數量修改更加明顯
 - 串接 Barcode scanner 的 API，讓結帳更快速
 - 串接金流
 - 將部分權限認證彈性改為輸入密碼認證
+- 自動分析客戶消費紀錄並且發送行銷電郵
 
 ## Tests
 
