@@ -102,7 +102,6 @@ const tradeController = {
     console.log(req.body)
 
     Sale.create({
-      id: 120,
       total: totalPrice,
       CustomerId: Number(req.params.customers_id),
       UserId: Number(req.user.id),

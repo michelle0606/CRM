@@ -221,7 +221,7 @@ module.exports = {
 
     queryInterface.bulkInsert(
       'Sales',
-      sales,
+      [],
       {}
     )
 
