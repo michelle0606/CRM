@@ -42,8 +42,8 @@ const tradeController = {
 
     console.log('A')
 
-    allProducts.forEach(id => {
-      Product.findByPk(Number(id))
+    allProducts.forEach(pid => {
+      Product.findByPk(Number(pid))
       .then(product => {
         Tag.findOne({
           where: {
@@ -99,6 +99,7 @@ const tradeController = {
     //   })
     // })
     console.log('B')
+    console.log(req.body)
 
     Sale.create({
       total: totalPrice,
