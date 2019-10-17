@@ -40,7 +40,13 @@ const userController = {
         })
       } else {
         console.log('AAA')
-        const newShop = await Shop.create({ name: name, email: email })
+        
+        try {
+          const newShop = await Shop.create({ name: name, email: email })
+        } catch (err) {
+          console.log(err);
+        }
+
         console.log('BBB')
         const newUser = await User.create({
           password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
