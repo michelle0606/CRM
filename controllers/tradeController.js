@@ -38,22 +38,64 @@ const tradeController = {
       allProducts.push(...req.body.productId)
     }
 
-    const thisCustomer = await Customer.findByPk(req.params.customers_id)
+    // const thisCustomer = await Customer.findByPk(req.params.customers_id)
 
     allProducts.forEach(id => {
-      Product.findByPk(Number(id)).then(product => {
-
-        Tag.create({
-          tag: product.category,
-          ShopId: req.user.ShopId
-        }).then(tag => {
-          CustomerDetail.create({
-            CustomerId: req.params.customers_id,
-            TagId: tag.id
-          })
+      Product.findByPk(Number(id))
+      .then(product => {
+        Tag.findOne({
+          where: {
+            tag: product.category,
+            ShopId: req.user.ShopId
+          }
+        })
+        .then(tag => {
+          if (tag) {
+            CustomerDetail.findOne({
+              where: {
+                CustomerId: req.params.customers_id,
+                TagId: tag.id
+              }
+            })
+            .then(customerDetail => {
+              if (!customerDetail) {
+                CustomerDetail.create({
+                  CustomerId: req.params.customers_id,
+                  TagId: tag.id
+                })
+              }
+            })
+          } else {
+            Tag.create({
+              tag: product.category,
+              ShopId: req.user.ShopId
+            })
+            .then(tag2 => {
+              CustomerDetail.create({
+                CustomerId: req.params.customers_id,
+                TagId: tag2.id
+              })
+            })
+          }
         })
       })
     })
+
+    // allProducts.forEach(id => {
+    //   Product.findByPk(Number(id))
+    //   .then(product => {
+    //     Tag.create({
+    //       tag: product.category,
+    //       ShopId: req.user.ShopId
+    //     })
+    //     .then(tag => {
+    //       CustomerDetail.create({
+    //         CustomerId: req.params.customers_id,
+    //         TagId: tag.id
+    //       })
+    //     })
+    //   })
+    // })
 
     Sale.create({
       total: totalPrice,
@@ -61,41 +103,42 @@ const tradeController = {
       UserId: req.user.id,
       ShopId: req.user.ShopId
     })
-      .then(sale => {
-        let connect = 0
-        allProducts.forEach(product => {
-          SaleDetail.create({
-            quantity: Number(allCounts[connect]),
-            ProductId: Number(product),
-            SaleId: sale.id
-          }).then(data => {
-            Product.findByPk(data.ProductId).then(product => {
-              const newInventory =
-                Number(product.inventory) - Number(data.quantity)
-              product.update({
-                inventory: newInventory
-              })
+    .then(sale => {
+      let connect = 0
+      allProducts.forEach(product => {
+        SaleDetail.create({
+          quantity: Number(allCounts[connect]),
+          ProductId: Number(product),
+          SaleId: sale.id
+        })
+        .then(data => {
+          Product.findByPk(data.ProductId)
+          .then(product => {
+            const newInventory = Number(product.inventory) - Number(data.quantity)
+            product.update({
+              inventory: newInventory
             })
           })
-          connect += 1
         })
+        connect++
       })
-      .then(() => {
-        Product.findAll({ where: { ShopId: req.user.ShopId } }).then(
-          products => {
-            const alertItem = products.filter(
-              product => product.inventory < product.minimumStock
+    })
+    .then(() => {
+      Product.findAll({ where: { ShopId: req.user.ShopId } }).then(
+        products => {
+          const alertItem = products.filter(
+            product => product.inventory < product.minimumStock
+          )
+          if (alertItem.length > 0) {
+            req.flash('top_messages', '商品庫存過低！')
+            return res.redirect(
+              `/customers/${req.params.customers_id}/records`
             )
-            if (alertItem.length > 0) {
-              req.flash('top_messages', '商品庫存過低！')
-              return res.redirect(
-                `/customers/${req.params.customers_id}/records`
-              )
-            }
-            return res.redirect(`/customers/${req.params.customers_id}/records`)
           }
-        )
-      })
+          return res.redirect(`/customers/${req.params.customers_id}/records`)
+        }
+      )
+    })
   },
 
   getDashboard: (req, res) => {

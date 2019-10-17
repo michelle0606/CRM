@@ -10,6 +10,7 @@ const numOfMaximumDistinctItemsPurchased = 3
 const numOfMaximumQtyPickedPerItem = 5
 const dateStart = '2019-08-15'
 const dateEnd = '2019-09-30'
+const categories = ['美妝達人', '服飾達人', '美食達人']
 let k = 1
 const customers = Array.from({ length: numOfCustomersGenerated }).map(d => ({
   id: k,
@@ -32,18 +33,17 @@ const products = Array.from({ length: numOfProductsGenerated }).map(d => ({
   id: k,
   name: faker.commerce.productName(),
   manufacturer: '',
-  category: '',
+  category: (k <= Math.floor(numOfProductsGenerated / 2)) ? faker.random.arrayElement(categories) : faker.commerce.productAdjective(),
   purchasePrice: Math.floor(Math.random() * 200) + 100,
   salePrice: Math.floor(Math.random() * 200) + 300,
   image: faker.image.imageUrl(),
   inventory: Math.floor(Math.random() * 20),
-  ShopId: k++ <= Math.floor(numOfProductsGenerated / 2) ? 2 : 3,
+  ShopId: (k++ <= Math.floor(numOfProductsGenerated / 2)) ? 2 : 3,
   createdAt: new Date(),
   updatedAt: new Date()
 }))
 const salesDetails = []
 const sales = []
-const category = ['美妝達人', '服飾達人', '美食達人']
 
 function shuffle(arr) {
   let i = arr.length, j = 0, tmp
