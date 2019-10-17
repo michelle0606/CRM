@@ -3,6 +3,11 @@ module.exports = (sequelize, DataTypes) => {
   const Sale = sequelize.define(
     'Sale',
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       total: DataTypes.INTEGER,
       CustomerId: DataTypes.INTEGER,
       UserId: DataTypes.INTEGER,
