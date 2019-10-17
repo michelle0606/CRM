@@ -213,17 +213,17 @@ module.exports = {
       {}
     )
 
-    queryInterface.bulkInsert(
-      'SaleDetails',
-      salesDetails,
-      {}
-    )
+    // queryInterface.bulkInsert(
+    //   'SaleDetails',
+    //   salesDetails,
+    //   {}
+    // )
 
-    queryInterface.bulkInsert(
-      'Sales',
-      [],
-      {}
-    )
+    // queryInterface.bulkInsert(
+    //   'Sales',
+    //   sales,
+    //   {}
+    // )
 
     return queryInterface.bulkInsert(
       'MailTemplates',
