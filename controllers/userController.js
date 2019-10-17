@@ -39,12 +39,15 @@ const userController = {
           error_messages: '信箱重複！'
         })
       } else {
+        console.log('AAA')
         const newShop = await Shop.create({ name: name, email: email })
+        console.log('BBB')
         const newUser = await User.create({
           password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
           role: 1,
           ShopId: newShop.id
         })
+        console.log('CCC')
 
         const lastNubmer = `10000${newUser.ShopId}`
         const directBuy = await Customer.create({
@@ -53,6 +56,7 @@ const userController = {
           ShopId: newShop.id,
           receiveEmail: false
         })
+        console.log('DDD')
 
         if (newUser && directBuy) {
           req.flash('success_messages', '成功註冊帳號！')
