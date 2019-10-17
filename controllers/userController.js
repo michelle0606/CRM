@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt-nodejs')
 const db = require('../models')
 const { User, Shop, Product, Customer } = db
+const Sequelize = require('sequelize')
 
 const userController = {
   signUpPage: (req, res) => {
@@ -40,12 +41,18 @@ const userController = {
         })
       } else {
         console.log('AAA')
-        
-        try {
-          const newShop = await Shop.create({ name: name, email: email })
-        } catch (err) {
-          console.log(err);
-        }
+
+        // db.sequelize.query('SELECT @@IDENTITY', {type: Sequelize.QueryTypes.SELECT}) 
+        // .then(id => {
+        //   console.log(id);
+        // })
+        Shop.count().then(c => { const shopID = c + 1})
+
+        // try {
+          const newShop = await Shop.create({ id: shopID, name: name, email: email })
+        // } catch (err) {
+          // console.log(err);
+        // }
 
         console.log('BBB')
         const newUser = await User.create({
