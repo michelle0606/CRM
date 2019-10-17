@@ -102,9 +102,9 @@ const tradeController = {
 
     Sale.create({
       total: totalPrice,
-      CustomerId: req.params.customers_id,
-      UserId: req.user.id,
-      ShopId: req.user.ShopId
+      CustomerId: Number(req.params.customers_id),
+      UserId: Number(req.user.id),
+      ShopId: Number(req.user.ShopId)
     })
     .then(sale => {
       console.log('C')
