@@ -40,6 +40,8 @@ const tradeController = {
 
     // const thisCustomer = await Customer.findByPk(req.params.customers_id)
 
+    console.log('A')
+
     allProducts.forEach(id => {
       Product.findByPk(Number(id))
       .then(product => {
@@ -96,6 +98,7 @@ const tradeController = {
     //     })
     //   })
     // })
+    console.log('B')
 
     Sale.create({
       total: totalPrice,
@@ -104,6 +107,7 @@ const tradeController = {
       ShopId: req.user.ShopId
     })
     .then(sale => {
+      console.log('C')
       let connect = 0
       allProducts.forEach(product => {
         SaleDetail.create({
@@ -139,6 +143,10 @@ const tradeController = {
         }
       )
     })
+    .catch(function(err) {
+        // print the error details
+        console.log(err);
+    });
   },
 
   getDashboard: (req, res) => {
