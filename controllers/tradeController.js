@@ -37,27 +37,48 @@ const tradeController = {
       allProducts.push(...req.body.productId)
     }
 
-    const thisCustomer = await Customer.findByPk(req.params.customers_id)
-
     allProducts.forEach(id => {
       Product.findByPk(Number(id)).then(product => {
-        Tag.create({
-          tag: product.category,
-          ShopId: req.user.ShopId
+        Tag.findOne({
+          where: {
+            tag: product.category,
+            ShopId: req.user.ShopId
+          }
         }).then(tag => {
-          CustomerDetail.create({
-            CustomerId: req.params.customers_id,
-            TagId: tag.id
-          })
+          if (tag) {
+            CustomerDetail.findOne({
+              where: {
+                CustomerId: req.params.customers_id,
+                TagId: tag.id
+              }
+            }).then(customerDetail => {
+              if (!customerDetail) {
+                CustomerDetail.create({
+                  CustomerId: req.params.customers_id,
+                  TagId: tag.id
+                })
+              }
+            })
+          } else {
+            Tag.create({
+              tag: product.category,
+              ShopId: req.user.ShopId
+            }).then(tag2 => {
+              CustomerDetail.create({
+                CustomerId: req.params.customers_id,
+                TagId: tag2.id
+              })
+            })
+          }
         })
       })
     })
 
     Sale.create({
       total: totalPrice,
-      CustomerId: req.params.customers_id,
-      UserId: req.user.id,
-      ShopId: req.user.ShopId
+      CustomerId: Number(req.params.customers_id),
+      UserId: Number(req.user.id),
+      ShopId: Number(req.user.ShopId)
     })
       .then(sale => {
         let connect = 0
@@ -75,7 +96,7 @@ const tradeController = {
               })
             })
           })
-          connect += 1
+          connect++
         })
       })
       .then(() => {
