@@ -13,7 +13,7 @@ const dateEnd = '2019-09-30'
 const categories = ['美妝達人', '服飾達人', '美食達人']
 let k = 1
 const customers = Array.from({ length: numOfCustomersGenerated }).map(d => ({
-  id: k,
+  // id: k,
   email: faker.internet.email(),
   phoneNr: faker.phone.phoneNumber(),
   name: faker.name.findName(),
@@ -30,7 +30,7 @@ const customers = Array.from({ length: numOfCustomersGenerated }).map(d => ({
 
 k = 1
 const products = Array.from({ length: numOfProductsGenerated }).map(d => ({
-  id: k,
+  // id: k,
   name: faker.commerce.productName(),
   manufacturer: '',
   category: (k <= Math.floor(numOfProductsGenerated / 2)) ? faker.random.arrayElement(categories) : faker.commerce.productAdjective(),
@@ -85,7 +85,7 @@ function generateSalesRecords() {
       salesDetails.push({
         id: salesDetailsId++,
         quantity: qty,
-        ProductId: products[randomProductArrIdxs[j]].id,
+        ProductId: products[randomProductArrIdxs[j]].id,//
         SaleId: sales.length + 1,
         createdAt: date,
         updatedAt: date
@@ -117,7 +117,7 @@ module.exports = {
       'Users',
       [
         {
-          id: 1,
+          // id: 1,
           password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10), null),
           name: 'admin',
           avatar: 'https://i.imgur.com/Uzs2ty3.jpg',
@@ -127,7 +127,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          id: 2,
+          // id: 2,
           password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10), null),
           name: 'shop2_mgr',
           avatar: 'https://i.imgur.com/Uzs2ty3.jpg',
@@ -137,7 +137,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          id: 3,
+          // id: 3,
           password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10), null),
           name: 'shop2_salesperson',
           avatar: 'https://i.imgur.com/Uzs2ty3.jpg',
@@ -147,7 +147,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          id: 4,
+          // id: 4,
           password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10), null),
           name: 'shop3_mgr',
           avatar: 'https://i.imgur.com/Uzs2ty3.jpg',
@@ -157,7 +157,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          id: 5,
+          // id: 5,
           password: bcrypt.hashSync('12345678', bcrypt.genSaltSync(10), null),
           name: 'shop3_salesperson',
           avatar: 'https://i.imgur.com/Uzs2ty3.jpg',
@@ -229,21 +229,21 @@ module.exports = {
       'MailTemplates',
       [
         {
-          id: 1,
+          // id: 1,
           title: '',
           message: '',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          id: 2,
+          // id: 2,
           title: '',
           message: '',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          id: 3,
+          // id: 3,
           title: '',
           message: '',
           createdAt: new Date(),
