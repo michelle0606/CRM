@@ -40,30 +40,12 @@ const userController = {
           error_messages: '信箱重複！'
         })
       } else {
-        console.log('AAA')
-
-        // db.sequelize.query('SELECT @@IDENTITY', {type: Sequelize.QueryTypes.SELECT}) 
-        // .then(id => {
-        //   console.log(id);
-        // })
-
-        // let sID = 0
-        // Shop.count().then(c => { sID = c + 1})
-        // console.log(sID)
-
-        // try {
-          const newShop = await Shop.create({ name: name, email: email })
-        // } catch (err) {
-        //   console.log(err);
-        // }
-
-        console.log('BBB')
+        const newShop = await Shop.create({ name: name, email: email })
         const newUser = await User.create({
           password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
           role: 1,
           ShopId: newShop.id
         })
-        console.log('CCC')
 
         const lastNubmer = `10000${newUser.ShopId}`
         const directBuy = await Customer.create({
@@ -72,7 +54,6 @@ const userController = {
           ShopId: newShop.id,
           receiveEmail: false
         })
-        console.log('DDD')
 
         if (newUser && directBuy) {
           req.flash('success_messages', '成功註冊帳號！')
@@ -91,7 +72,6 @@ const userController = {
 
   signIn: async (req, res) => {
     return res.redirect('/customers/create')
-
   },
 
   logout: (req, res) => {

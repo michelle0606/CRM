@@ -38,12 +38,8 @@ const tradeController = {
       allProducts.push(...req.body.productId)
     }
 
-    // const thisCustomer = await Customer.findByPk(req.params.customers_id)
-
-    console.log('A')
-
-    allProducts.forEach(pid => {
-      Product.findByPk(Number(pid))
+    allProducts.forEach(id => {
+      Product.findByPk(Number(id))
       .then(product => {
         Tag.findOne({
           where: {
@@ -83,24 +79,6 @@ const tradeController = {
       })
     })
 
-    // allProducts.forEach(id => {
-    //   Product.findByPk(Number(id))
-    //   .then(product => {
-    //     Tag.create({
-    //       tag: product.category,
-    //       ShopId: req.user.ShopId
-    //     })
-    //     .then(tag => {
-    //       CustomerDetail.create({
-    //         CustomerId: req.params.customers_id,
-    //         TagId: tag.id
-    //       })
-    //     })
-    //   })
-    // })
-    console.log('B')
-    console.log(req.body)
-
     Sale.create({
       total: totalPrice,
       CustomerId: Number(req.params.customers_id),
@@ -108,7 +86,6 @@ const tradeController = {
       ShopId: Number(req.user.ShopId)
     })
     .then(sale => {
-      console.log('C')
       let connect = 0
       allProducts.forEach(product => {
         SaleDetail.create({
@@ -144,10 +121,6 @@ const tradeController = {
         }
       )
     })
-    .catch(function(err) {
-        // print the error details
-        console.log(err);
-    });
   },
 
   getDashboard: (req, res) => {
