@@ -12,8 +12,8 @@
 .Button1 {
   color: var(--bgColor2);
   background-color: var(--bgColor1);
-  font-size: 30px;
-  padding: 10px 50px;
+  font-size: 20px;
+  padding: 5px 30px;
   border: 2px solid var(--bgColor1);
 }
 
@@ -32,15 +32,15 @@
 .Button3 {
   color: var(--bgColor1);
   background-color: var(--bgColor2);
-  font-size: 30px;
-  padding: 10px 50px;
+  font-size: 20px;
+  padding: 5px 30px;
   border: 2px solid var(--bgColor1);
 }
 
 .Title2 {
   color: #fff;
   text-align: center;
-  font-size: 40px;
+  font-size: 30px;
   padding-bottom: 20px;
 }
 
@@ -49,6 +49,50 @@
   font-size: 46px;
   font-family: var(--logoFont);
   cursor: pointer;
+}
+
+/***************************/
+/********* Layout **********/
+/***************************/
+
+.Layout1 {
+  background-color: var(--bgColor2);
+  display: grid;
+  grid-template-rows: 120px 1fr 100px;
+  height: 100vh;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+.Layout1 header {
+  padding: 10px 40px;
+}
+
+.Layout1 header a {
+  color: var(--bgColor1);
+  font-size: 50px;
+  font-family: var(--logoFont);
+}
+
+.Layout1 main {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.Layout1 .form-item {
+  margin-bottom: 40px;
+  position: relative;
+  width: 300px;
+}
+
+.Layout1 .form-item input {
+  font-size: 20px;
+  padding: 10px 15px;
+  letter-spacing: 2px;
+  width: -webkit-fill-available;
 }
 
 .Title {
@@ -125,7 +169,7 @@ footer {
 }
 
 footer ul {
-  font-size: 28px;
+  font-size: 16px;
   height: inherit;
   align-items: center;
   display: flex;
@@ -174,6 +218,11 @@ table tr:nth-child(even) {
   background-color: #e3e8fb;
 }
 
+.overflow {
+  height: 520px;
+  overflow: scroll;
+}
+
 .feedback {
   color: #fff;
   margin-bottom: 20px;
@@ -194,10 +243,9 @@ table tr:nth-child(even) {
 /*dashboard*/
 .reportrange {
   background: #fff;
-  cursor: pointer; 
+  cursor: pointer;
   padding: 5px 10px;
-  border: 1px 
-  solid #ccc;
+  border: 1px solid #ccc;
   width: 300px;
   margin-bottom: 5px;
 }
@@ -221,4 +269,34 @@ table tr:nth-child(even) {
 
 .chart-in-right {
   margin-left: 600px;
+}
+
+.daterangepicker .calendar-table th,
+.daterangepicker .calendar-table td {
+  padding: 0 !important;
+}
+
+/***************************/
+/***** only login page *****/
+/***************************/
+
+.forget {
+  display: block;
+  margin: 10px;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 0px;
+  text-decoration: underline;
+}
+
+.line {
+  width: inherit;
+  border: 1px solid #fff;
+  margin: 20px 0px;
+}
+
+.open-signup-page {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 }

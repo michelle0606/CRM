@@ -33,13 +33,13 @@ const productController = {
 
       // 到指定資料夾讀取csv檔，轉換成json格式
       const jsonArrayObj = await csv().fromFile(uploadPath)
+
       // 把json格式的進貨資料，儲存到資料庫
       const record = await PurchaseRecord.create({
         UserId: req.user.id,
         ShopId: req.user.ShopId
       })
 
-      // 匯入的庫存資料不具備ShopId，必須先判斷產品編號是否已經存在，並且確認該產品的ShopId，如果存在，
       jsonArrayObj.forEach(async el => {
         const data = await PurchaseRecordDetail.create({
           quantity: el.quantity,

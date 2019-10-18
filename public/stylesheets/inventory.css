@@ -30,3 +30,7 @@
   font-size: 14px;
   margin-left: 5px;
 }
+
+.purchase-record > a {
+  color: var(--bgColor1);
+}

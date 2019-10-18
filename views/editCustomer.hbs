@@ -3,8 +3,8 @@
   <form action="/customers/{{customer.id}}/edit?_method=PUT" method="POST" id="edit-form" enctype="multipart/form-data">
     <div class="edit-item">
       <aside><label for="name">姓名</label></aside>
-      {{#ifCond customer.name '非會員'}}
-      <div><input type="text" name="name" id="name" value="{{customer.name}}" readonly></div>
+      {{#ifCond customer.name '尚未登錄'}}
+      <div><input type="text" name="name" id="name"></div>
       {{else}}
       <div><input type="text" name="name" id="name" value="{{customer.name}}"></div>
       {{/ifCond}}
@@ -29,11 +29,20 @@
     </div>
     <div class="edit-item">
       <aside><label for="email">電子郵件</label></aside>
+      {{#ifCond customer.email '尚未登錄'}}
+      <div><input type="email" name="email" id="email"></div>
+      {{else}}
       <div><input type="email" name="email" id="email" value="{{customer.email}}"></div>
+      {{/ifCond}}
     </div>
     <div class="edit-item">
       <aside><label for="address">地址</label></aside>
+      {{#ifCond customer.email '尚未登錄'}}
+      <div><input type="text" name="address" id="address"></div>
+      {{else}}
       <div><input type="text" name="address" id="address" value="{{customer.address}}"></div>
+      {{/ifCond}}
+
     </div>
     <div class="edit-item">
       <aside><label for="receiveEmail">電子報</label></aside>

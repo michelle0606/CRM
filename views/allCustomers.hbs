@@ -5,20 +5,22 @@
       <input type="number" id="keyword" placeholder="輸入電話號碼查詢">
       <button id="clear" type="button">清除</button>
     </div>
-    <table class="table">
-      <tr>
-        <th scope="col">姓名</th>
-        <th scope="col">Email</th>
-        <th scope="col">電話號碼</th>
-      </tr>
-      {{#each customers}}
-      <tr>
-        <td><a href="/customers/{{this.id}}">{{this.name}}</a></td>
-        <td>{{this.email}}</td>
-        <td>{{this.phoneNr}}</td>
-      </tr>
-      {{/each}}
-    </table>
+    <div class="overflow">
+      <table class="table">
+        <tr>
+          <th scope="col">姓名</th>
+          <th scope="col">Email</th>
+          <th scope="col">電話號碼</th>
+        </tr>
+        {{#each customers}}
+        <tr>
+          <td><a href="/customers/{{this.id}}">{{this.name}}</a></td>
+          <td>{{this.email}}</td>
+          <td>{{this.phoneNr}}</td>
+        </tr>
+        {{/each}}
+      </table>
+    </div>
   </div>
 </div>
 <script src="/javascripts/search.js"></script>

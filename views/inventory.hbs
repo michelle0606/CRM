@@ -15,28 +15,30 @@
     <li class="download" id="download-invertory">匯出庫存</li>
     <li class="purchase-record"><a href="/purchaseRecord">進貨紀錄</a> </li>
   </ul>
-  <table>
-    <tr>
-      <th scope="col">編號</th>
-      <th scope="col">名稱</th>
-      <th scope="col">單價</th>
-      <th scope="col">庫存數量</th>
-    </tr>
-    {{#each products}}
-    <tr>
-      <td>{{this.id}}</a></td>
-      <td>{{this.name}}</td>
-      <td>{{this.salePrice}}</td>
-      {{#CompareNumber this.inventory this.minimumStock}}
-      <td style="color: red">{{this.inventory}} <div>
-          <small>少於最低庫存</small>
-        </div>
-      </td>
-      {{else}}
-      <td>{{this.inventory}}</td>
-      {{/CompareNumber}}
-    </tr>
-    {{/each}}
-  </table>
+  <div class="overflow">
+    <table>
+      <tr>
+        <th scope="col">編號</th>
+        <th scope="col">名稱</th>
+        <th scope="col">單價</th>
+        <th scope="col">庫存數量</th>
+      </tr>
+      {{#each products}}
+      <tr>
+        <td>{{this.id}}</a></td>
+        <td>{{this.name}}</td>
+        <td>{{this.salePrice}}</td>
+        {{#CompareNumber this.inventory this.minimumStock}}
+        <td style="color: red">{{this.inventory}} <div>
+            <small>少於最低庫存</small>
+          </div>
+        </td>
+        {{else}}
+        <td>{{this.inventory}}</td>
+        {{/CompareNumber}}
+      </tr>
+      {{/each}}
+    </table>
+  </div>
 </div>
 <script src="/javascripts/download.js"></script>

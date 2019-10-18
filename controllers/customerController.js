@@ -34,7 +34,6 @@ const customerController = {
       })
     }
     res.render('index', { title: '新增會員', directBuy, flag })
-
   },
 
   addCustomer: (req, res) => {
@@ -86,13 +85,13 @@ const customerController = {
       let month = ''
       let day = ''
 
-      if (d.getMonth() < 10) {
+      if (d.getMonth() < 9) {
         month = `0${d.getMonth() + 1}`
       } else {
         month = d.getMonth() + 1
       }
 
-      if (d.getDate() < 10) {
+      if (d.getDate() < 9) {
         day = `0${d.getDate() + 1}`
       } else {
         day = d.getDate()
