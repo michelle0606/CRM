@@ -1,6 +1,6 @@
 # Waromen
 
-Simple, elegant, the easiest CRM (customer relationship management) to get started.
+Simple, elegant, the easiest CRM (customer relationship management) to get started.
 
 Visit [our website](https://waromen.herokuapp.com/login).
 
