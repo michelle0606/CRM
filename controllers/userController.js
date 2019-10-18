@@ -56,7 +56,7 @@ const userController = {
         })
 
         if (newUser && directBuy) {
-          req.flash('success_messages', '成功註冊帳號！')
+          req.flash('success_messages', '成功註冊帳號！您的帳號是' + newUser.id + '！')
           return res.redirect('/login')
         }
       }

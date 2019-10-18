@@ -198,7 +198,7 @@ $(function() {
         param = 'dailyRevenueCustomRange'
     }
 
-    const url = 'https://aqueous-castle-93475.herokuapp.com/api/dashboard/' + shopId + '/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
+    const url = 'http://127.0.0.1:3000/api/dashboard/' + shopId + '/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
 
     $.getJSON(url, function(data) {
       dailyRevenueLineChart.title = data.title
@@ -249,7 +249,7 @@ $(function() {
         param = 'bestSellersCustomRange'
     }
 
-    const url = 'https://aqueous-castle-93475.herokuapp.com/api/dashboard/' + shopId + '/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
+    const url = 'http://127.0.0.1:3000/api/dashboard/' + shopId + '/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
 
     $.getJSON(url, function(data) {
       bestSellersColumnChart.title = data.title
@@ -299,7 +299,7 @@ $(function() {
         param = 'mostMentionedCustomRange'
     }
 
-    const url = 'https://aqueous-castle-93475.herokuapp.com/api/dashboard/' + shopId + '/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
+    const url = 'http://127.0.0.1:3000/api/dashboard/' + shopId + '/' + param + '?start=' + start.format('YYYY-MM-DD') + '&end=' + end.format('YYYY-MM-DD')
 
     $.getJSON(url, function(data) {
       mostMentionedColumnChart.title = data.title
