@@ -174,7 +174,7 @@ module.exports = {
       'Shops',
       [
         {
-          id: 1,
+          // id: 1,
           email: 'shop1@example.com',
           phoneNr: '02 2720 1230',
           name: '平台自身',
@@ -184,7 +184,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          id: 2,
+          // id: 2,
           email: 'shop2@example.com',
           phoneNr: '02 2363 8009',
           name: '保養品專櫃',
@@ -194,7 +194,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          id: 3,
+          // id: 3,
           email: 'shop3@example.com',
           phoneNr: '02 2521 2813',
           name: '咖啡食品材料行',

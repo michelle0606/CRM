@@ -46,12 +46,13 @@ const userController = {
         // .then(id => {
         //   console.log(id);
         // })
-        let sID = 0
-        Shop.count().then(c => { sID = c + 1})
-        console.log(sID)
+
+        // let sID = 0
+        // Shop.count().then(c => { sID = c + 1})
+        // console.log(sID)
 
         try {
-          const newShop = await Shop.create({ id: sID, name: name, email: email })
+          const newShop = await Shop.create({ name: name, email: email })
         } catch (err) {
           console.log(err);
         }
