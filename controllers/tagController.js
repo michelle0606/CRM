@@ -8,11 +8,18 @@ const tagController = {
     const tag = req.body.tag
     const existTag = await Tag.findOne({ where: { tag: tag } })
 
-    if (existTag)
-      return CustomerDetail.create({ CustomerId: id, TagId: existTag.id }).then(
-        () => res.redirect(`/customers/${id}`)
-      )
-    else {
+    if (existTag) {
+      const customerDetail = await CustomerDetail.findOne({
+        where: {
+          CustomerId: id,
+          TagId: existTag.id
+        }
+      })
+      if (!customerDetail) {
+        await CustomerDetail.create({ CustomerId: id, TagId: existTag.id })
+      }
+      return res.redirect(`/customers/${id}`)
+    } else {
       Tag.create({
         tag: tag,
         ShopId: helpers.getUser(req).ShopId

@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt-nodejs')
 const db = require('../models')
 const { User, Shop, Product, Customer } = db
+const Sequelize = require('sequelize')
 
 const userController = {
   signUpPage: (req, res) => {
@@ -55,7 +56,7 @@ const userController = {
         })
 
         if (newUser && directBuy) {
-          req.flash('success_messages', '成功註冊帳號！')
+          req.flash('success_messages', '成功註冊帳號！您的帳號是' + newUser.id + '！')
           return res.redirect('/login')
         }
       }
@@ -71,7 +72,6 @@ const userController = {
 
   signIn: async (req, res) => {
     return res.redirect('/customers/create')
-
   },
 
   logout: (req, res) => {
