@@ -6,7 +6,6 @@ const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 const { Customer, Product, Sale, SaleDetail, Tag, CustomerDetail } = db
 
-
 const tradeController = {
   getCustomerTradePage: (req, res) => {
     Customer.findOne({ where: { id: req.params.customers_id } }).then(
@@ -20,7 +19,7 @@ const tradeController = {
     const totalPrice = req.body.total
     const allProducts = []
     const allCounts = []
-    
+
     if (!req.body.productId) {
       req.flash('top_messages', '無品項不可以新增交易！')
       return res.redirect(`/customers/${req.params.customers_id}/record`)
@@ -42,7 +41,6 @@ const tradeController = {
 
     allProducts.forEach(id => {
       Product.findByPk(Number(id)).then(product => {
-
         Tag.create({
           tag: product.category,
           ShopId: req.user.ShopId
@@ -99,7 +97,10 @@ const tradeController = {
   },
 
   getDashboard: (req, res) => {
-    return res.render('dashboard', { shopId: helpers.getUser(req).ShopId })
+    return res.render('dashboard', {
+      shopId: helpers.getUser(req).ShopId,
+      title: '報表分析'
+    })
   },
 
   getStats: async (req, res) => {
@@ -114,34 +115,40 @@ const tradeController = {
       },
       plotOptions: {
         series: {
-          pointStart: Date.UTC(2000, 0, 1),
+          pointStart: Date.UTC(2000, 0, 1)
         }
       },
-      series: [{
-        // name: '營業額',
-        data: []
-      }],
+      series: [
+        {
+          // name: '營業額',
+          data: []
+        }
+      ]
     }
     const bestSellersColumnChart = {
       title: {
         text: ''
       },
-      series: [{
-        name: '',
-        data: []
-      }],
+      series: [
+        {
+          name: '',
+          data: []
+        }
+      ]
     }
     const mostMentionedColumnChart = {
       title: {
         text: ''
       },
-      series: [{
-        name: '',
-        data: []
-      }],
+      series: [
+        {
+          name: '',
+          data: []
+        }
+      ]
     }
 
-    if ((req.params.nameOfTheStats).includes('dailyRevenue')) {
+    if (req.params.nameOfTheStats.includes('dailyRevenue')) {
       const dailyRevenue = await Sale.findAll({
         where: {
           createdAt: {
@@ -156,14 +163,14 @@ const tradeController = {
         ],
         group: [db.sequelize.fn('DATE', db.sequelize.col('createdAt')), 'date'],
         // limit: 15,
-        raw: true,
+        raw: true
       })
 
       let startDate = moment(req.query.start).format('YYYY-MM-DD')
       const endDate = moment(req.query.end).format('YYYY-MM-DD')
       let revenue = ''
       const yyyy = parseInt(startDate.substring(0, 4))
-      const mm = parseInt(startDate.substring(5, 7)) - 1// zero-based
+      const mm = parseInt(startDate.substring(5, 7)) - 1 // zero-based
       const dd = parseInt(startDate.substring(8, 10))
 
       switch (req.params.nameOfTheStats) {
@@ -188,17 +195,24 @@ const tradeController = {
         default:
           dailyRevenueLineChart.title.text = '自訂區間營業額'
       }
-      dailyRevenueLineChart.plotOptions.series.pointStart = Date.UTC(yyyy, mm, dd)
+      dailyRevenueLineChart.plotOptions.series.pointStart = Date.UTC(
+        yyyy,
+        mm,
+        dd
+      )
 
       while (!moment(startDate).isAfter(endDate)) {
         revenue = dailyRevenue.find(record => record.date === startDate)
-        if (typeof revenue === 'undefined') dailyRevenueLineChart.series[0].data.push(0)
+        if (typeof revenue === 'undefined')
+          dailyRevenueLineChart.series[0].data.push(0)
         else dailyRevenueLineChart.series[0].data.push(parseInt(revenue.amount))
-        startDate = moment(startDate).add(1, 'days').format('YYYY-MM-DD')
+        startDate = moment(startDate)
+          .add(1, 'days')
+          .format('YYYY-MM-DD')
       }
 
       return res.json(dailyRevenueLineChart)
-    } else if ((req.params.nameOfTheStats).includes('bestSellers')) {
+    } else if (req.params.nameOfTheStats.includes('bestSellers')) {
       const bestSellers = await Sale.findAll({
         where: {
           createdAt: {
@@ -209,8 +223,9 @@ const tradeController = {
         },
         include: [
           {
-            model: SaleDetail,
-          }, {
+            model: SaleDetail
+          },
+          {
             model: Product,
             as: 'associatedProducts',
             where: {
@@ -223,13 +238,21 @@ const tradeController = {
         attributes: [
           'associatedProducts.id',
           'associatedProducts.name',
-          [db.sequelize.fn('SUM', db.sequelize.col('SaleDetails.quantity')), 'quantity']
+          [
+            db.sequelize.fn('SUM', db.sequelize.col('SaleDetails.quantity')),
+            'quantity'
+          ]
         ],
         group: 'associatedProducts.id',
-        order: [[db.sequelize.fn('SUM', db.sequelize.col('SaleDetails.quantity')), 'DESC']],
+        order: [
+          [
+            db.sequelize.fn('SUM', db.sequelize.col('SaleDetails.quantity')),
+            'DESC'
+          ]
+        ],
         // limit: 15,
         includeIgnoreAttributes: false,
-        raw: true,
+        raw: true
       })
 
       switch (req.params.nameOfTheStats) {
@@ -274,7 +297,7 @@ const tradeController = {
             [Op.lte]: moment(req.query.end).endOf('day')
           },
           ShopId: req.params.shop_id
-        },
+        }
       })
       const mostMentioned = await Sale.findAll({
         where: {
@@ -284,20 +307,27 @@ const tradeController = {
           },
           ShopId: req.params.shop_id
         },
-        include: [{
-          model: Product,
-          as: 'associatedProducts',
-        }],
+        include: [
+          {
+            model: Product,
+            as: 'associatedProducts'
+          }
+        ],
         attributes: [
           'associatedProducts.id',
           'associatedProducts.name',
-          [db.sequelize.fn("COUNT", db.sequelize.col('Sale.id')), "numOfSalesRec"],
+          [
+            db.sequelize.fn('COUNT', db.sequelize.col('Sale.id')),
+            'numOfSalesRec'
+          ]
         ],
         group: db.sequelize.col('associatedProducts.id'),
-        order: [[db.sequelize.fn("COUNT", db.sequelize.col('Sale.id')), 'DESC']],
+        order: [
+          [db.sequelize.fn('COUNT', db.sequelize.col('Sale.id')), 'DESC']
+        ],
         // limit: 15,
         includeIgnoreAttributes: false,
-        raw: true,
+        raw: true
       })
 
       switch (req.params.nameOfTheStats) {
@@ -328,7 +358,7 @@ const tradeController = {
 
       for (let i = 0; i < count; i++) {
         let tmp = []
-        mostMentioned[i].numOfSalesRec /= (sales.count / 100)
+        mostMentioned[i].numOfSalesRec /= sales.count / 100
         tmp.push(mostMentioned[i].name)
         tmp.push(mostMentioned[i].numOfSalesRec)
         mostMentionedColumnChart.series[0].data.push(tmp)
