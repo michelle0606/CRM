@@ -1,3 +1,4 @@
+{{> messages}}
 <div class="container">
   <div class="record-content">
     <div class="Title">
@@ -26,12 +27,13 @@
           <span class="close">&times;</span>
           <table>
             <tr>
+              <th scope="col">商品編號</th>
               <th scope="col">商品名稱</th>
-
               <th scope="col">當次進貨數量</th>
             </tr>
             {{#each this.associatedProducts}}
             <tr>
+              <td>{{this.id}}</td>
               <td>{{this.name}}</td>
               <td>{{this.PurchaseRecordDetail.quantity}}</td>
             </tr>
@@ -44,4 +46,3 @@
   </div>
 </div>
 <script src="/javascripts/popup.js"></script>
-<script src="/javascripts/itemTotalPrice.js"></script>
