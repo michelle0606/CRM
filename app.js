@@ -86,17 +86,25 @@ app.use(async (req, res, next) => {
   next()
 })
 
-
-
 app.use('/', indexRouter)
 app.use('/advance', advanceRouter)
 app.use('/customers', customersRouter)
 app.use('/admin', adminRouter)
-app.get('*', (req, res) => { res.render('NotFound', { layout: 'preLayout.hbs' }) })
+app.get('*', (req, res) => {
+  res.render('NotFound', { layout: 'preLayout.hbs' })
+})
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404))
 })
 
+let Rollbar = require('rollbar')
+let rollbar = new Rollbar({
+  accessToken: 'b19923b4c2bc40d6be17117398641351',
+  captureUncaught: true,
+  captureUnhandledRejections: true
+})
+
+rollbar.log('Hello')
 module.exports = app
