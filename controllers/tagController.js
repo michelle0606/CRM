@@ -36,16 +36,9 @@ const tagController = {
 
   deleteTag: (req, res) => {
 
-    Customer.findByPk(req.params.customers_id, { include: [{ model: Tag, as: 'associatedTags' }] })
-      .then(customer => {
-        customer.associatedTags.forEach(a => {
-          if (a.tag === req.body.tagId) {
-            Tag.destroy({ where: { id: a.id } }).then(() => {
-            })
-          }
-        });
-        return res.redirect(`/customers/${req.params.customers_id}`)
-      })
+    CustomerDetail.destroy({ where: { CustomerId: req.params.customers_id, TagId: req.body.tagId } }).then(() => {
+      return res.redirect(`/customers/${req.params.customers_id}`)
+    })
   }
 }
 
