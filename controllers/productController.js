@@ -22,7 +22,7 @@ const productController = {
       return res.redirect('/inventory')
     } else {
       let productsFile = req.files.products
-      let uploadPath = '../uploadCsv' + productsFile.name
+      let uploadPath = '../uploadCsv/' + productsFile.name
 
       // 先把上傳的csv檔案存到指定資料夾
       productsFile.mv(uploadPath, function(err) {
@@ -51,6 +51,7 @@ const productController = {
           where: { id: Number(data.ProductId), ShopId: req.user.ShopId }
         })
         if (existProduct) {
+          console.log('BBB')
           // 現有產品更新資訊
           const newInventory =
             Number(existProduct.inventory) + Number(data.quantity)
@@ -61,6 +62,7 @@ const productController = {
           })
         } else {
           // 新產品
+          console.log('AAAA')
           Product.create({
             name: el.name,
             salePrice: el.salePrice,
