@@ -19,7 +19,7 @@ const tradeController = {
     Customer.findOne({
       where: { name: '非會員交易紀錄', ShopId: req.user.id }
     }).then(customer => {
-      if (customer) {
+      if (!customer) {
         res.redirect('/')
       } else {
         res.render('trade', { customer, title: '直接結帳' })
