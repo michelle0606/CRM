@@ -5,7 +5,7 @@ const imgur = require('imgur-node-api')
 
 const advanceController = {
   getAllCustomers: (req, res) => {
-    Customer.findAll().then(customers => {
+    Customer.findAll({ where: { ShopId: req.user.ShopId } }).then(customers => {
       res.render('advance/advanceCustomers', {
         layout: 'advanceLayout.hbs',
         customers,
