@@ -1,5 +1,4 @@
 'use strict'
-
 const bcrypt = require('bcrypt-nodejs')
 const faker = require('faker')
 const genders = ['female', 'male']
@@ -26,8 +25,7 @@ const customers = Array.from({ length: numOfCustomersGenerated }).map(d => ({
   createdAt: new Date(),
   updatedAt: new Date()
 }))
-
-const derictBuy = (k = 1)
+k = 1
 const products = Array.from({ length: numOfProductsGenerated }).map(d => ({
   name: faker.commerce.productName(),
   manufacturer: '',
