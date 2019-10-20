@@ -1,93 +1,95 @@
-.content-out {
-  animation-name: content-out;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-
-.content-in {
-  animation-name: content-in;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes content-out {
-  from {
-    margin-left: 0px;
+@media screen and (max-width: 768px) {
+  .content-out {
+    animation-name: content-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
   }
-  to {
-    margin-left: 200px;
-  }
-}
 
-@keyframes content-in {
-  from {
-    margin-left: 200px;
+  .content-in {
+    animation-name: content-in;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
   }
-  to {
-    margin-left: 0px;
-  }
-}
 
-.icon-rotate-in {
-  animation-name: icon-rotate-in;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-
-.icon-rotate-out {
-  animation-name: icon-rotate-out;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes icon-rotate-in {
-  from {
-    transform: rotate(0deg);
+  @keyframes content-out {
+    from {
+      margin-left: 0px;
+    }
+    to {
+      margin-left: 200px;
+    }
   }
-  to {
-    transform: rotate(180deg);
-  }
-}
 
-@keyframes icon-rotate-out {
-  from {
-    transform: rotate(180deg);
+  @keyframes content-in {
+    from {
+      margin-left: 200px;
+    }
+    to {
+      margin-left: 0px;
+    }
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-.fade-out {
-  animation-name: fade-out;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-
-.fade-in {
-  animation-name: fade-in;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fade-out {
-  from {
-    left: -200px;
-    box-shadow: 0px 0 0px 0px black;
+  .icon-rotate-in {
+    animation-name: icon-rotate-in;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
   }
-  to {
-    left: 0px;
-    box-shadow: 6px 0 20px 0px black;
-  }
-}
 
-@keyframes fade-in {
-  from {
-    left: 0;
-    box-shadow: 6px 0 20px 0px black;
+  .icon-rotate-out {
+    animation-name: icon-rotate-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
   }
-  to {
-    left: -200px;
-    box-shadow: 0px 0 0px 0px black;
+
+  @keyframes icon-rotate-in {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(180deg);
+    }
+  }
+
+  @keyframes icon-rotate-out {
+    from {
+      transform: rotate(180deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .fade-out {
+    animation-name: fade-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+
+  .fade-in {
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes fade-out {
+    from {
+      left: -200px;
+      box-shadow: 0px 0 0px 0px black;
+    }
+    to {
+      left: 0px;
+      box-shadow: 6px 0 20px 0px black;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      left: 0;
+      box-shadow: 6px 0 20px 0px black;
+    }
+    to {
+      left: -200px;
+      box-shadow: 0px 0 0px 0px black;
+    }
   }
 }
