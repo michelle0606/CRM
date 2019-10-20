@@ -13,12 +13,11 @@ const productController = {
   },
 
   postInventory: async (req, res) => {
-    const file = req.file.originalname
     const regex = /\.(csv)$/i
     if (!req.file) {
       req.flash('top_messages', '請選擇檔案！')
       return res.redirect('/inventory')
-    } else if (!regex.test(file)) {
+    } else if (!regex.test(req.file.originalname)) {
       req.flash('top_messages', '檔案格式只接受CSV！')
       return res.redirect('/inventory')
     } else {
@@ -42,7 +41,6 @@ const productController = {
           where: { id: Number(data.ProductId), ShopId: req.user.ShopId }
         })
         if (existProduct) {
-          console.log('BBB')
           // 現有產品更新資訊
           const newInventory =
             Number(existProduct.inventory) + Number(data.quantity)
@@ -53,7 +51,6 @@ const productController = {
           })
         } else {
           // 新產品
-          console.log('AAAA')
           Product.create({
             name: el.name,
             salePrice: el.salePrice,
