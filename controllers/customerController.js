@@ -41,8 +41,8 @@ const customerController = {
   },
 
   getCustomer: (req, res) => {
-    const id = req.params.customers_id
-    return Customer.findByPk(id, {
+
+    return Customer.findByPk(req.params.customers_id, {
       include: {
         model: Tag,
         as: 'associatedTags'
@@ -54,14 +54,13 @@ const customerController = {
 
       for (i = 0; i < allTags.length; i++) {
         if (tags.indexOf(allTags[i].tag) < 0) {
-          tags.push(allTags[i].tag)
+          tags.push(allTags[i])
         }
       }
 
       if (customer.note) {
         customer.note = customer.note.slice(0, 20) + '...'
       }
-
       return res.render('customer', { customer, tags, title: '會員資料' })
     })
   },

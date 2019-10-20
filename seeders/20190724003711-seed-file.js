@@ -4,7 +4,7 @@ const faker = require('faker')
 const genders = ['female', 'male']
 const numOfCustomersGenerated = 30
 const numOfProductsGenerated = 20
-const numOfSalesRecordsGenerated = 100
+const numOfSalesRecordsGenerated = 150
 const numOfMaximumDistinctItemsPurchased = 3
 const numOfMaximumQtyPickedPerItem = 5
 const dateStart = '2019-09-01'
@@ -84,16 +84,14 @@ function generateSalesRecords() {
       total += products[randomProductArrIdxs[j]].salePrice * qty
 
       salesDetails.push({
-        id: salesDetailsId++,
         quantity: qty,
-        ProductId: products[randomProductArrIdxs[j]].id, //
+        ProductId: randomProductArrIdxs[j] + 1,// the id of the products happens to be the index of the array plus 1
         SaleId: sales.length + 1,
         createdAt: date,
         updatedAt: date
       })
     }
     sales.push({
-      id: salesId++,
       total: total,
       CustomerId:
         Math.floor(Math.random() * Math.ceil(numOfCustomersGenerated / 2)) +
@@ -219,17 +217,17 @@ module.exports = {
 
     queryInterface.bulkInsert('Products', products, {})
 
-    // queryInterface.bulkInsert(
-    //   'SaleDetails',
-    //   salesDetails,
-    //   {}
-    // )
+    queryInterface.bulkInsert(
+      'SaleDetails',
+      salesDetails,
+      {}
+    )
 
-    // queryInterface.bulkInsert(
-    //   'Sales',
-    //   sales,
-    //   {}
-    // )
+    queryInterface.bulkInsert(
+      'Sales',
+      sales,
+      {}
+    )
 
     return queryInterface.bulkInsert(
       'MailTemplates',
