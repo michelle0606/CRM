@@ -9,8 +9,6 @@ const customerController = {
   },
 
   createCustomerPage: async (req, res) => {
-    const lastNubmer = 100000 + req.user.ShopId
-    let directBuy = await Customer.findByPk(lastNubmer)
     let flag = 0
     const products = await Product.findAll({
       where: {
@@ -22,18 +20,7 @@ const customerController = {
     )
 
     if (alertItem.length > 0) flag = 1
-    if (directBuy === null) {
-      directBuy = await Customer.create({
-        id: lastNubmer,
-        name: '非會員',
-        ShopId: req.user.ShopId,
-        email: '',
-        phoneNr: '',
-        receiveEmail: false,
-        birthday: '2019-01-01'
-      })
-    }
-    res.render('index', { title: '新增會員', directBuy, flag })
+    res.render('index', { title: '新增會員', flag })
   },
 
   addCustomer: (req, res) => {

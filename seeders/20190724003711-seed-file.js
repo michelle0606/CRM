@@ -27,17 +27,19 @@ const customers = Array.from({ length: numOfCustomersGenerated }).map(d => ({
   updatedAt: new Date()
 }))
 
-k = 1
+const derictBuy = (k = 1)
 const products = Array.from({ length: numOfProductsGenerated }).map(d => ({
-  id: k,
   name: faker.commerce.productName(),
   manufacturer: '',
-  category: (k <= Math.floor(numOfProductsGenerated / 2)) ? faker.random.arrayElement(categories) : faker.commerce.productAdjective(),
+  category:
+    k <= Math.floor(numOfProductsGenerated / 2)
+      ? faker.random.arrayElement(categories)
+      : faker.commerce.productAdjective(),
   purchasePrice: Math.floor(Math.random() * 200) + 100,
   salePrice: Math.floor(Math.random() * 200) + 300,
   image: faker.image.imageUrl(),
   inventory: Math.floor(Math.random() * 20),
-  ShopId: (k++ <= Math.floor(numOfProductsGenerated / 2)) ? 2 : 3,
+  ShopId: k++ <= Math.floor(numOfProductsGenerated / 2) ? 2 : 3,
   createdAt: new Date(),
   updatedAt: new Date()
 }))
@@ -45,7 +47,9 @@ const salesDetails = []
 const sales = []
 
 function shuffle(arr) {
-  let i = arr.length, j = 0, tmp
+  let i = arr.length,
+    j = 0,
+    tmp
 
   while (i--) {
     j = Math.floor(Math.random() * (i + 1))
@@ -61,7 +65,7 @@ function shuffle(arr) {
 function generateSalesRecords() {
   let qty
   let productArrIdxs = Array.from(
-    { length: Math.ceil(numOfProductsGenerated / 2) }, 
+    { length: Math.ceil(numOfProductsGenerated / 2) },
     (v, k) => k + Math.floor(numOfProductsGenerated / 2)
   )
   let randomProductArrIdxs
@@ -84,7 +88,7 @@ function generateSalesRecords() {
       salesDetails.push({
         id: salesDetailsId++,
         quantity: qty,
-        ProductId: products[randomProductArrIdxs[j]].id,//
+        ProductId: products[randomProductArrIdxs[j]].id, //
         SaleId: sales.length + 1,
         createdAt: date,
         updatedAt: date
@@ -93,7 +97,9 @@ function generateSalesRecords() {
     sales.push({
       id: salesId++,
       total: total,
-      CustomerId: Math.floor(Math.random() * Math.ceil(numOfCustomersGenerated / 2)) + (Math.floor(numOfCustomersGenerated / 2) + 1),
+      CustomerId:
+        Math.floor(Math.random() * Math.ceil(numOfCustomersGenerated / 2)) +
+        (Math.floor(numOfCustomersGenerated / 2) + 1),
       UserId: 5,
       ShopId: 3,
       createdAt: date,
@@ -102,16 +108,31 @@ function generateSalesRecords() {
   }
 }
 
-generateSalesRecords()
+// generateSalesRecords()
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     queryInterface.bulkInsert(
       'Customers',
-      customers,
+      [
+        {
+          name: '非會員交易紀錄',
+          ShopId: 2,
+          receiveEmail: false,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          name: '非會員交易紀錄',
+          ShopId: 3,
+          receiveEmail: false,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      ],
       {}
     )
-
+    queryInterface.bulkInsert('Customers', customers, {})
     queryInterface.bulkInsert(
       'Users',
       [
@@ -198,11 +219,7 @@ module.exports = {
       {}
     )
 
-    queryInterface.bulkInsert(
-      'Products',
-      products,
-      {}
-    )
+    queryInterface.bulkInsert('Products', products, {})
 
     // queryInterface.bulkInsert(
     //   'SaleDetails',

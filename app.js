@@ -60,25 +60,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(async (req, res, next) => {
-  if (req.user) {
-    const lastNubmer = 100000 + req.user.ShopId
-    const directBuy = await Customer.findByPk(lastNubmer)
-    if (directBuy === null) {
-      Customer.create({
-        id: lastNubmer,
-        name: '非會員',
-        ShopId: req.user.ShopId,
-        email: '',
-        phoneNr: '',
-        receiveEmail: false,
-        birthday: '2019-01-01'
-      }).then(directBuy => {
-        req.user.directBuy = lastNubmer
-      })
-    } else {
-      req.user.directBuy = lastNubmer
-    }
-  }
   res.locals.user = req.user
   res.locals.success_messages = req.flash('success_messages')
   res.locals.error_messages = req.flash('error_messages')
