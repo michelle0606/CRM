@@ -10,7 +10,7 @@ const passport = require('../config/passport')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
 const helpers = require('../_helpers')
-const fileUpload = require('express-fileupload')
+// const fileUpload = require('express-fileupload')
 
 const authenticated = (req, res, next) => {
   if (helpers.ensureAuthenticated(req)) {
@@ -47,7 +47,7 @@ router.get('/inventory', authenticated, productController.getInventory)
 router.post(
   '/inventory',
   authenticated,
-  fileUpload(),
+  upload.single('products'),
   productController.postInventory
 )
 
@@ -90,6 +90,11 @@ router.get('/api/products', authenticated, productController.APIGetAllProducts)
 
 // dashboard
 router.get('/dashboard', tradeController.getDashboard)
+
+// directBuy
+router.get('/directBuy', tradeController.directBuy)
+
+// api
 router.get('/api/dashboard/:shop_id/:nameOfTheStats', tradeController.getStats)
 router.get(
   '/api/customer/:customers_id',

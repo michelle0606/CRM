@@ -47,16 +47,17 @@ const userController = {
           ShopId: newShop.id
         })
 
-        const lastNubmer = `10000${newUser.ShopId}`
         const directBuy = await Customer.create({
-          id: lastNubmer,
-          name: '非會員',
+          name: '非會員交易紀錄',
           ShopId: newShop.id,
           receiveEmail: false
         })
 
         if (newUser && directBuy) {
-          req.flash('success_messages', '成功註冊帳號！您的帳號是' + newUser.id + '！')
+          req.flash(
+            'success_messages',
+            '成功註冊帳號！您的帳號是' + newUser.id + '！'
+          )
           return res.redirect('/login')
         }
       }

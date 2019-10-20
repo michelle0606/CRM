@@ -35,7 +35,10 @@
 					<a href="/customers/{{customer.id}}/records">查看紀錄</a>
 				</div>
 				<div>
+					{{#ifCond customer.name "非會員交易紀錄"}}
+					{{else}}
 					<a href="/customers/{{customer.id}}/edit">編輯資料</a>
+					{{/ifCond}}
 				</div>
 			</div>
 		</div>

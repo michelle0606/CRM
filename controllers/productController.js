@@ -13,26 +13,16 @@ const productController = {
   },
 
   postInventory: async (req, res) => {
-    let regex = /\.(csv)$/i
-    if (!req.files) {
+    const regex = /\.(csv)$/i
+    if (!req.file) {
       req.flash('top_messages', '請選擇檔案！')
       return res.redirect('/inventory')
-    } else if (!regex.test(req.files.products.name)) {
+    } else if (!regex.test(req.file.originalname)) {
       req.flash('top_messages', '檔案格式只接受CSV！')
       return res.redirect('/inventory')
     } else {
-      let productsFile = req.files.products
-      let uploadPath = '../uploadCsv' + productsFile.name
-
-      // 先把上傳的csv檔案存到指定資料夾
-      productsFile.mv(uploadPath, function(err) {
-        if (err) {
-          return res.status(500).send(err)
-        }
-      })
-
       // 到指定資料夾讀取csv檔，轉換成json格式
-      const jsonArrayObj = await csv().fromFile(uploadPath)
+      const jsonArrayObj = await csv().fromFile(req.file.path)
 
       // 把json格式的進貨資料，儲存到資料庫
       const record = await PurchaseRecord.create({
