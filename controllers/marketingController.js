@@ -1,10 +1,7 @@
 const db = require('../models')
-const Customer = db.Customer
-const Tag = db.Tag
-const CustomerDetail = db.CustomerDetail
+const { Shop, Tag, MailTemplate } = db
 const nodemailer = require('nodemailer')
 const imgur = require('imgur-node-api')
-const MailTemplate = db.MailTemplate
 
 const marketingController = {
   getMarketingPage: async (req, res) => {
@@ -17,15 +14,15 @@ const marketingController = {
     const tags = []
 
     array.forEach(item => {
-      tags.includes(item) ? false : tags.push(item);
+      tags.includes(item) ? false : tags.push(item)
     })
     res.render('marketing', { title: '廣告行銷', template, tags })
-
   },
 
-  sendEmail: (req, res) => {
-    const { name, email, subject, message } = req.body
-    let data = { name: name, message: message }
+  sendEmail: async (req, res) => {
+    const { email, subject, message } = req.body
+    let data = { subject: subject, message: message }
+    const shopInfo = await Shop.findByPk(req.user.ShopId)
 
     if (typeof email !== 'string') {
       let trueMail = email.filter(mail => mail !== 'null')
@@ -39,18 +36,22 @@ const marketingController = {
             }
           })
 
-          res.render('email/hello', { layout: null, data }, (err, html) => {
-            if (err) return console.log('error in email template')
-            transporter.sendMail({
-              from: '"Lancome蘭蔻" <lancome@gmail.com>',
-              to: mail,
-              subject: subject,
-              html: html
-            })
-          })
+          res.render(
+            'email/hello',
+            { layout: 'email/layout', data, shopInfo },
+            (err, html) => {
+              if (err) return console.log('error in email template')
+              transporter.sendMail({
+                from: `"${shopInfo.name}" <waromen2019@gmail.com>`,
+                to: mail,
+                subject: subject,
+                html: html
+              })
+            }
+          )
         }
         main()
-          .then(() => { })
+          .then(() => {})
           .catch(console.error)
       })
     } else {
@@ -62,22 +63,27 @@ const marketingController = {
             pass: process.env.GMAIL_PASS
           }
         })
-        res.render('email/hello', { layout: null, data }, (err, html) => {
-          if (err) return console.log('error in email template')
-          transporter.sendMail({
-            from: '"Lancome蘭蔻" <lancome@gmail.com>',
-            to: email,
-            subject: subject,
-            html: html
-          })
-        })
+        res.render(
+          'email/hello',
+          { layout: 'email/layout', data, shopInfo },
+          (err, html) => {
+            if (err) return console.log('error in email template')
+            transporter.sendMail({
+              from: `"${shopInfo.name}" <waromen2019@gmail.com`,
+              to: email,
+              subject: subject,
+              html: html
+            })
+          }
+        )
       }
       main()
-        .then(() => { })
+        .then(() => {
+          req.flash('top_messages', '信件成功發送！')
+          res.redirect('/marketing')
+        })
         .catch(console.error)
     }
-    req.flash('top_messages', '信件成功發送！')
-    res.redirect('/marketing')
   },
 
   updateTemplate: (req, res) => {
