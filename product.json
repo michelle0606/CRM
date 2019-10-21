@@ -5,110 +5,146 @@
       "products": [
         {
           "name": "DR. WEIL青春無敵健康光潤精華液",
-          "salePrice": "2950",
+          "manufacturer": "",
           "category": "精華液",
+          "purchasePrice": 2000,
+          "salePrice": 2950,
           "tag": ["舒緩肌膚", "恢復彈潤"]
         },
         {
           "name": "駐顏有樹緊緻抗痕眼霜",
-          "salePrice": "2000",
+          "manufacturer": "",
           "category": "眼霜",
+          "purchasePrice": 1500,
+          "salePrice": 2000,
           "tag": ["減少細紋", "抗老"]
         },
         {
           "name": "天生麗質粉美肌超霧感水凝霜",
-          "salePrice": "1550",
+          "manufacturer": "",
           "category": "凝霜",
+          "purchasePrice": 1000,
+          "salePrice": 1550,
           "tag": ["適合油肌", "保濕"]
         },
         {
           "name": "泥娃娃活性碳控油清爽凝凍",
-          "salePrice": "凝凍",
-          "category": "1550",
+          "manufacturer": "",
+          "category": "凝凍",
+          "purchasePrice": 1000,
+          "salePrice": 1550,
           "tag": ["控油", "抗痘", "保濕", "預防粉刺"]
         },
         {
           "name": "DR. WEIL青春無敵速效光潤面膜(6片)",
-          "salePrice": "600",
+          "manufacturer": "",
           "category": "面膜",
+          "purchasePrice": 400,
+          "salePrice": 600,
           "tag": ["舒緩肌膚"]
         },
         {
           "name": "一飲而盡保濕面膜",
-          "salePrice": "900",
+          "manufacturer": "",
           "category": "面膜",
+          "purchasePrice": 700,
+          "salePrice": 900,
           "tag": ["保濕"]
         },
         {
           "name": "駐顏有樹A醇煥膚夜間安瓶",
-          "salePrice": "2850",
+          "manufacturer": "",
           "category": "夜間安瓶",
+          "purchasePrice": 2000,
+          "salePrice": 2850,
           "tag": ["抗老"]
         },
         {
           "name": "一飲而盡深度滋潤面膜",
-          "salePrice": "1050",
+          "manufacturer": "",
           "category": "面膜",
+          "purchasePrice": 800,
+          "salePrice": 1050,
           "tag": ["保濕"]
         },
         {
           "name": "泥娃娃活性碳面膜",
-          "salePrice": "900",
+          "manufacturer": "",
           "category": "面膜",
+          "purchasePrice": 500,
+          "salePrice": 900,
           "tag": ["抗痘", "控油"]
         },
         {
           "name": "天生麗質粉美肌面膜",
-          "salePrice": "900",
+          "manufacturer": "",
           "category": "面膜",
+          "purchasePrice": 500,
+          "salePrice": 900,
           "tag": ["恢復彈潤", "恢復光澤", "抗老"]
         },
         {
           "name": "奇蹟抗痘面膜",
-          "salePrice": "900",
+          "manufacturer": "",
           "category": "面膜",
+          "purchasePrice": 700,
+          "salePrice": 900,
           "tag": ["抗痘", "控油"]
         },
         {
           "name": "天生麗質粉美肌卸妝凝膠",
-          "salePrice": "900",
+          "manufacturer": "",
           "category": "凝膠",
+          "purchasePrice": 600,
+          "salePrice": 900,
           "tag": ["卸妝", "溫和"]
         },
         {
           "name": "DR. WEIL青春無敵健康光潤機能水",
-          "salePrice": "1450",
+          "manufacturer": "",
           "category": "凝膠",
+          "purchasePrice": 1000,
+          "salePrice": 1450,
           "tag": ["鎮定", "舒緩肌膚"]
         },
         {
           "name": "DR. WEIL青春無敵健康光潤精華液",
-          "salePrice": "2950",
+          "manufacturer": "",
           "category": "精華液",
+          "purchasePrice": 2000,
+          "salePrice": 2950,
           "tag": ["舒緩肌膚", "恢復彈潤"]
         },
         {
           "name": "泥娃娃活性碳潔顏粉",
-          "salePrice": "1250",
+          "manufacturer": "",
           "category": "潔顏粉",
+          "purchasePrice": 1000,
+          "salePrice": 1250,
           "tag": ["去角質", "深層清潔"]
         },
         {
           "name": "執米不悔純米精萃潔顏油",
-          "salePrice": "1300",
+          "manufacturer": "",
           "category": "潔顏油",
+          "purchasePrice": 1000,
+          "salePrice": 1300,
           "tag": ["卸妝"]
         },
         {
           "name": "執米不悔天然微晶煥膚霜",
-          "salePrice": "1900",
+          "manufacturer": "",
           "category": "煥膚霜",
+          "purchasePrice": 1200,
+          "salePrice": 1900,
           "tag": ["去角質"]
         },
         {
           "name": "執米不悔純米精萃潔膚棒",
-          "salePrice": "1300",
+          "manufacturer": "",
           "category": "潔膚棒",
+          "purchasePrice": 1000,
+          "salePrice": 1300,
           "tag": ["去角質", "卸妝"]
         }
       ]
@@ -118,113 +154,157 @@
       "products": [
         {
           "name": "Impact 乳清蛋白粉",
-          "salePrice": "750",
-          "category": "高蛋白粉"
+          "manufacturer": "",
+          "category": "高蛋白粉",
+          "purchasePrice": 600,
+          "salePrice": 750
         },
         {
           "name": "THE Whey 尖端乳清",
-          "salePrice": "1590",
-          "category": "高蛋白粉"
+          "manufacturer": "",
+          "category": "高蛋白粉",
+          "purchasePrice": 1200,
+          "salePrice": 1590
         },
         {
           "name": "Impact 分離乳清蛋白粉",
-          "salePrice": "1450",
-          "category": "高蛋白粉"
+          "manufacturer": "",
+          "category": "高蛋白粉",
+          "purchasePrice": 1200,
+          "salePrice": 1450
         },
         {
           "name": "Impact 窈窕乳清蛋白粉",
-          "salePrice": "1300",
-          "category": "高蛋白粉"
+          "manufacturer": "",
+          "category": "高蛋白粉",
+          "purchasePrice": 1200,
+          "salePrice": 1300
         },
         {
           "name": "THE Whey+ 高效緩釋 乳清蛋白",
-          "salePrice": "1880",
-          "category": "高蛋白粉"
+          "manufacturer": "",
+          "category": "高蛋白粉",
+          "purchasePrice": 1200,
+          "salePrice": 1880
         },
         {
           "name": "BCAA 支鏈氨基酸 2:1:1",
-          "salePrice": "900",
-          "category": "氨基酸"
+          "manufacturer": "",
+          "category": "氨基酸",
+          "purchasePrice": 700,
+          "salePrice": 900
         },
         {
           "name": "L-Carnitine左旋肉鹼片",
-          "salePrice": "790",
-          "category": "氨基酸"
+          "manufacturer": "",
+          "category": "氨基酸",
+          "purchasePrice": 600,
+          "salePrice": 790
         },
         {
           "name": "HMB β-羥基-β-甲基丁酸片",
-          "salePrice": "1370",
-          "category": "氨基酸"
+          "manufacturer": "",
+          "category": "氨基酸",
+          "purchasePrice": 1200,
+          "salePrice": 1370
         },
         {
           "name": "100% 瓜氨酸蘋果酸 氨基酸粉",
-          "salePrice": "2000",
-          "category": "氨基酸"
+          "manufacturer": "",
+          "category": "氨基酸",
+          "purchasePrice": 1200,
+          "salePrice": 2000
         },
         {
           "name": "左旋谷氨酰胺粉",
-          "salePrice": "1350",
-          "category": "氨基酸"
+          "manufacturer": "",
+          "category": "氨基酸",
+          "purchasePrice": 1200,
+          "salePrice": 1350
         },
         {
           "name": "男士複合維生素片",
-          "salePrice": "970",
-          "category": "維生素"
+          "manufacturer": "",
+          "category": "維生素",
+          "purchasePrice": 700,
+          "salePrice": 970
         },
         {
           "name": "塑形片",
-          "salePrice": "1250",
-          "category": "維生素"
+          "manufacturer": "",
+          "category": "維生素",
+          "purchasePrice": 1100,
+          "salePrice": 1250
         },
         {
           "name": "CLA 共軛亞油酸",
-          "salePrice": "860",
-          "category": "維生素"
+          "manufacturer": "",
+          "category": "維生素",
+          "purchasePrice": 600,
+          "salePrice": 860
         },
         {
           "name": "鋅鎂片",
-          "salePrice": "750",
-          "category": "維生素"
+          "manufacturer": "",
+          "category": "維生素",
+          "purchasePrice": 600,
+          "salePrice": 750
         },
         {
           "name": "THE Multi 尖端複合維生素",
-          "salePrice": "1390",
-          "category": "維生素"
+          "manufacturer": "",
+          "category": "維生素",
+          "purchasePrice": 1200,
+          "salePrice": 1390
         },
         {
           "name": "日常複合維生素片",
-          "salePrice": "580",
-          "category": "維生素"
+          "manufacturer": "",
+          "category": "維生素",
+          "purchasePrice": 500,
+          "salePrice": 580
         },
         {
           "name": "超級歐米伽 3 魚油膠囊",
-          "salePrice": "930",
-          "category": "維生素"
+          "manufacturer": "",
+          "category": "維生素",
+          "purchasePrice": 600,
+          "salePrice": 930
         },
         {
           "name": "低卡代餐配方粉",
-          "salePrice": "1250",
-          "category": "代餐"
+          "manufacturer": "",
+          "category": "代餐",
+          "purchasePrice": 1000,
+          "salePrice": 1250
         },
         {
           "name": "代餐營養配方粉",
-          "salePrice": "1750",
-          "category": "代餐"
+          "manufacturer": "",
+          "category": "代餐",
+          "purchasePrice": 1200,
+          "salePrice": 1750
         },
         {
           "name": "純素食營養配方粉",
-          "salePrice": "1280",
-          "category": "代餐"
+          "manufacturer": "",
+          "category": "代餐",
+          "purchasePrice": 1000,
+          "salePrice": 1280
         },
         {
           "name": "高蛋白代餐棒",
-          "salePrice": "980",
-          "category": "代餐"
+          "manufacturer": "",
+          "category": "代餐",
+          "purchasePrice": 700,
+          "salePrice": 980
         },
         {
           "name": "蒟蒻飯",
-          "salePrice": "750",
-          "category": "代餐"
+          "manufacturer": "",
+          "category": "代餐",
+          "purchasePrice": 500,
+          "salePrice": 750
         }
       ]
     }

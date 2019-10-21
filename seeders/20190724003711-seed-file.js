@@ -1,15 +1,16 @@
 'use strict'
 const bcrypt = require('bcrypt-nodejs')
 const faker = require('faker')
+const seedProducts = require('../product.json')
 const genders = ['female', 'male']
 const numOfCustomersGenerated = 30
-const numOfProductsGenerated = 20
 const numOfSalesRecordsGenerated = 150
 const numOfMaximumDistinctItemsPurchased = 3
 const numOfMaximumQtyPickedPerItem = 5
 const dateStart = '2019-09-01'
 const dateEnd = '2019-10-22'
-const categories = ['美妝達人', '服飾達人', '美食達人']
+const salesDetails = []
+const sales = []
 let k = 1
 const customers = Array.from({ length: numOfCustomersGenerated }).map(d => ({
   email: faker.internet.email(),
@@ -25,24 +26,37 @@ const customers = Array.from({ length: numOfCustomersGenerated }).map(d => ({
   createdAt: new Date(),
   updatedAt: new Date()
 }))
-k = 1
-const products = Array.from({ length: numOfProductsGenerated }).map(d => ({
-  name: faker.commerce.productName(),
-  manufacturer: '',
-  category:
-    k <= Math.floor(numOfProductsGenerated / 2)
-      ? faker.random.arrayElement(categories)
-      : faker.commerce.productAdjective(),
-  purchasePrice: Math.floor(Math.random() * 200) + 100,
-  salePrice: Math.floor(Math.random() * 200) + 300,
-  image: faker.image.imageUrl(),
-  inventory: Math.floor(Math.random() * 20),
-  ShopId: k++ <= Math.floor(numOfProductsGenerated / 2) ? 2 : 3,
-  createdAt: new Date(),
-  updatedAt: new Date()
-}))
-const salesDetails = []
-const sales = []
+const products = []
+ 
+for (let i = 0; i < seedProducts.results[0].products.length; i++) {
+  products.push({
+    name: seedProducts.results[0].products[i].name,
+    manufacturer: seedProducts.results[0].products[i].manufacturer,
+    category: seedProducts.results[0].products[i].category,
+    purchasePrice: seedProducts.results[0].products[i].purchasePrice,
+    salePrice: seedProducts.results[0].products[i].salePrice,
+    image: faker.image.imageUrl(),
+    ShopId: 2,
+    inventory: Math.floor(Math.random() * 20),
+    createdAt: new Date(),
+    updatedAt: new Date()
+  })
+}
+
+for (let i = 0; i < seedProducts.results[1].products.length; i++) {
+  products.push({
+    name: seedProducts.results[1].products[i].name,
+    manufacturer: seedProducts.results[1].products[i].manufacturer,
+    category: seedProducts.results[1].products[i].category,
+    purchasePrice: seedProducts.results[1].products[i].purchasePrice,
+    salePrice: seedProducts.results[1].products[i].salePrice,
+    image: faker.image.imageUrl(),
+    ShopId: 3,
+    inventory: Math.floor(Math.random() * 20),
+    createdAt: new Date(),
+    updatedAt: new Date()
+  })
+}
 
 function shuffle(arr) {
   let i = arr.length,
@@ -63,8 +77,8 @@ function shuffle(arr) {
 function generateSalesRecords() {
   let qty
   let productArrIdxs = Array.from(
-    { length: Math.ceil(numOfProductsGenerated / 2) },
-    (v, k) => k + Math.floor(numOfProductsGenerated / 2)
+    { length: seedProducts.results[1].products.length },
+    (v, k) => k + seedProducts.results[0].products.length
   )
   let randomProductArrIdxs
   let total
@@ -82,7 +96,6 @@ function generateSalesRecords() {
     for (let j = 0; j < tmp; j++) {
       qty = Math.floor(Math.random() * numOfMaximumQtyPickedPerItem) + 1
       total += products[randomProductArrIdxs[j]].salePrice * qty
-
       salesDetails.push({
         quantity: qty,
         ProductId: randomProductArrIdxs[j] + 1,// the id of the products happens to be the index of the array plus 1
@@ -91,6 +104,7 @@ function generateSalesRecords() {
         updatedAt: date
       })
     }
+
     sales.push({
       total: total,
       CustomerId:
@@ -104,7 +118,7 @@ function generateSalesRecords() {
   }
 }
 
-// generateSalesRecords()
+generateSalesRecords()
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -196,7 +210,7 @@ module.exports = {
         {
           email: 'shop2@example.com',
           phoneNr: '02 2363 8009',
-          name: '保養品專櫃',
+          name: '品木宣言',
           address: '台北市中山區林森北路 107 巷 8 號',
           logo: faker.image.imageUrl(),
           createdAt: new Date(),
@@ -205,7 +219,7 @@ module.exports = {
         {
           email: 'shop3@example.com',
           phoneNr: '02 2521 2813',
-          name: '咖啡食品材料行',
+          name: 'MYPROTEIN',
           address: '台北市信義區松壽路 2 號',
           logo: faker.image.imageUrl(),
           createdAt: new Date(),
