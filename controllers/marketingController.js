@@ -21,11 +21,52 @@ const marketingController = {
 
   sendEmail: async (req, res) => {
     const { email, subject, message } = req.body
-    let data = { subject: subject, message: message }
+    const allEmails = []
+    const { file } = req
+    const data = { subject: subject, message: message }
     const shopInfo = await Shop.findByPk(req.user.ShopId)
 
-    if (typeof email !== 'string') {
-      let trueMail = email.filter(mail => mail !== 'null')
+    if (!Array.isArray(req.body.email)) {
+      allEmails.push(req.body.email)
+    } else {
+      allEmails.push(...req.body.email)
+    }
+
+    let trueMail = email.filter(mail => mail !== 'null')
+
+    if (file) {
+      imgur.setClientID(process.env.IMGUR_CLIENT_ID)
+      imgur.upload(file.path, (err, img) => {
+        trueMail.forEach(mail => {
+          async function main() {
+            let transporter = nodemailer.createTransport({
+              service: 'Gmail',
+              auth: {
+                user: process.env.GMAIL_USER,
+                pass: process.env.GMAIL_PASS
+              }
+            })
+
+            res.render(
+              'email/hello',
+              { layout: 'email/layout', data, shopInfo, img: img.data.link },
+              (err, html) => {
+                if (err) return console.log('error in email template')
+                transporter.sendMail({
+                  from: `"${shopInfo.name}" <waromen2019@gmail.com>`,
+                  to: mail,
+                  subject: subject,
+                  html: html
+                })
+              }
+            )
+          }
+          main()
+            .then(() => {})
+            .catch(console.error)
+        })
+      })
+    } else {
       trueMail.forEach(mail => {
         async function main() {
           let transporter = nodemailer.createTransport({
@@ -38,7 +79,7 @@ const marketingController = {
 
           res.render(
             'email/hello',
-            { layout: 'email/layout', data, shopInfo },
+            { layout: 'email/layout', data, shopInfo, img: null },
             (err, html) => {
               if (err) return console.log('error in email template')
               transporter.sendMail({
@@ -54,35 +95,6 @@ const marketingController = {
           .then(() => {})
           .catch(console.error)
       })
-    } else {
-      async function main() {
-        let transporter = nodemailer.createTransport({
-          service: 'Gmail',
-          auth: {
-            user: process.env.GMAIL_USER,
-            pass: process.env.GMAIL_PASS
-          }
-        })
-        res.render(
-          'email/hello',
-          { layout: 'email/layout', data, shopInfo },
-          (err, html) => {
-            if (err) return console.log('error in email template')
-            transporter.sendMail({
-              from: `"${shopInfo.name}" <waromen2019@gmail.com`,
-              to: email,
-              subject: subject,
-              html: html
-            })
-          }
-        )
-      }
-      main()
-        .then(() => {
-          req.flash('top_messages', '信件成功發送！')
-          res.redirect('/marketing')
-        })
-        .catch(console.error)
     }
   },
 
