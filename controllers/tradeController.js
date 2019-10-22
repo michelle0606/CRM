@@ -17,7 +17,7 @@ const tradeController = {
 
   directBuy: (req, res) => {
     Customer.findOne({
-      where: { name: '非會員交易紀錄', ShopId: req.user.id }
+      where: { name: '非會員交易紀錄', ShopId: Number(req.user.ShopId) }
     }).then(customer => {
       if (!customer) {
         res.redirect('/')
