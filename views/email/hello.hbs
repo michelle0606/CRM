@@ -1,3 +1,25 @@
-<h1>Success</h1>
-<p>Hi, {{ data.name }}</p>
-<p>{{data.message}}</p>
+<div style="width: 500px; margin: auto;">
+  <br />
+  <div>
+    <img src="{{shopInfo.logo}}" alt="" width="200px">
+  </div>
+  <br />
+  <div>
+    <h2>{{data.subject}}</h2>
+  </div>
+  <div style="width: inherit;">
+    <img src="https://picsum.photos/930/400" style="width: inherit;" class="img-fluid" alt="Responsive image" />
+  </div>
+  <br />
+  <div>
+    {{data.message}}
+  </div>
+  <br />
+  <div>{{shopInfo.name}}</div>
+  <div>店家地址 {{shopInfo.address}}</div>
+  <div>聯絡電話 {{shopInfo.phoneNr}}</div>
+  <div>服務信箱 {{shopInfo.email}}</div>
+  <br />
+  <div style="font-size: 13px; color:red">這是由 WAROEMN 系統發送的訊息，並非官方電子信箱，請勿直接回覆，謝謝。</div>
+  <br />
+</div>

@@ -1,10 +1,7 @@
 const db = require('../models')
-const Customer = db.Customer
-const Tag = db.Tag
-const CustomerDetail = db.CustomerDetail
+const { Shop, Tag, MailTemplate } = db
 const nodemailer = require('nodemailer')
 const imgur = require('imgur-node-api')
-const MailTemplate = db.MailTemplate
 
 const marketingController = {
   getMarketingPage: async (req, res) => {
@@ -21,17 +18,61 @@ const marketingController = {
     const tags = []
 
     array.forEach(item => {
-      tags.includes(item) ? false : tags.push(item);
+      tags.includes(item) ? false : tags.push(item)
     })
     res.render('marketing', { title: '廣告行銷', template, tags })
   },
 
-  sendEmail: (req, res) => {
-    const { name, email, subject, message } = req.body
-    let data = { name: name, message: message }
+  sendEmail: async (req, res) => {
+    const { email, subject, message } = req.body
+    const allEmails = []
+    const { file } = req
+    const data = { subject: subject, message: message }
+    const shopInfo = await Shop.findByPk(req.user.ShopId)
 
-    if (typeof email !== 'string') {
-      let trueMail = email.filter(mail => mail !== 'null')
+    if (!Array.isArray(email)) {
+      allEmails.push(email)
+    } else {
+      allEmails.push(...email)
+    }
+
+    let trueMail = allEmails.filter(mail => mail !== 'null')
+
+    if (file) {
+      imgur.setClientID(process.env.IMGUR_CLIENT_ID)
+      imgur.upload(file.path, (err, img) => {
+        trueMail.forEach(mail => {
+          async function main() {
+            let transporter = nodemailer.createTransport({
+              service: 'Gmail',
+              auth: {
+                user: process.env.GMAIL_USER,
+                pass: process.env.GMAIL_PASS
+              }
+            })
+
+            res.render(
+              'email/hello',
+              { layout: null, data, shopInfo, img: img.data.link },
+              (err, html) => {
+                if (err) return console.log('error in email template')
+                transporter.sendMail({
+                  from: `"${shopInfo.name}" <waromen2019@gmail.com>`,
+                  to: mail,
+                  subject: subject,
+                  html: html
+                })
+              }
+            )
+          }
+          main()
+            .then(() => {})
+            .catch(console.error)
+        })
+      })
+      req.flash('top_messages', '郵件成功發送！')
+      return res.redirect('/marketing')
+    } else {
       trueMail.forEach(mail => {
         async function main() {
           let transporter = nodemailer.createTransport({
@@ -42,45 +83,27 @@ const marketingController = {
             }
           })
 
-          res.render('email/hello', { layout: null, data }, (err, html) => {
-            if (err) return console.log('error in email template')
-            transporter.sendMail({
-              from: '"Lancome蘭蔻" <lancome@gmail.com>',
-              to: mail,
-              subject: subject,
-              html: html
-            })
-          })
+          res.render(
+            'email/hello',
+            { layout: null, data, shopInfo, img: null },
+            (err, html) => {
+              if (err) return console.log('error in email template')
+              transporter.sendMail({
+                from: `"${shopInfo.name}" <waromen2019@gmail.com>`,
+                to: mail,
+                subject: subject,
+                html: html
+              })
+            }
+          )
         }
         main()
-          .then(() => { })
+          .then(() => {})
           .catch(console.error)
       })
-    } else {
-      async function main() {
-        let transporter = nodemailer.createTransport({
-          service: 'Gmail',
-          auth: {
-            user: process.env.GMAIL_USER,
-            pass: process.env.GMAIL_PASS
-          }
-        })
-        res.render('email/hello', { layout: null, data }, (err, html) => {
-          if (err) return console.log('error in email template')
-          transporter.sendMail({
-            from: '"Lancome蘭蔻" <lancome@gmail.com>',
-            to: email,
-            subject: subject,
-            html: html
-          })
-        })
-      }
-      main()
-        .then(() => { })
-        .catch(console.error)
+      req.flash('top_messages', '郵件成功發送！')
+      return res.redirect('/marketing')
     }
-    req.flash('top_messages', '信件成功發送！')
-    res.redirect('/marketing')
   },
 
   updateTemplate: (req, res) => {

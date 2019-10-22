@@ -59,11 +59,16 @@ router.get(
 
 // marketing
 router.get('/marketing', authenticated, marketingController.getMarketingPage)
-router.post('/marketing', authenticated, marketingController.sendEmail)
+router.post(
+  '/marketing',
+  authenticated,
+  upload.single('picture'),
+  marketingController.sendEmail
+)
 router.put(
   '/marketing/template',
   authenticated,
-  upload.single('info'),
+  upload.single('picture'),
   marketingController.updateTemplate
 )
 
