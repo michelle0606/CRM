@@ -26,13 +26,13 @@ const marketingController = {
     const data = { subject: subject, message: message }
     const shopInfo = await Shop.findByPk(req.user.ShopId)
 
-    if (!Array.isArray(req.body.email)) {
-      allEmails.push(req.body.email)
+    if (!Array.isArray(email)) {
+      allEmails.push(email)
     } else {
-      allEmails.push(...req.body.email)
+      allEmails.push(...email)
     }
 
-    let trueMail = email.filter(mail => mail !== 'null')
+    let trueMail = allEmails.filter(mail => mail !== 'null')
 
     if (file) {
       imgur.setClientID(process.env.IMGUR_CLIENT_ID)
@@ -49,7 +49,7 @@ const marketingController = {
 
             res.render(
               'email/hello',
-              { layout: 'email/layout', data, shopInfo, img: img.data.link },
+              { layout: null, data, shopInfo, img: img.data.link },
               (err, html) => {
                 if (err) return console.log('error in email template')
                 transporter.sendMail({
@@ -66,6 +66,8 @@ const marketingController = {
             .catch(console.error)
         })
       })
+      req.flash('top_messages', '郵件成功發送！')
+      return res.redirect('/marketing')
     } else {
       trueMail.forEach(mail => {
         async function main() {
@@ -79,7 +81,7 @@ const marketingController = {
 
           res.render(
             'email/hello',
-            { layout: 'email/layout', data, shopInfo, img: null },
+            { layout: null, data, shopInfo, img: null },
             (err, html) => {
               if (err) return console.log('error in email template')
               transporter.sendMail({
@@ -95,6 +97,8 @@ const marketingController = {
           .then(() => {})
           .catch(console.error)
       })
+      req.flash('top_messages', '郵件成功發送！')
+      return res.redirect('/marketing')
     }
   },
 
