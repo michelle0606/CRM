@@ -10,7 +10,11 @@ const marketingController = {
   getMarketingPage: async (req, res) => {
     const template = await MailTemplate.findOne({ where: { id: 1 } })
 
-    const originTags = await Tag.findAll()
+    const originTags = await Tag.findAll({
+      where: {
+        ShopId: Number(req.user.ShopId)
+      }
+    })
 
     const array = originTags.map(a => a.tag)
 
@@ -20,7 +24,6 @@ const marketingController = {
       tags.includes(item) ? false : tags.push(item);
     })
     res.render('marketing', { title: '廣告行銷', template, tags })
-
   },
 
   sendEmail: (req, res) => {
