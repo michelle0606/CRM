@@ -140,6 +140,12 @@ const marketingController = {
     MailTemplate.findAll().then(template => {
       res.send(template)
     })
+  },
+
+  APIGetShopInfo: (req, res) => {
+    Shop.findByPk(req.user.ShopId).then(shop => {
+      res.send(shop)
+    })
   }
 }
 

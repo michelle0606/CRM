@@ -113,4 +113,5 @@ router.get(
   marketingController.APIGetAllMailTemplate
 )
 
+router.get('/api/shopInfo', authenticated, marketingController.APIGetShopInfo)
 module.exports = router
