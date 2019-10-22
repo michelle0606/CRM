@@ -23,6 +23,9 @@ Visit [our website](https://waromen.herokuapp.com/login).
 - 串接金流
 - 將部分權限認證彈性改為輸入密碼認證
 - 自動分析客戶消費紀錄並且發送行銷電郵
+- 透過系統管理實施折扣、優惠方案
+- CI/CD設置
+- ESLint規範coding style
 
 ## Tests
 
