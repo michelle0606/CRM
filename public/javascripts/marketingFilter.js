@@ -142,14 +142,14 @@ contentSection.addEventListener('input', e => {
 async function next() {
   const titleInput = mailTitle.value
   const contentInput = contentSection.textContent
-  // const copyData = customerData.cloneNode(true)
-  // const h2fCustomerList = document.createElement('h2')
-  // const imgPreview = img.cloneNode(true) //copy upload img and could use commonly
-  // imgPreview.style.width = '100%'
-  // const imgDiv = document.createElement('div')
-  // imgDiv.style.width = '100%'
-  // h2fCustomerList.innerHTML = '<h2>目標客戶:</h2>'
-  // imgDiv.append(h2fCustomerList)
+  const copyData = customerData.cloneNode(true)
+  const h2fCustomerList = document.createElement('h2')
+  const imgPreview = img.cloneNode(true) //copy upload img and could use commonly
+  imgPreview.style.width = '100%'
+  const imgDiv = document.createElement('div')
+  imgDiv.style.width = '100%'
+  h2fCustomerList.innerHTML = '<h2>目標客戶:</h2>'
+  imgDiv.append(h2fCustomerList)
   modalData.innerHTML = `
     <h1>預覽郵件</h1>
     <div style="border: 1px solid #ddd; margin: 20px 0px; border-radius: 5px;">
@@ -181,8 +181,8 @@ async function next() {
     </div>
   `
 
-  // modalData.append(imgDiv)
-  // modalData.appendChild(copyData)
+  modalData.append(imgDiv)
+  modalData.appendChild(copyData)
 }
 
 openButtons.addEventListener('click', () => {

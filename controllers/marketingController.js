@@ -57,7 +57,7 @@ const marketingController = {
               (err, html) => {
                 if (err) return console.log('error in email template')
                 transporter.sendMail({
-                  from: `"${shopInfo.name}" <waromen2019@gmail.com>`,
+                  from: `"${shopInfo.name}" <waromen2020@gmail.com>`,
                   to: mail,
                   subject: subject,
                   html: html
@@ -89,7 +89,7 @@ const marketingController = {
             (err, html) => {
               if (err) return console.log('error in email template')
               transporter.sendMail({
-                from: `"${shopInfo.name}" <waromen2019@gmail.com>`,
+                from: `"${shopInfo.name}" <waromen2020@gmail.com>`,
                 to: mail,
                 subject: subject,
                 html: html
