@@ -34,11 +34,29 @@ const tagController = {
     }
   },
 
-  deleteTag: (req, res) => {
-
-    CustomerDetail.destroy({ where: { CustomerId: req.params.customers_id, TagId: req.body.tagId } }).then(() => {
-      return res.redirect(`/customers/${req.params.customers_id}`)
+  deleteTag: async (req, res) => {
+    const c = await CustomerDetail.count({ 
+      where: { 
+        TagId: Number(req.body.tagId)
+      } 
     })
+
+    if (c === 1) {
+      await Tag.destroy({
+        where: {
+          id: Number(req.body.tagId),
+        }
+      })
+    }
+
+    await CustomerDetail.destroy({
+      where: { 
+        CustomerId: Number(req.params.customers_id), 
+        TagId: Number(req.body.tagId)
+      } 
+    })
+
+    return res.redirect(`/customers/${req.params.customers_id}`)
   }
 }
 
