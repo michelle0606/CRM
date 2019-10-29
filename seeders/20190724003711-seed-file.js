@@ -219,7 +219,7 @@ module.exports = {
         {
           email: 'shop3@example.com',
           phoneNr: '02 2521 2813',
-          name: 'MYPROTEIN',
+          name: '咖啡原料行',
           address: '台北市信義區松壽路 2 號',
           logo: faker.image.imageUrl(),
           createdAt: new Date(),
