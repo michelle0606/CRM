@@ -52,7 +52,7 @@ for (let i = 0; i < seedProducts.results[1].products.length; i++) {
     salePrice: seedProducts.results[1].products[i].salePrice,
     image: faker.image.imageUrl(),
     ShopId: 3,
-    inventory: Math.floor(Math.random() * 20),
+    inventory: seedProducts.results[1].products[i].inventory,
     createdAt: new Date(),
     updatedAt: new Date()
   })

@@ -157,322 +157,368 @@
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 1200,
-          "salePrice": 1250
+          "salePrice": 1250,
+          "inventory": 0
         },
         {
           "name": "藍寶石",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 950,
-          "salePrice": 1000
+          "salePrice": 1000,
+          "inventory": 2
         },
         {
           "name": "巴拿馬翡翠莊園鑽石山",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 950,
-          "salePrice": 1000
+          "salePrice": 1000,
+          "inventory": 2
         },
         {
           "name": "巴拿馬卡莎路易斯",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 950,
-          "salePrice": 1000
+          "salePrice": 1000,
+          "inventory": 0
         },
         {
           "name": "夏威夷可娜",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 0
         },
         {
           "name": "頂級黃金曼特寧",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 4
         },
         {
           "name": "古巴藍山",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 2
         },
         {
           "name": "肯亞AA",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 2
         },
         {
           "name": "多明尼加多勒比墨翠",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 3
         },
         {
           "name": "祕魯安地斯",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 3
         },
         {
           "name": "祕魯維拉利卡",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 1
         },
         {
           "name": "馬拉威珍珠",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 2
         },
         {
           "name": "馬拉威珍奇蒂帕",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 0
         },
         {
           "name": "哥倫比亞卡拉波莊園",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 0
         },
         {
           "name": "耶加雪菲伊迪朵G1",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 2
         },
         {
           "name": "曼特寧G1",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 0
         },
         {
           "name": "瓜地馬拉花神",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 2
         },
         {
           "name": "蘇拉維西托拿加",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 2
         },
         {
           "name": "巴布亞新幾內亞天堂鳥",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 2
         },
         {
           "name": "洪都拉斯雨林咖啡",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 0
         },
         {
           "name": "印度季風馬拉巴",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 750,
-          "salePrice": 800
+          "salePrice": 800,
+          "inventory": 0
         },
         {
           "name": "特級義大利咖啡",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 550,
-          "salePrice": 600
+          "salePrice": 600,
+          "inventory": 1
         },
         {
           "name": "金色大道咖啡豆",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 940,
-          "salePrice": 990
+          "salePrice": 990,
+          "inventory": 0
         },
         {
           "name": "舊金山風味咖啡豆",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 600,
-          "salePrice": 650
+          "salePrice": 650,
+          "inventory": 0
         },
         {
           "name": "維也納風味咖啡豆",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 550,
-          "salePrice": 600
+          "salePrice": 600,
+          "inventory": 0
         },
         {
           "name": "米蘭風味咖啡豆",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 300,
-          "salePrice": 350
+          "salePrice": 350,
+          "inventory": 0
         },
         {
           "name": "高級藍山",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 450,
-          "salePrice": 500
+          "salePrice": 500,
+          "inventory": 3
         },
         {
           "name": "高級曼特寧",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 450,
-          "salePrice": 500
+          "salePrice": 500,
+          "inventory": 2
         },
         {
           "name": "蘇拉維西",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 450,
-          "salePrice": 500
+          "salePrice": 500,
+          "inventory": 0
         },
         {
           "name": "坦尚尼亞AA",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 450,
-          "salePrice": 500
+          "salePrice": 500,
+          "inventory": 2
         },
         {
           "name": "耶加雪菲(中焙)",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 450,
-          "salePrice": 500
+          "salePrice": 500,
+          "inventory": 2
         },
         {
           "name": "耶加雪菲(輕焙)",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 450,
-          "salePrice": 500
+          "salePrice": 500,
+          "inventory": 1
         },
         {
           "name": "巴西喜拉朵",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 300,
-          "salePrice": 350
+          "salePrice": 350,
+          "inventory": 1
         },
         {
           "name": "衣索匹亞西達摩",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 300,
-          "salePrice": 350
+          "salePrice": 350,
+          "inventory": 0
         },
         {
           "name": "A級藍山",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 250,
-          "salePrice": 300
+          "salePrice": 300,
+          "inventory": 5
         },
         {
           "name": "A級曼特寧",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 250,
-          "salePrice": 300
+          "salePrice": 300,
+          "inventory": 3
         },
         {
           "name": "A級巴西",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 250,
-          "salePrice": 300
+          "salePrice": 300,
+          "inventory": 1
         },
         {
           "name": "拿鐵咖啡",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 250,
-          "salePrice": 300
+          "salePrice": 300,
+          "inventory": 2
         },
         {
           "name": "特配冰咖啡",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 200,
-          "salePrice": 250
+          "salePrice": 250,
+          "inventory": 5
         },
         {
           "name": "特配熱咖啡",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 200,
-          "salePrice": 250
+          "salePrice": 250,
+          "inventory": 1
         },
         {
           "name": "義式咖啡",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 200,
-          "salePrice": 250
+          "salePrice": 250,
+          "inventory": 10
         },
         {
           "name": "曼特寧",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 200,
-          "salePrice": 250
+          "salePrice": 250,
+          "inventory": 4
         },
         {
           "name": "曼巴",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 200,
-          "salePrice": 250
+          "salePrice": 250,
+          "inventory": 10
         },
         {
           "name": "巴西",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 200,
-          "salePrice": 250
+          "salePrice": 250,
+          "inventory": 3
         },
         {
           "name": "哥倫比亞",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 200,
-          "salePrice": 250
+          "salePrice": 250,
+          "inventory": 2
         },
         {
           "name": "摩卡",
           "manufacturer": "",
           "category": "豆子",
           "purchasePrice": 200,
-          "salePrice": 250
+          "salePrice": 250,
+          "inventory": 2
         }
       ]
     }
