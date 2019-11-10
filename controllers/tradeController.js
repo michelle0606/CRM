@@ -49,42 +49,38 @@ const tradeController = {
       allProducts.push(...req.body.productId)
     }
 
-    allProducts.forEach(id => {
-      Product.findByPk(Number(id)).then(product => {
-        Tag.findOne({
+    for (element of allProducts) {
+      const product = await Product.findByPk(Number(element))
+      const tag = await Tag.findOne({
+        where: {
+          tag: product.category,
+          ShopId: req.user.ShopId
+        }
+      })
+      if (tag) {
+        const customerDetail = await CustomerDetail.findOne({
           where: {
-            tag: product.category,
-            ShopId: req.user.ShopId
-          }
-        }).then(tag => {
-          if (tag) {
-            CustomerDetail.findOne({
-              where: {
-                CustomerId: req.params.customers_id,
-                TagId: tag.id
-              }
-            }).then(customerDetail => {
-              if (!customerDetail) {
-                CustomerDetail.create({
-                  CustomerId: req.params.customers_id,
-                  TagId: tag.id
-                })
-              }
-            })
-          } else {
-            Tag.create({
-              tag: product.category,
-              ShopId: req.user.ShopId
-            }).then(tag2 => {
-              CustomerDetail.create({
-                CustomerId: req.params.customers_id,
-                TagId: tag2.id
-              })
-            })
+            CustomerId: req.params.customers_id,
+            TagId: tag.id
           }
         })
-      })
-    })
+        if (!customerDetail) {
+          await CustomerDetail.create({
+            CustomerId: req.params.customers_id,
+            TagId: tag.id
+          })
+        }
+      } else {
+        const tag2 = await Tag.create({
+          tag: product.category,
+          ShopId: req.user.ShopId
+        })
+        await CustomerDetail.create({
+          CustomerId: req.params.customers_id,
+          TagId: tag2.id
+        })
+      }
+    }
 
     Sale.create({
       total: totalPrice,
