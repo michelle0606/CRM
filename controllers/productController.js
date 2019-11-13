@@ -4,11 +4,14 @@ const User = db.User
 const PurchaseRecord = db.PurchaseRecord
 const PurchaseRecordDetail = db.PurchaseRecordDetail
 const csv = require('csvtojson')
+const qrcode = require('qrcode')
 
 const productController = {
-  getInventory: (req, res) => {
+  getInventory: async (req, res) => {
+    const IDTag = await qrcode.toDataURL('17 2020-03-09')
+
     Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
-      res.render('inventory', { title: '庫存管理', products })
+      res.render('inventory', { title: '庫存管理', products, IDTag })
     })
   },
 

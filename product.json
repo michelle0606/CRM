@@ -150,161 +150,375 @@
       ]
     },
     {
-      "name": "MYPROTEIN",
+      "name": "咖啡原料行",
       "products": [
         {
-          "name": "Impact 乳清蛋白粉",
+          "name": "牙買加藍山",
           "manufacturer": "",
-          "category": "高蛋白粉",
+          "category": "豆子",
+          "purchasePrice": 1200,
+          "salePrice": 1250,
+          "inventory": 0
+        },
+        {
+          "name": "藍寶石",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 950,
+          "salePrice": 1000,
+          "inventory": 2
+        },
+        {
+          "name": "巴拿馬翡翠莊園鑽石山",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 950,
+          "salePrice": 1000,
+          "inventory": 2
+        },
+        {
+          "name": "巴拿馬卡莎路易斯",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 950,
+          "salePrice": 1000,
+          "inventory": 0
+        },
+        {
+          "name": "夏威夷可娜",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 0
+        },
+        {
+          "name": "頂級黃金曼特寧",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 4
+        },
+        {
+          "name": "古巴藍山",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 2
+        },
+        {
+          "name": "肯亞AA",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 2
+        },
+        {
+          "name": "多明尼加多勒比墨翠",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 3
+        },
+        {
+          "name": "祕魯安地斯",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 3
+        },
+        {
+          "name": "祕魯維拉利卡",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 1
+        },
+        {
+          "name": "馬拉威珍珠",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 2
+        },
+        {
+          "name": "馬拉威珍奇蒂帕",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 0
+        },
+        {
+          "name": "哥倫比亞卡拉波莊園",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 0
+        },
+        {
+          "name": "耶加雪菲伊迪朵G1",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 2
+        },
+        {
+          "name": "曼特寧G1",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 0
+        },
+        {
+          "name": "瓜地馬拉花神",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 2
+        },
+        {
+          "name": "蘇拉維西托拿加",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 2
+        },
+        {
+          "name": "巴布亞新幾內亞天堂鳥",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 2
+        },
+        {
+          "name": "洪都拉斯雨林咖啡",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 0
+        },
+        {
+          "name": "印度季風馬拉巴",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 750,
+          "salePrice": 800,
+          "inventory": 0
+        },
+        {
+          "name": "特級義大利咖啡",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 550,
+          "salePrice": 600,
+          "inventory": 1
+        },
+        {
+          "name": "金色大道咖啡豆",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 940,
+          "salePrice": 990,
+          "inventory": 0
+        },
+        {
+          "name": "舊金山風味咖啡豆",
+          "manufacturer": "",
+          "category": "豆子",
           "purchasePrice": 600,
-          "salePrice": 750
+          "salePrice": 650,
+          "inventory": 0
         },
         {
-          "name": "THE Whey 尖端乳清",
+          "name": "維也納風味咖啡豆",
           "manufacturer": "",
-          "category": "高蛋白粉",
-          "purchasePrice": 1200,
-          "salePrice": 1590
+          "category": "豆子",
+          "purchasePrice": 550,
+          "salePrice": 600,
+          "inventory": 0
         },
         {
-          "name": "Impact 分離乳清蛋白粉",
+          "name": "米蘭風味咖啡豆",
           "manufacturer": "",
-          "category": "高蛋白粉",
-          "purchasePrice": 1200,
-          "salePrice": 1450
+          "category": "豆子",
+          "purchasePrice": 300,
+          "salePrice": 350,
+          "inventory": 0
         },
         {
-          "name": "Impact 窈窕乳清蛋白粉",
+          "name": "高級藍山",
           "manufacturer": "",
-          "category": "高蛋白粉",
-          "purchasePrice": 1200,
-          "salePrice": 1300
+          "category": "豆子",
+          "purchasePrice": 450,
+          "salePrice": 500,
+          "inventory": 3
         },
         {
-          "name": "THE Whey+ 高效緩釋 乳清蛋白",
+          "name": "高級曼特寧",
           "manufacturer": "",
-          "category": "高蛋白粉",
-          "purchasePrice": 1200,
-          "salePrice": 1880
+          "category": "豆子",
+          "purchasePrice": 450,
+          "salePrice": 500,
+          "inventory": 2
         },
         {
-          "name": "BCAA 支鏈氨基酸 2:1:1",
+          "name": "蘇拉維西",
           "manufacturer": "",
-          "category": "氨基酸",
-          "purchasePrice": 700,
-          "salePrice": 900
+          "category": "豆子",
+          "purchasePrice": 450,
+          "salePrice": 500,
+          "inventory": 0
         },
         {
-          "name": "L-Carnitine左旋肉鹼片",
+          "name": "坦尚尼亞AA",
           "manufacturer": "",
-          "category": "氨基酸",
-          "purchasePrice": 600,
-          "salePrice": 790
+          "category": "豆子",
+          "purchasePrice": 450,
+          "salePrice": 500,
+          "inventory": 2
         },
         {
-          "name": "HMB β-羥基-β-甲基丁酸片",
+          "name": "耶加雪菲(中焙)",
           "manufacturer": "",
-          "category": "氨基酸",
-          "purchasePrice": 1200,
-          "salePrice": 1370
+          "category": "豆子",
+          "purchasePrice": 450,
+          "salePrice": 500,
+          "inventory": 2
         },
         {
-          "name": "100% 瓜氨酸蘋果酸 氨基酸粉",
+          "name": "耶加雪菲(輕焙)",
           "manufacturer": "",
-          "category": "氨基酸",
-          "purchasePrice": 1200,
-          "salePrice": 2000
+          "category": "豆子",
+          "purchasePrice": 450,
+          "salePrice": 500,
+          "inventory": 1
         },
         {
-          "name": "左旋谷氨酰胺粉",
+          "name": "巴西喜拉朵",
           "manufacturer": "",
-          "category": "氨基酸",
-          "purchasePrice": 1200,
-          "salePrice": 1350
+          "category": "豆子",
+          "purchasePrice": 300,
+          "salePrice": 350,
+          "inventory": 1
         },
         {
-          "name": "男士複合維生素片",
+          "name": "衣索匹亞西達摩",
           "manufacturer": "",
-          "category": "維生素",
-          "purchasePrice": 700,
-          "salePrice": 970
+          "category": "豆子",
+          "purchasePrice": 300,
+          "salePrice": 350,
+          "inventory": 0
         },
         {
-          "name": "塑形片",
+          "name": "A級藍山",
           "manufacturer": "",
-          "category": "維生素",
-          "purchasePrice": 1100,
-          "salePrice": 1250
+          "category": "豆子",
+          "purchasePrice": 250,
+          "salePrice": 300,
+          "inventory": 5
         },
         {
-          "name": "CLA 共軛亞油酸",
+          "name": "A級曼特寧",
           "manufacturer": "",
-          "category": "維生素",
-          "purchasePrice": 600,
-          "salePrice": 860
+          "category": "豆子",
+          "purchasePrice": 250,
+          "salePrice": 300,
+          "inventory": 3
         },
         {
-          "name": "鋅鎂片",
+          "name": "A級巴西",
           "manufacturer": "",
-          "category": "維生素",
-          "purchasePrice": 600,
-          "salePrice": 750
+          "category": "豆子",
+          "purchasePrice": 250,
+          "salePrice": 300,
+          "inventory": 1
         },
         {
-          "name": "THE Multi 尖端複合維生素",
+          "name": "拿鐵咖啡",
           "manufacturer": "",
-          "category": "維生素",
-          "purchasePrice": 1200,
-          "salePrice": 1390
+          "category": "豆子",
+          "purchasePrice": 250,
+          "salePrice": 300,
+          "inventory": 2
         },
         {
-          "name": "日常複合維生素片",
+          "name": "特配冰咖啡",
           "manufacturer": "",
-          "category": "維生素",
-          "purchasePrice": 500,
-          "salePrice": 580
+          "category": "豆子",
+          "purchasePrice": 200,
+          "salePrice": 250,
+          "inventory": 5
         },
         {
-          "name": "超級歐米伽 3 魚油膠囊",
+          "name": "特配熱咖啡",
           "manufacturer": "",
-          "category": "維生素",
-          "purchasePrice": 600,
-          "salePrice": 930
+          "category": "豆子",
+          "purchasePrice": 200,
+          "salePrice": 250,
+          "inventory": 1
         },
         {
-          "name": "低卡代餐配方粉",
+          "name": "義式咖啡",
           "manufacturer": "",
-          "category": "代餐",
-          "purchasePrice": 1000,
-          "salePrice": 1250
+          "category": "豆子",
+          "purchasePrice": 200,
+          "salePrice": 250,
+          "inventory": 10
         },
         {
-          "name": "代餐營養配方粉",
+          "name": "曼特寧",
           "manufacturer": "",
-          "category": "代餐",
-          "purchasePrice": 1200,
-          "salePrice": 1750
+          "category": "豆子",
+          "purchasePrice": 200,
+          "salePrice": 250,
+          "inventory": 4
         },
         {
-          "name": "純素食營養配方粉",
+          "name": "曼巴",
           "manufacturer": "",
-          "category": "代餐",
-          "purchasePrice": 1000,
-          "salePrice": 1280
+          "category": "豆子",
+          "purchasePrice": 200,
+          "salePrice": 250,
+          "inventory": 10
         },
         {
-          "name": "高蛋白代餐棒",
+          "name": "巴西",
           "manufacturer": "",
-          "category": "代餐",
-          "purchasePrice": 700,
-          "salePrice": 980
+          "category": "豆子",
+          "purchasePrice": 200,
+          "salePrice": 250,
+          "inventory": 3
         },
         {
-          "name": "蒟蒻飯",
+          "name": "哥倫比亞",
           "manufacturer": "",
-          "category": "代餐",
-          "purchasePrice": 500,
-          "salePrice": 750
+          "category": "豆子",
+          "purchasePrice": 200,
+          "salePrice": 250,
+          "inventory": 2
+        },
+        {
+          "name": "摩卡",
+          "manufacturer": "",
+          "category": "豆子",
+          "purchasePrice": 200,
+          "salePrice": 250,
+          "inventory": 2
         }
       ]
     }

@@ -7,6 +7,8 @@ const productIdInputField = document.querySelector('.productId')
 const countInputField = document.querySelector('.count')
 const newRecord = []
 
+productIdInputField.focus()
+
 fetch(endpoint)
   .then(blob => blob.json())
   .then(data => {
@@ -104,6 +106,17 @@ function changeProductCount(productId, changeValue) {
   renderRecord(newRecord)
   calculateTotalPrice(newRecord)
 }
+
+
+productIdInputField.addEventListener('keydown', (e) => {
+  if (e.which === 13) {// key Enter
+    e.preventDefault()
+    if (productIdInputField.value.substring(0, 3) === 'PAY') {
+      document.querySelector('.Button2').click()
+    }
+    addButton.click();
+  }
+})
 
 addButton.addEventListener('click', () => {
   calculateTotalPrice(

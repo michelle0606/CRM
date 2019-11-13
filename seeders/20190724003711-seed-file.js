@@ -52,7 +52,7 @@ for (let i = 0; i < seedProducts.results[1].products.length; i++) {
     salePrice: seedProducts.results[1].products[i].salePrice,
     image: faker.image.imageUrl(),
     ShopId: 3,
-    inventory: Math.floor(Math.random() * 20),
+    inventory: seedProducts.results[1].products[i].inventory,
     createdAt: new Date(),
     updatedAt: new Date()
   })
@@ -219,7 +219,7 @@ module.exports = {
         {
           email: 'shop3@example.com',
           phoneNr: '02 2521 2813',
-          name: 'MYPROTEIN',
+          name: '咖啡原料行',
           address: '台北市信義區松壽路 2 號',
           logo: faker.image.imageUrl(),
           createdAt: new Date(),
