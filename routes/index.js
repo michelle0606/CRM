@@ -99,6 +99,8 @@ router.get('/dashboard', tradeController.getDashboard)
 // directBuy
 router.get('/directBuy', tradeController.directBuy)
 
+router.get('/purchase', authenticated, productController.purchase)
+
 // api
 router.get('/api/dashboard/:shop_id/:nameOfTheStats', tradeController.getStats)
 router.get(

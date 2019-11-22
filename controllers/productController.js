@@ -76,6 +76,12 @@ const productController = {
     })
   },
 
+  purchase: (req, res) => {
+    Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
+      res.render('purchase', { products, title: '單次進貨' })
+    })
+  },
+
   APIGetAllProducts: (req, res) => {
     Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
       res.send(products)
