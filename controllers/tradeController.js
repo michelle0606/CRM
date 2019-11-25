@@ -4,6 +4,9 @@ const helpers = require('../_helpers')
 // var momentTZ = require('moment-timezone')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
+const Json2csvParser = require("json2csv").Parser
+// const fs = require("fs")
+const fs = require('fs').promises
 const { Customer, Product, Sale, SaleDetail, Tag, CustomerDetail } = db
 
 const tradeController = {
@@ -123,6 +126,59 @@ const tradeController = {
           }
         )
       })
+  },
+
+  getRec: async (req, res) => {
+    const sales = await Sale.findAll({
+      where: {
+        // CustomerId: 25,
+        [Op.or]: [{ 
+          CustomerId: [17, 25] 
+        }]
+      },
+      include: [{
+        model: SaleDetail,
+        attributes: [],
+      }],
+      attributes: [
+        'CustomerId',
+        'SaleDetails.ProductId',
+        [db.sequelize.fn('SUM', db.sequelize.col('SaleDetails.quantity')), 'quantity']
+      ],
+      group: [
+        'SaleDetails.ProductId', 
+        'CustomerId'
+      ],
+      raw: true
+    })
+
+    console.log(sales)
+    const jsonData = JSON.parse(JSON.stringify(sales))
+    const json2csvParser = new Json2csvParser({ header: false })
+    const csvDate = json2csvParser.parse(jsonData)
+
+    await fs.writeFile('rec_test.csv', csvDate)
+
+    // fs.writeFile("rec_test.csv", csvDate, (error) => {
+    //   if (error) throw error
+    //   console.log("Write to rec_test.csv successfully!")
+    // })
+    
+    new Promise((resolve, reject) => {
+      const { spawn } = require('child_process')
+      const pyRec = spawn('python3', ['./recSys.py'])
+
+      pyRec.stdout.on('data', (data) => {
+        resolve(data)
+      })
+      pyRec.stderr.on('data', (data) => {
+        reject(data)
+      })
+    })
+    .then((recs) => {
+      // console.log(recs.toString())
+      res.end(recs.toString())
+    })
   },
 
   getDashboard: (req, res) => {

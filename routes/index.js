@@ -114,4 +114,6 @@ router.get(
 )
 
 router.get('/api/shopInfo', authenticated, marketingController.APIGetShopInfo)
+router.get('/recSys', tradeController.getRec)
+
 module.exports = router
