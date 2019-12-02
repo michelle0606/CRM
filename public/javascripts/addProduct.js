@@ -111,10 +111,14 @@ function changeProductCount(productId, changeValue) {
 productIdInputField.addEventListener('keydown', (e) => {
   if (e.which === 13) {// key Enter
     e.preventDefault()
-    if (productIdInputField.value.substring(0, 3) === 'PAY') {
+    const res = productIdInputField.value.split(' ')
+    if (res[0] === 'PAY') {
       document.querySelector('.Button2').click()
+    } else if (res[0] === 'CUSTOMER') {
+      window.location.pathname = '/customers/' + res[1] + '/record'
+    } else {
+      addButton.click();
     }
-    addButton.click();
   }
 })
 

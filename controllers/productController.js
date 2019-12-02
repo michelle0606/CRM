@@ -8,7 +8,17 @@ const qrcode = require('qrcode')
 
 const productController = {
   getInventory: async (req, res) => {
-    const IDTag = await qrcode.toDataURL('17 2020-03-09')
+    var opts = {
+      errorCorrectionLevel: 'H',
+      type: 'image/jpeg',
+      quality: 0.3,
+      margin: 1,
+      // color: {
+      //   dark:"#010599FF",
+      //   light:"#FFBF60FF"
+      // }
+    }
+    const IDTag = await qrcode.toDataURL('CUSTOMER 19', opts)
 
     Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
       res.render('inventory', { title: '庫存管理', products, IDTag })
