@@ -16,37 +16,8 @@
     </div>
   </div>
 </div>
-{{!-- <div id="kanban" class="row">
-  <div class="col-xs-4">
-    <div class="panel panel-info">
-      <div class="panel-heading kanban-card">
-        <h3 class="panel-title">所有商品</h3>
-      </div>
-      <div class="panel-body">
-        <div id="products">
-          &nbsp;
-          {{#each products}}
-          <div class="product-single" id="{{this.name}}" data-target="{{this.id}}">
-            {{this.name}}
-          </div>
-          {{/each}}
-        </div>
-      </div>
-    </div>
-  </div>
-  {{!--
- <div class="col-xs-4">
-  <div class="panel panel-info">
-    <div class="panel-heading kanban-card">
-      <h3 class="panel-title">進貨品項</h3>
-    </div>
-    <div class="panel-body">
-      <div id="purchase-list">
-        &nbsp;
-      </div>
-    </div>
-  </div> 
-</div> --}}
+<div class="purchase-submit">
+  <button type="button" onclick="submitPurchaseList()">送出</button>
 </div>
-{{!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/$VERSION/dragula.min.js'></script> --}}
 <script src="/javascripts/purchase.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>

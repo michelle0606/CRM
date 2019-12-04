@@ -3,6 +3,8 @@ const Product = db.Product
 const User = db.User
 const PurchaseRecord = db.PurchaseRecord
 const PurchaseRecordDetail = db.PurchaseRecordDetail
+const ExpirationDate = db.ExpirationDate
+const ProductExpDateDetail = db.ProductExpDateDetail
 const csv = require('csvtojson')
 const qrcode = require('qrcode')
 
@@ -15,6 +17,7 @@ const productController = {
     })
   },
 
+  // via csv
   postInventory: async (req, res) => {
     const regex = /\.(csv)$/i
     if (!req.file) {
@@ -67,6 +70,7 @@ const productController = {
     }
   },
 
+  // check details
   getPurchaseRecords: (req, res) => {
     PurchaseRecord.findAll({
       where: { ShopId: req.user.ShopId },
@@ -76,10 +80,87 @@ const productController = {
     })
   },
 
+  // render drag page
   purchase: (req, res) => {
     Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
       res.render('purchase', { products, title: '單次進貨' })
     })
+  },
+
+  // post inventory via frontend
+  postPurchase: async (req, res) => {
+    const list = req.body.purchaseList
+    const record = await PurchaseRecord.create({
+      UserId: req.user.id,
+      ShopId: req.user.ShopId
+    })
+    for (el of list) {
+      const expDate = await ExpirationDate.findOne({
+        where: { expDate: el.expirationDate, ShopId: req.user.ShopId }
+      })
+      if (expDate) {
+        await ProductExpDateDetail.create({
+          ProductId: el.ProductId,
+          ExpirationDateId: expDate.id
+        })
+      } else {
+        const expDate2 = await ExpirationDate.create({
+          expDate: el.expirationDate,
+          ShopId: req.user.ShopId
+        })
+        await ProductExpDateDetail.create({
+          ProductId: el.ProductId,
+          ExpirationDateId: expDate2.id
+        })
+      }
+
+      const data = await PurchaseRecordDetail.create({
+        quantity: el.quantity,
+        ProductId: Number(el.ProductId),
+        PurchaseRecordId: record.id
+      })
+
+      const existProduct = await Product.findOne({
+        where: { id: Number(data.ProductId), ShopId: req.user.ShopId }
+      })
+
+      if (existProduct) {
+        const newInventory =
+          Number(existProduct.inventory) + Number(data.quantity)
+        existProduct.update({
+          name: el.name,
+          salePrice: el.salePrice,
+          inventory: newInventory
+        })
+      }
+    }
+    return res.redirect('/getqrcode')
+  },
+
+  // render qrcode in other page
+  renderQrcode: async (req, res) => {
+    const lastRecord = await PurchaseRecord.findAll({
+      limit: 1,
+      where: {
+        ShopId: req.user.ShopId
+      },
+      order: [['createdAt', 'DESC']]
+    })
+    const list = await PurchaseRecordDetail.findAll({
+      where: {
+        PurchaseRecordId: lastRecord[0].id
+      }
+    })
+    const qrcodeList = []
+    for (record of list) {
+      const IDTag = await qrcode.toDataURL(
+        `${record.ProductId} PD:${getYearMonthDay(record.createdAt)} ED:`
+      )
+      qrcodeList.push({ qrcode: IDTag })
+    }
+    console.log(qrcodeList)
+
+    res.render('qrcode', { qrcodeList })
   },
 
   APIGetAllProducts: (req, res) => {
@@ -87,6 +168,14 @@ const productController = {
       res.send(products)
     })
   }
+}
+
+function getYearMonthDay(dateObj) {
+  let month = dateObj.getUTCMonth() + 1
+  let day = dateObj.getUTCDate()
+  let year = dateObj.getUTCFullYear()
+
+  return (newdate = year + '/' + month + '/' + day)
 }
 
 module.exports = productController

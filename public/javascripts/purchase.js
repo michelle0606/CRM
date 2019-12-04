@@ -2,19 +2,25 @@
 
 let sourceContainerId = ''
 
-let dragSources = document.querySelectorAll('[draggable="true"]')
-dragSources.forEach(dragSource => {
-  dragSource.addEventListener('dragstart', dragStart)
-  dragSource.addEventListener('dragend', dragEnd)
-})
+function dragSetUp() {
+  let dragSources = document.querySelectorAll('[draggable="true"]')
+  dragSources.forEach(dragSource => {
+    dragSource.addEventListener('dragstart', dragStart)
+    dragSource.addEventListener('dragend', dragEnd)
+  })
 
-let dropTargets = document.querySelectorAll('[data-role="drag-drop-container"]')
-dropTargets.forEach(dropTarget => {
-  dropTarget.addEventListener('drop', dropped)
-  dropTarget.addEventListener('dragenter', cancelDefault)
-  dropTarget.addEventListener('dragover', dragOver)
-  dropTarget.addEventListener('dragleave', dragLeave)
-})
+  let dropTargets = document.querySelectorAll(
+    '[data-role="drag-drop-container"]'
+  )
+  dropTargets.forEach(dropTarget => {
+    dropTarget.addEventListener('drop', dropped)
+    dropTarget.addEventListener('dragenter', cancelDefault)
+    dropTarget.addEventListener('dragover', dragOver)
+    dropTarget.addEventListener('dragleave', dragLeave)
+  })
+}
+
+dragSetUp()
 
 function dropped(e) {
   if (this.id !== sourceContainerId) {
@@ -89,6 +95,8 @@ field.addEventListener('click', event => {
     )
     const box = document.querySelector('.bg')
     box.remove()
+
+    dragSetUp()
   }
   if (event.target.parentNode.className === 'purchase-products') {
     setRecord(event.target)
@@ -101,27 +109,20 @@ function addOneNewRecord(ProductId, quantity, expirationDate) {
     quantity: quantity,
     expirationDate: expirationDate
   })
-  console.log(purchaseList)
-  console.log('aaaaa')
 }
 
-// function abandom(product) {
-//   const box = document.querySelector('.bg')
-//   box.remove()
-// }
-// var dragulaCards = dragula([
-//   document.querySelector('#products'),
-//   document.querySelector('#purchase-list')
-// ])
+const submit = document.querySelector('.purchase-submit > button')
 
-// dragulaCards.on('drop', function(el, target, source, sibling) {
-//   console.log(source) // from
-//   console.log(target) // to
-//   console.log(sibling) // next card
-// })
-
-// var dragulaKanban = dragula([document.querySelector('#kanban')], {
-//   moves: function(el, container, handle) {
-//     return handle.classList.contains('panel-title')
-//   }
-// })
+function submitPurchaseList() {
+  let url = 'http://localhost:3000/api/purchase'
+  axios
+    .post(url, {
+      purchaseList: purchaseList
+    })
+    .then(function(response) {
+      location.replace('/getqrcode')
+    })
+    .catch(function(error) {
+      console.log(error)
+    })
+}

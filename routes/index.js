@@ -101,7 +101,11 @@ router.get('/directBuy', tradeController.directBuy)
 
 router.get('/purchase', authenticated, productController.purchase)
 
+router.get('/getqrcode', authenticated, productController.renderQrcode)
+
 // api
+router.post('/api/purchase', authenticated, productController.postPurchase)
+
 router.get('/api/dashboard/:shop_id/:nameOfTheStats', tradeController.getStats)
 router.get(
   '/api/customer/:customers_id',
