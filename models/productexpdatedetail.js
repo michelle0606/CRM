@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     ProductId: DataTypes.INTEGER,
-    ExpirationDateId: DataTypes.INTEGER
+    ExpirationDateId: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER,
   }, {});
   ProductExpDateDetail.associate = function(models) {
     // associations can be defined here
