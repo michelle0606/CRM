@@ -16,28 +16,62 @@ fetch(endpoint)
   })
 
 function addProduct(productId, count) {
-  const product = products.filter(a => a.id === productId)
-  const existProduct = newRecord.find(item => item.id === productId)
+  // const product = products.filter(a => a.id === productId)
+  // const existProduct = newRecord.find(item => item.id === productId)
 
-  if (productId === 0) {
+  // if (productId === 0) {
+  //   alert('請輸入產品編號！')
+  //   return
+  // } else if (count === 0) {
+  //   alert('請輸入產品數量！')
+  //   return
+  // } else if (product.length === 0) {
+  //   alert('產品編號錯誤！')
+  //   return
+  // } else if (existProduct !== undefined) {
+  //   existProduct.count += count
+  //   renderRecord(newRecord)
+  //   return newRecord
+  // } else {
+  //   const newProduct = {
+  //     id: product[0].id,
+  //     name: product[0].name,
+  //     count: count,
+  //     salePrice: product[0].salePrice,
+  //     expDates: '2020-01-01 2020-01-02'
+  //   }
+  //   newRecord.push(newProduct)
+  //   renderRecord(newRecord)
+  //   return newRecord
+  // }
+  let itemInfo = productId
+
+  const itemId = Number(itemInfo.split(' ')[0])
+  const itemExpDate = itemInfo.split(' ')[1]
+  const product = products.find(a => a.id === itemId)
+  const existProduct = newRecord.find(item => item.id === itemId)
+
+  if (itemId === 0) {
     alert('請輸入產品編號！')
-    return
+    return null
   } else if (count === 0) {
     alert('請輸入產品數量！')
-    return
-  } else if (product.length === 0) {
+    return null
+  } else if (product === undefined) {
     alert('產品編號錯誤！')
-    return
+    return null
   } else if (existProduct !== undefined) {
     existProduct.count += count
+    existProduct.expDates += (' ' + itemExpDate)
     renderRecord(newRecord)
     return newRecord
   } else {
     const newProduct = {
-      id: product[0].id,
-      name: product[0].name,
+      id: product.id,
+      name: product.name,
       count: count,
-      salePrice: product[0].salePrice
+      salePrice: product.salePrice,
+      expDates: itemExpDate
     }
     newRecord.push(newProduct)
     renderRecord(newRecord)
@@ -66,15 +100,11 @@ function renderRecord(record) {
       <tr>
         <td><input type='number' value='${product.id}' name="productId"></td>
         <td>${product.name}</td>
-        <td class="trade-product-count"><input type='number' value='${
-          product.count
-        }' name="count" id="count" data-id="${
-      product.id
-    }"><i class="fas fa-sort"></i></td>
+        <td class="trade-product-count"><input type='number' value='${product.count}' name="count" id="count" 
+        data-id="${product.id}"><i class="fas fa-sort"></i></td>
         <td><span class="price">${product.salePrice * product.count}</span></td>
-        <td class="cancel" data-id="${
-          product.id
-        }"><i class="fas fa-minus-square"></i></td>
+        <td class="cancel" data-id="${product.id}"><i class="fas fa-minus-square"></i></td>
+        <td><input type="text" value='${product.expDates}' name="expDates"></td>
       </tr>
     `
   })
@@ -83,6 +113,8 @@ function renderRecord(record) {
 function calculateTotalPrice(record) {
   const totalPrice = document.querySelector('.total-price')
   let price = 0
+
+  if (!record) return
   record.forEach(product => {
     price += product.salePrice * product.count
   })
@@ -123,15 +155,15 @@ productIdInputField.addEventListener('keydown', (e) => {
 })
 
 addButton.addEventListener('click', () => {
-  calculateTotalPrice(
-    addProduct(Number(productIdInputField.value), Number(countInputField.value))
-  )
+  calculateTotalPrice(addProduct((productIdInputField.value), Number(countInputField.value)))
+  // calculateTotalPrice(addProduct('20 2020-01-01 2019-12-01', Number(countInputField.value)))
   productIdInputField.value = ''
 })
 
 container.addEventListener('change', event => {
   if (event.target.id === 'count') {
     const productId = Number(event.target.dataset.id)
+    console.log('event change')
     changeProductCount(productId, event.target.value)
   }
 })

@@ -7,7 +7,7 @@ const Op = Sequelize.Op
 const Json2csvParser = require("json2csv").Parser
 // const fs = require("fs")
 const fs = require('fs').promises
-const { Customer, Product, Sale, SaleDetail, Tag, CustomerDetail } = db
+const { Customer, Product, Sale, SaleDetail, Tag, CustomerDetail, ExpirationDate, ProductExpDateDetail } = db
 
 const tradeController = {
   getCustomerTradePage: (req, res) => {
@@ -34,6 +34,9 @@ const tradeController = {
     const totalPrice = req.body.total
     const allProducts = []
     const allCounts = []
+    const expDatesPerItem = []
+
+    console.log(req.body)
 
     if (!req.body.productId) {
       req.flash('top_messages', '無品項不可以新增交易！')
@@ -50,6 +53,12 @@ const tradeController = {
       allProducts.push(req.body.productId)
     } else {
       allProducts.push(...req.body.productId)
+    }
+
+    if (!Array.isArray(req.body.expDates)) {
+      expDatesPerItem.push(req.body.expDates)
+    } else {
+      expDatesPerItem.push(...req.body.expDates)
     }
 
     for (element of allProducts) {
@@ -91,41 +100,87 @@ const tradeController = {
       UserId: Number(req.user.id),
       ShopId: Number(req.user.ShopId)
     })
-      .then(sale => {
-        let connect = 0
-        allProducts.forEach(product => {
-          SaleDetail.create({
-            quantity: Number(allCounts[connect]),
-            ProductId: Number(product),
-            SaleId: sale.id
-          }).then(data => {
-            Product.findByPk(data.ProductId).then(product => {
-              const newInventory =
-                Number(product.inventory) - Number(data.quantity)
-              product.update({
-                inventory: newInventory
-              })
+    .then(sale => {
+      let i = 0
+      allProducts.forEach(itemId => {
+
+        SaleDetail.create({
+          quantity: Number(allCounts[i]),
+          ProductId: Number(itemId),
+          SaleId: sale.id
+        })
+        .then(data => {
+          Product.findByPk(data.ProductId)
+          .then(product => {
+            product.update({
+              inventory: Number(product.inventory) - Number(data.quantity)
             })
           })
-          connect++
+        })
+        .then(() => {
+          expDates = expDatesPerItem[i++].split(' ')
+
+          for (expDate of expDates) {
+            ExpirationDate.findOne({
+              where: {
+                expDate: expDate,
+                ShopId: Number(req.user.ShopId)
+              }
+            })
+            .then(expirationDate => {
+              ProductExpDateDetail.findOne({
+                where: {
+                  ProductId: Number(itemId),
+                  ExpirationDateId: expirationDate.id
+                }
+              })
+              .then(async productExpDateDetail => {
+                const qty = productExpDateDetail.quantity - 1
+                const c = await ProductExpDateDetail.count({ 
+                  where: { 
+                    ExpirationDateId: expirationDate.id
+                  } 
+                })
+
+                if (c === 1) {
+                  if (qty !== 0) {
+                    productExpDateDetail.update({
+                      quantity: productExpDateDetail.quantity - 1
+                    })
+                  } else {
+                    ProductExpDateDetail.destroy({ 
+                      where: { 
+                        id:  productExpDateDetail.id
+                      } 
+                    })
+                    ExpirationDate.destroy({ 
+                      where: { 
+                        id: expirationDate.id 
+                      } 
+                    })
+                  }
+                }
+              })
+            })
+          }
         })
       })
-      .then(() => {
-        Product.findAll({ where: { ShopId: req.user.ShopId } }).then(
-          products => {
-            const alertItem = products.filter(
-              product => product.inventory < product.minimumStock
-            )
-            if (alertItem.length > 0) {
-              req.flash('top_messages', '商品庫存過低！')
-              return res.redirect(
-                `/customers/${req.params.customers_id}/records`
-              )
-            }
-            return res.redirect(`/customers/${req.params.customers_id}/records`)
-          }
-        )
+    })
+    .then(() => {
+      Product.findAll({ 
+        where: { 
+          ShopId: req.user.ShopId 
+        } 
       })
+      .then(products => {
+        const alertItem = products.filter(product => product.inventory < product.minimumStock)
+        if (alertItem.length > 0) {
+          req.flash('top_messages', '商品庫存過低！')
+          return res.redirect(`/customers/${req.params.customers_id}/records`)
+        }
+        return res.redirect(`/customers/${req.params.customers_id}/records`)
+      })
+    })
   },
 
   getRec: async (req, res) => {
