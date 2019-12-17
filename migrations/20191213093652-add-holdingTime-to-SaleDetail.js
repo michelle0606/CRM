@@ -10,7 +10,8 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
     return queryInterface.addColumn('SaleDetails', 'holdingTime', {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      defaultValue: ''
     })
   },
 

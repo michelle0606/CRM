@@ -35,6 +35,7 @@ const tradeController = {
     const allProducts = []
     const allCounts = []
     const expDatesPerItem = []
+    const stockDatesPerItem = []
 
     console.log(req.body)
 
@@ -59,6 +60,12 @@ const tradeController = {
       expDatesPerItem.push(req.body.expDates)
     } else {
       expDatesPerItem.push(...req.body.expDates)
+    }
+
+    if (!Array.isArray(req.body.stockDates)) {
+      stockDatesPerItem.push(req.body.stockDates)
+    } else {
+      stockDatesPerItem.push(...req.body.stockDates)
     }
 
     for (element of allProducts) {
@@ -102,12 +109,18 @@ const tradeController = {
     })
     .then(sale => {
       let i = 0
+      let stockDatesStr = ''
       allProducts.forEach(itemId => {
+        stockDates = stockDatesPerItem[i].split(' ')
+        for (stockDate of stockDates) {
+          stockDatesStr += (' ' + moment().diff(moment(stockDate), 'hours').toString())
+        }
 
         SaleDetail.create({
           quantity: Number(allCounts[i]),
           ProductId: Number(itemId),
-          SaleId: sale.id
+          SaleId: sale.id,
+          holdingTime: stockDatesStr
         })
         .then(data => {
           Product.findByPk(data.ProductId)
@@ -287,6 +300,17 @@ const tradeController = {
         }
       ]
     }
+    const avgHoldingTimeColumnChart = {
+      title: {
+        text: ''
+      },
+      series: [
+        {
+          name: '',
+          data: []
+        }
+      ]
+    }
 
     if (req.params.nameOfTheStats.includes('dailyRevenue')) {
       const dailyRevenue = await Sale.findAll({
@@ -364,8 +388,7 @@ const tradeController = {
         include: [
           {
             model: SaleDetail
-          },
-          {
+          }, {
             model: Product,
             as: 'associatedProducts',
             where: {
@@ -378,18 +401,10 @@ const tradeController = {
         attributes: [
           'associatedProducts.id',
           'associatedProducts.name',
-          [
-            db.sequelize.fn('SUM', db.sequelize.col('SaleDetails.quantity')),
-            'quantity'
-          ]
+          [db.sequelize.fn('SUM', db.sequelize.col('SaleDetails.quantity')), 'quantity']
         ],
         group: 'associatedProducts.id',
-        order: [
-          [
-            db.sequelize.fn('SUM', db.sequelize.col('SaleDetails.quantity')),
-            'DESC'
-          ]
-        ],
+        order: [[db.sequelize.fn('SUM', db.sequelize.col('SaleDetails.quantity')), 'DESC']],
         // limit: 15,
         includeIgnoreAttributes: false,
         raw: true
@@ -429,7 +444,7 @@ const tradeController = {
       }
 
       return res.json(bestSellersColumnChart)
-    } else {
+    } else if (req.params.nameOfTheStats.includes('mostMentioned')) {
       const sales = await Sale.findAndCountAll({
         where: {
           createdAt: {
@@ -456,10 +471,7 @@ const tradeController = {
         attributes: [
           'associatedProducts.id',
           'associatedProducts.name',
-          [
-            db.sequelize.fn('COUNT', db.sequelize.col('Sale.id')),
-            'numOfSalesRec'
-          ]
+          [db.sequelize.fn('COUNT', db.sequelize.col('Sale.id')), 'numOfSalesRec']
         ],
         group: db.sequelize.col('associatedProducts.id'),
         order: [
@@ -505,6 +517,86 @@ const tradeController = {
       }
 
       return res.json(mostMentionedColumnChart)
+    } else if (req.params.nameOfTheStats.includes('avgHoldingTime')) {
+
+      const holdingTimePerItem = await Sale.findAll({
+        where: {
+          createdAt: {
+            [Op.gte]: moment(req.query.start).startOf('day'),
+            [Op.lte]: moment(req.query.end).endOf('day')
+          },
+          ShopId: Number(req.params.shop_id)
+        },
+        include: [
+          {
+            model: SaleDetail,
+          }, {
+            model: Product,
+            as: 'associatedProducts',
+            where: {
+              id: {
+                [Op.eq]: db.sequelize.col('SaleDetails.ProductId')
+              }
+            }
+          }
+        ],
+        attributes: [
+          'SaleDetails.ProductId',
+          'associatedProducts.name',
+          [db.sequelize.fn('SUM', db.sequelize.col('SaleDetails.quantity')), 'quantity'],
+          [db.sequelize.fn('GROUP_CONCAT', db.sequelize.col('SaleDetails.holdingTime')), 'holdingTime']
+        ],
+        group: [
+          db.sequelize.col('SaleDetails.ProductId'), 
+          'associatedProducts.name'
+        ],
+        order: db.sequelize.col('SaleDetails.ProductId'),
+        // limit: 15,
+        includeIgnoreAttributes: false,
+        raw: true
+      })
+
+      switch (req.params.nameOfTheStats) {
+        case 'avgHoldingTimeToday':
+          avgHoldingTimeColumnChart.title.text = '今日平均商品架上停留時間'
+          break
+        case 'avgHoldingTimeYesterday':
+          avgHoldingTimeColumnChart.title.text = '昨日平均商品架上停留時間'
+          break
+        case 'avgHoldingTimeLastSevenDays':
+          avgHoldingTimeColumnChart.title.text = '過去7日平均商品架上停留時間'
+          break
+        case 'avgHoldingTimeLastThirtyDays':
+          avgHoldingTimeColumnChart.title.text = '過去30日平均商品架上停留時間'
+          break
+        case 'avgHoldingTimeThisMonth':
+          avgHoldingTimeColumnChart.title.text = '本月平均商品架上停留時間'
+          break
+        case 'avgHoldingTimeLastMonth':
+          avgHoldingTimeColumnChart.title.text = '上個月平均商品架上停留時間'
+          break
+        default:
+          avgHoldingTimeColumnChart.title.text = '自訂區間平均商品架上停留時間'
+      }
+
+      for (element of holdingTimePerItem) {
+        let tmp = []
+        let sum = 0
+
+        // remove whitespace from both sides of the string
+        // and split the string using whitespace or comma
+        // and convert each of the array element from string into number
+        let holdingTimeArr = element.holdingTime.trim().split(/[ ,]+/).map(e => Number(e))
+        
+        for (let i = 0; i < holdingTimeArr.length; i++) sum += holdingTimeArr[i]
+        let avgHoldingTime = sum / holdingTimeArr.length
+
+        tmp.push(element.name)
+        tmp.push(avgHoldingTime)
+        avgHoldingTimeColumnChart.series[0].data.push(tmp)
+      }
+
+      return res.json(avgHoldingTimeColumnChart)
     }
   }
 }

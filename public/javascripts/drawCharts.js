@@ -37,26 +37,22 @@ let dailyRevenueLineChart = {
       pointInterval: 24 * 3600 * 1000 // one day
     }
   },
-  series: [
-    {
-      name: ''
-    }
-  ],
+  series: [{
+    name: ''
+  }],
   responsive: {
-    rules: [
-      {
-        condition: {
-          maxWidth: 500
-        },
-        chartOptions: {
-          legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'bottom'
-          }
+    rules: [{
+      condition: {
+        maxWidth: 500
+      },
+      chartOptions: {
+        legend: {
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'bottom'
         }
       }
-    ]
+    }]
   }
 }
 let bestSellersColumnChart = {
@@ -88,28 +84,26 @@ let bestSellersColumnChart = {
   tooltip: {
     pointFormat: '銷出: <b>{point.y} 個</b>'
   },
-  series: [
-    {
-      name: '',
-      data: [
-        // ['itemA', 24],
-        // ['itemB', 20],
-        // ['itemC', 14],
-      ],
-      dataLabels: {
-        enabled: true,
-        rotation: -90,
-        color: '#FFFFFF',
-        align: 'right',
-        format: '{point.y}',
-        y: 10, // 10 pixels down from the top
-        style: {
-          fontSize: '12px',
-          fontFamily: 'Verdana, sans-serif'
-        }
+  series: [{
+    name: '',
+    data: [
+      // ['itemA', 24],
+      // ['itemB', 20],
+      // ['itemC', 14],
+    ],
+    dataLabels: {
+      enabled: true,
+      rotation: -90,
+      color: '#FFFFFF',
+      align: 'right',
+      format: '{point.y}',
+      y: 10, // 10 pixels down from the top
+      style: {
+        fontSize: '12px',
+        fontFamily: 'Verdana, sans-serif'
       }
     }
-  ]
+  }]
 }
 let mostMentionedColumnChart = {
   chart: {
@@ -140,28 +134,76 @@ let mostMentionedColumnChart = {
   tooltip: {
     pointFormat: '出現於 <b>{point.y:.1f} %</b> 之交易紀錄中'
   },
-  series: [
-    {
-      name: '',
-      data: [
-        // ['itemA', 24.2],
-        // ['itemB', 20.8],
-        // ['itemC', 14.9],
-      ],
-      dataLabels: {
-        enabled: true,
-        rotation: -90,
-        color: '#FFFFFF',
-        align: 'right',
-        format: '{point.y:.1f}',
-        y: 10, // 10 pixels down from the top
-        style: {
-          fontSize: '12px',
-          fontFamily: 'Verdana, sans-serif'
-        }
+  series: [{
+    name: '',
+    data: [
+      // ['itemA', 24.2],
+      // ['itemB', 20.8],
+      // ['itemC', 14.9],
+    ],
+    dataLabels: {
+      enabled: true,
+      rotation: -90,
+      color: '#FFFFFF',
+      align: 'right',
+      format: '{point.y:.1f}',
+      y: 10, // 10 pixels down from the top
+      style: {
+        fontSize: '12px',
+        fontFamily: 'Verdana, sans-serif'
       }
     }
-  ]
+  }]
+}
+let avgHoldingTimeColumnChart = {
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: ''
+  },
+  xAxis: {
+    type: 'category',
+    labels: {
+      rotation: -45,
+      style: {
+        fontSize: '12px',
+        fontFamily: 'Verdana, sans-serif'
+      }
+    }
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: '時間 (小時)'
+    }
+  },
+  legend: {
+    enabled: false
+  },
+  tooltip: {
+    pointFormat: '平均停留 <b>{point.y} 小時</b>'
+  },
+  series: [{
+    name: '',
+    data: [
+      // ['itemA', 24],
+      // ['itemB', 20],
+      // ['itemC', 14],
+    ],
+    dataLabels: {
+      enabled: true,
+      rotation: -90,
+      color: '#FFFFFF',
+      align: 'right',
+      format: '{point.y}',
+      y: 10, // 10 pixels down from the top
+      style: {
+        fontSize: '12px',
+        fontFamily: 'Verdana, sans-serif'
+      }
+    }
+  }]
 }
 
 $(function() {
@@ -206,7 +248,7 @@ $(function() {
     }
 
     const url =
-      'https://waromen.herokuapp.com/api/dashboard/' +
+      'http://127.0.0.1:3000/api/dashboard/' +
       shopId +
       '/' +
       param +
@@ -278,7 +320,7 @@ $(function() {
     }
 
     const url =
-      'https://waromen.herokuapp.com/api/dashboard/' +
+      'http://127.0.0.1:3000/api/dashboard/' +
       shopId +
       '/' +
       param +
@@ -348,7 +390,7 @@ $(function() {
     }
 
     const url =
-      'https://waromen.herokuapp.com/api/dashboard/' +
+      'http://127.0.0.1:3000/api/dashboard/' +
       shopId +
       '/' +
       param +
@@ -387,7 +429,67 @@ $(function() {
     cbMostMentioned
   )
 
+  function cbAvgHoldingTime(start, end, label) {
+    let param = ''
+
+    $('#reportrange4 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+
+    switch (label) {
+      case '今日':
+        param = 'avgHoldingTimeToday'
+        break
+      case '昨日':
+        param = 'avgHoldingTimeYesterday'
+        break
+      case '過去7日':
+        param = 'avgHoldingTimeLastSevenDays'
+        break
+      case '過去30日':
+        param = 'avgHoldingTimeLastThirtyDays'
+        break
+      case '本月':
+        param = 'avgHoldingTimeThisMonth'
+        break
+      case '上個月':
+        param = 'avgHoldingTimeLastMonth'
+        break
+      default:
+        param = 'avgHoldingTimeCustomRange'
+    }
+
+    const url =
+      'http://127.0.0.1:3000/api/dashboard/' +
+      shopId +
+      '/' +
+      param +
+      '?start=' +
+      start.format('YYYY-MM-DD') +
+      '&end=' +
+      end.format('YYYY-MM-DD')
+
+    $.getJSON(url, function(data) {
+      avgHoldingTimeColumnChart.title = data.title
+      avgHoldingTimeColumnChart.series[0].data = data.series[0].data
+      Highcharts.chart('container4', avgHoldingTimeColumnChart)
+    })
+  }
+
+  $('#reportrange4').daterangepicker({
+    startDate: start,
+    endDate: end,
+    ranges: {
+      今日: [moment(), moment()],
+      昨日: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+      過去7日: [moment().subtract(6, 'days'), moment()],
+      過去30日: [moment().subtract(29, 'days'), moment()],
+      本月: [moment().startOf('month'), moment().endOf('month')],
+      上個月: [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    }},
+    cbAvgHoldingTime
+  )
+
   cbDailyRevenue(start, end, '過去30日')
   cbBestSellers(start, end, '過去30日')
   cbMostMentioned(start, end, '過去30日')
+  cbAvgHoldingTime(start, end, '過去30日')
 })
