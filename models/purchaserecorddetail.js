@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       quantity: DataTypes.INTEGER, //該產品當次進貨數量
       ProductId: DataTypes.INTEGER,
-      PurchaseRecordId: DataTypes.INTEGER //屬於哪一次進貨紀錄
+      PurchaseRecordId: DataTypes.INTEGER, //屬於哪一次進貨紀錄
+      ExpirationDateId: DataTypes.INTEGER
     },
     {}
   )

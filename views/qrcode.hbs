@@ -1,5 +1,30 @@
-{{#each qrcodeList}}
-<div>
-  <img src="{{this.qrcode}}">
+<div id="print_parts">
+  {{#each qrcodeList}}
+  <div>
+    <div>商品編號 {{this.productId}} 名稱 {{this.productName}}</div>
+    <div>保存期限 {{this.expDate}} 數量 {{this.quantity}}</div>
+    <div style="display: flex;
+    width: 750px;
+    flex-flow: row wrap;">
+      {{#times quantity}}
+      <div>
+        <img src="{{../this.qrcode}}">
+      </div>
+      {{/times}}
+    </div>
+  </div>
+  {{/each}}
 </div>
-{{/each}}
+<button type="button" onclick="printScreen(print_parts);">Print</button>
+<script type="text/javascript">
+  function printScreen(printlist) {
+    var value = printlist.innerHTML;
+    var printPage = window.open("", "Printing...", "");
+    printPage.document.open();
+    printPage.document.write("<HTML><head></head><BODY onload='window.print();window.close()'>");
+    printPage.document.write("<PRE>");
+    printPage.document.write(value);
+    printPage.document.write("</PRE>");
+    printPage.document.close("</BODY></HTML>");
+  }
+</script>
