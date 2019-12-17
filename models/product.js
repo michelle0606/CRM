@@ -42,6 +42,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'ProductId'
     })
     Product.belongsTo(models.Shop)
+    Product.belongsToMany(models.Return, {
+      as: 'associatedReturns',
+      through: {
+        model: models.ReturnDetail,
+        unique: false
+      },
+      foreignKey: 'ProductId'
+    })
   }
   return Product
 }

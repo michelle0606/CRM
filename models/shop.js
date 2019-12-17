@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     Shop.hasMany(models.Product)
     Shop.hasMany(models.Sale)
     Shop.hasMany(models.ExpirationDate)
+    Shop.hasMany(models.Return)
   };
   return Shop;
 };
