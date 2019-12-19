@@ -5,7 +5,7 @@
 }
 
 .manage-action > li {
-  padding: 10px;
+  padding: 8px;
   background-color: var(--bgColor2);
   color: var(--bgColor1);
   text-align: center;
@@ -31,6 +31,21 @@
   margin-left: 5px;
 }
 
-.purchase-record > a {
+.manage-action > li > a {
   color: var(--bgColor1);
+}
+
+.manage-action > li {
+  border: 1px solid var(--bgColor1);
+}
+
+.manage-action > li:hover {
+  background-color: #2b3472;
+}
+
+.drag-drop-feature > span {
+  color: red;
+  padding-left: 5px;
+  font-weight: bold;
+  font-size: 12px;
 }

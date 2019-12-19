@@ -94,17 +94,20 @@ const productController = {
       UserId: req.user.id,
       ShopId: req.user.ShopId
     })
+    console.log('list', list)
     for (el of list) {
       const expDate = await ExpirationDate.findOne({
         where: { expDate: el.expirationDate, ShopId: req.user.ShopId }
       })
       if (expDate) {
+        console.log('expDate exist')
         await ProductExpDateDetail.create({
           ProductId: el.ProductId,
           ExpirationDateId: expDate.id,
           quantity: el.quantity
         })
       } else {
+        console.log('expDate not exist')
         const expDate2 = await ExpirationDate.create({
           expDate: el.expirationDate,
           ShopId: req.user.ShopId
@@ -122,6 +125,7 @@ const productController = {
         PurchaseRecordId: record.id,
         ExpirationDateId: expDateId
       })
+      console.log('PurchaseRecordDetail', data)
       const existProduct = await Product.findOne({
         where: { id: Number(data.ProductId), ShopId: req.user.ShopId }
       })
@@ -148,6 +152,7 @@ const productController = {
       },
       order: [['createdAt', 'DESC']]
     })
+    console.log('lastRecord', lastRecord)
     const list = await PurchaseRecordDetail.findAll({
       where: {
         PurchaseRecordId: lastRecord[0].id
@@ -155,6 +160,7 @@ const productController = {
     })
     const qrcodeList = []
     for (record of list) {
+      console.log('record', record)
       const expDate = await ExpirationDate.findByPk(record.ExpirationDateId)
       const product = await Product.findByPk(record.ProductId)
       const IDTag = await qrcode.toDataURL(
@@ -170,6 +176,7 @@ const productController = {
         quantity: record.quantity
       })
     }
+    console.log('qrcodeList', qrcodeList)
     res.render('qrcode', { qrcodeList, purchaseDate: lastRecord.createdAt })
   },
 

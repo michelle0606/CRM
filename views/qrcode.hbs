@@ -3,9 +3,7 @@
   <div>
     <div>商品編號 {{this.productId}} 名稱 {{this.productName}}</div>
     <div>保存期限 {{this.expDate}} 數量 {{this.quantity}}</div>
-    <div style="display: flex;
-    width: 750px;
-    flex-flow: row wrap;">
+    <div class="qrcode-part">
       {{#times quantity}}
       <div>
         <img src="{{../this.qrcode}}">

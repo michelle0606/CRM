@@ -15,6 +15,7 @@
   font-size: 20px;
   padding: 5px 30px;
   border: 2px solid var(--bgColor1);
+  cursor: pointer;
 }
 
 .Button2 {
@@ -23,6 +24,7 @@
   font-size: 22px;
   border-radius: 15px;
   padding: 5px 10px;
+  cursor: pointer;
 }
 
 .Button2:hover {
@@ -35,6 +37,7 @@
   font-size: 20px;
   padding: 5px 30px;
   border: 2px solid var(--bgColor1);
+  cursor: pointer;
 }
 
 .Title2 {
@@ -299,4 +302,8 @@ table tr:nth-child(even) {
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+}
+
+button {
+  white-space: nowrap;
 }

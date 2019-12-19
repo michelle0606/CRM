@@ -26,7 +26,9 @@ function dropped(e) {
   if (this.id !== sourceContainerId) {
     cancelDefault(e)
     let id = e.dataTransfer.getData('text/plain')
-    e.target.appendChild(document.querySelector('#' + id))
+    e.target.dataset.role !== 'drag-drop-container' // Child elements are not allowing drop
+      ? e.target.parentElement.appendChild(document.querySelector('#' + id))
+      : e.target.appendChild(document.querySelector('#' + id))
     this.classList.remove('hover')
   }
 }
@@ -60,28 +62,73 @@ function dragLeave(e) {
 /***** set purchase record function *****/
 
 const field = document.querySelector('.main-content')
-const purchaseList = []
 
 function setRecord(product) {
-  const html = `
+  const data = JSON.parse(localStorage.getItem('purchaseList')) || []
+  const record = data.filter(
+    item => Number(item.ProductId) === Number(product.dataset.target)
+  )
+  if (record.length !== 0) {
+    const html = `
     <div class="bg">
       <div class="data-setting" data-id="${product.dataset.target}">
+        <div class="card-title">
           <h2>${product.id}</h2>
-        <div>
-          <label for="amount">本次進貨數量</label>
-          <input type="number" name="amount" id="amount">
+          <button type="button" class="card-close" aria-label="Close">
+           &times;
+          </button>
         </div>
-        <div>
-          <label for="expiration-date">商品有效期限</label>
-          <input type="date" name="expiration-date" id="expirationDate">
+        <div class="list-field">
+          <div class="single-record">
+            <div>
+              <label for="amount">本次進貨數量</label>
+              <input type="number" name="amount" id="amount" value="${record[0].quantity}">
+            </div>
+            <div>
+              <label for="expiration-date">商品有效期限</label>
+              <input type="date" name="expiration-date" id="expirationDate" value="${record[0].expirationDate}">
+            </div>
+          </div>
         </div>
-        <div>
+        <div class="button-group">
+          <button type="button" class="add-new-one">再新增一筆</button>
           <button type="button" class="check-record">送出</button>
         </div>
       </div>
     </div>
   `
-  return (field.innerHTML += html)
+    return (field.innerHTML += html)
+  } else {
+    const html = `
+    <div class="bg">
+      <div class="data-setting" data-id="${product.dataset.target}">
+        <div class="card-title">
+          <h2>${product.id}</h2>
+          <button type="button" class="card-close" aria-label="Close">
+            &times;
+          </button>
+        </div>
+        <div class="list-field">
+          <div class="single-record">
+            <div>
+              <label for="amount">本次進貨數量</label>
+              <input type="number" name="amount" id="amount">
+            </div>
+            <div>
+              <label for="expiration-date">商品有效期限</label>
+              <input type="date" name="expiration-date" id="expirationDate">
+            </div>
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="button" class="add-new-one">再新增一筆</button>
+          <button type="button" class="check-record">送出</button>
+        </div>
+      </div>
+    </div>
+  `
+    return (field.innerHTML += html)
+  }
 }
 
 field.addEventListener('click', event => {
@@ -93,36 +140,70 @@ field.addEventListener('click', event => {
       Number(amount.value),
       expirationDate.value
     )
-    const box = document.querySelector('.bg')
-    box.remove()
+    removeBox()
+  }
+  if (event.target.className === 'card-close') {
+    removeBox()
+  }
 
-    dragSetUp()
+  if (event.target.className === 'add-new-one') {
+    const insertField = document.querySelector('.list-field')
+    insertField.innerHTML += `
+      <div class="single-record">
+        <div>
+          <label for="amount">本次進貨數量</label>
+          <input type="number" name="amount" id="amount">
+        </div>
+        <div>
+          <label for="expiration-date">商品有效期限</label>
+          <input type="date" name="expiration-date" id="expirationDate">
+        </div>
+      </div>
+    `
   }
   if (event.target.parentNode.className === 'purchase-products') {
     setRecord(event.target)
   }
 })
 
+function removeBox() {
+  const box = document.querySelector('.bg')
+  box.remove()
+  dragSetUp()
+}
+
 function addOneNewRecord(ProductId, quantity, expirationDate) {
-  purchaseList.push({
+  const list = JSON.parse(localStorage.getItem('purchaseList')) || []
+  list.push({
     ProductId: ProductId,
     quantity: quantity,
     expirationDate: expirationDate
   })
+  localStorage.setItem('purchaseList', JSON.stringify(list))
 }
 
 const submit = document.querySelector('.purchase-submit > button')
 
 function submitPurchaseList() {
   let url = 'http://localhost:3000/api/purchase'
+  const purchaseList = JSON.parse(localStorage.getItem('purchaseList'))
+
   axios
     .post(url, {
       purchaseList: purchaseList
     })
     .then(function(response) {
+      localStorage.removeItem('purchaseList')
       location.replace('/getqrcode')
     })
     .catch(function(error) {
       console.log(error)
     })
+}
+
+const clearAllButton = document.getElementById('clear-all')
+
+function clearAll() {
+  localStorage.removeItem('purchaseList')
+  location.reload()
 }

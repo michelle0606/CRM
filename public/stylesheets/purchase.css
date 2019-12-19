@@ -37,6 +37,7 @@
 
 .drag-products {
   display: flex;
+  padding: 0px 10px;
 }
 
 .drag-products .left,
@@ -88,22 +89,98 @@
   border-radius: 5px;
 }
 
-.close > .fa-times {
+.data-setting > .card-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-close {
+  color: #aaa;
+  font-size: 22px;
+  background: none;
+  font-weight: bold;
+  border: 0;
+  cursor: pointer;
+}
+
+.card-close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+.single-record {
+  margin-bottom: 10px;
+}
+
+.single-record > div {
+  margin: 10px 0px;
+}
+
+#amount,
+#expirationDate {
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.button-group > button:nth-child(1) {
+  border-radius: 5px;
+  font-size: 14px;
+  border: 1px solid var(--bgColor2);
+  background-color: var(--bgColor2);
+  color: #fff;
+}
+
+.button-group > button:nth-child(2) {
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #fff;
+  color: var(--bgColor2);
+  border: 1px solid var(--bgColor2);
+}
+
+.tip {
+  font-size: 16px;
+  margin: 5px 10px;
+}
+
+.purchase-submit > button,
+.clear-all > button {
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.top-menu {
+  padding: 0px 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+
+.right-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.right-title > span {
+  display: inline-block;
   font-size: 20px;
 }
 
-.data-setting .box-header .close {
+#print_parts {
+  margin: 20px;
+}
+
+.qrcode-part {
   display: flex;
-}
-
-.purchase-submit {
-  padding: 0px 10px;
-}
-
-.purchase-submit > button {
-  width: -webkit-fill-available;
-  height: 40px;
-  border: 1px solid #000;
-  cursor: pointer;
-  background-color: lightsteelblue;
+  width: 550px;
+  flex-flow: row wrap;
 }
