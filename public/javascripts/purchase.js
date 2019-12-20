@@ -71,16 +71,17 @@ function setRecord(product) {
   const html = generatorForm(product)
   field.innerHTML += html
   const listField = document.querySelector('.list-field')
+
   if (record.length !== 0) {
     return (listField.innerHTML = `
         <div class="single-record">
           <div>
             <label>本次進貨數量</label>
-            <input type="number" name="amount" id="amount" value="${record[0].quantity}" data-count=>
+            <input type="number" name="amount" id="amount" class="amount" value="${record[0].quantity}" />
           </div>
           <div>
             <label>商品有效期限</label>
-            <input type="date" name="expiration-date" id="expirationDate" value="${record[0].expirationDate}">
+            <input type="date" name="expiration-date" id="expirationDate" class="expirationDate" value="${record[0].expirationDate}">
           </div>
         </div>
   `)
@@ -94,11 +95,11 @@ function generatorNewList() {
     <div class="single-record">
       <div>
         <label>本次進貨數量</label>
-        <input type="number" name="amount">
+        <input type="number" name="amount" class="amount">
       </div>
       <div>
         <label>商品有效期限</label>
-        <input type="date" name="expiration-date">
+        <input type="date" name="expiration-date"  class="expirationDate">
       </div>
     </div>
   `
@@ -127,15 +128,21 @@ function generatorForm(product) {
 }
 
 field.addEventListener('click', event => {
+  const amountField = document.querySelector('.amount')
+  const expDateField = document.querySelector('.expirationDate')
   let product
   if (event.target.className === 'check-record') {
-    product = event.target.closest('.data-setting')
-    addOneNewRecord(
-      product.dataset.id,
-      Number(amount.value),
-      expirationDate.value
-    )
-    removeBox()
+    if (amountField.value === '' || expDateField.value === '') {
+      window.alert('數量或有限期限不可以是空值！')
+    } else {
+      product = event.target.closest('.data-setting')
+      addOneNewRecord(
+        product.dataset.id,
+        Number(amountField.value),
+        expDateField.value
+      )
+      removeBox()
+    }
   }
   if (event.target.className === 'card-close') {
     removeBox()
