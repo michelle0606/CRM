@@ -35,36 +35,50 @@ const productController = {
         UserId: req.user.id,
         ShopId: req.user.ShopId
       })
-
-      jsonArrayObj.forEach(async el => {
-        const data = await PurchaseRecordDetail.create({
-          quantity: el.quantity,
-          ProductId: Number(el.ProductId),
-          PurchaseRecordId: record.id
-        })
+      for (el of jsonArrayObj) {
+        isNaN(el.quantity) || el.quantity === ''
+          ? (el.quantity = 0)
+          : el.quantity
 
         const existProduct = await Product.findOne({
-          where: { id: Number(data.ProductId), ShopId: req.user.ShopId }
+          where: {
+            id: Number(el.ProductId),
+            ShopId: req.user.ShopId
+          }
         })
         if (existProduct) {
+          await PurchaseRecordDetail.create({
+            quantity: el.quantity,
+            ProductId: Number(el.ProductId),
+            PurchaseRecordId: record.id,
+            ExpirationDateId: 0
+          })
           // 現有產品更新資訊
           const newInventory =
             Number(existProduct.inventory) + Number(data.quantity)
           existProduct.update({
             name: el.name,
             salePrice: el.salePrice,
-            inventory: newInventory
+            inventory: newInventory,
+            ExpirationDateId: 0
           })
         } else {
-          // 新產品
-          Product.create({
+          const newRecord = await Product.create({
             name: el.name,
             salePrice: el.salePrice,
             ShopId: req.user.ShopId,
-            inventory: el.quantity
+            inventory: el.quantity,
+            ExpirationDateId: 0
+          })
+
+          await PurchaseRecordDetail.create({
+            quantity: el.quantity,
+            ProductId: Number(newRecord.id),
+            PurchaseRecordId: record.id,
+            ExpirationDateId: 0
           })
         }
-      })
+      }
       req.flash('top_messages', '成功上傳檔案！')
       return res.redirect('/inventory')
     }
@@ -76,6 +90,7 @@ const productController = {
       where: { ShopId: req.user.ShopId },
       include: [User, { model: Product, as: 'associatedProducts' }]
     }).then(purchaseRecords => {
+      console.log(purchaseRecords)
       res.render('purchaseRecord', { purchaseRecords, title: '進貨紀錄' })
     })
   },
@@ -94,20 +109,17 @@ const productController = {
       UserId: req.user.id,
       ShopId: req.user.ShopId
     })
-    console.log('list', list)
     for (el of list) {
       const expDate = await ExpirationDate.findOne({
         where: { expDate: el.expirationDate, ShopId: req.user.ShopId }
       })
       if (expDate) {
-        console.log('expDate exist')
         await ProductExpDateDetail.create({
           ProductId: el.ProductId,
           ExpirationDateId: expDate.id,
           quantity: el.quantity
         })
       } else {
-        console.log('expDate not exist')
         const expDate2 = await ExpirationDate.create({
           expDate: el.expirationDate,
           ShopId: req.user.ShopId
@@ -125,7 +137,7 @@ const productController = {
         PurchaseRecordId: record.id,
         ExpirationDateId: expDateId
       })
-      console.log('PurchaseRecordDetail', data)
+
       const existProduct = await Product.findOne({
         where: { id: Number(data.ProductId), ShopId: req.user.ShopId }
       })
@@ -152,7 +164,7 @@ const productController = {
       },
       order: [['createdAt', 'DESC']]
     })
-    console.log('lastRecord', lastRecord)
+
     const list = await PurchaseRecordDetail.findAll({
       where: {
         PurchaseRecordId: lastRecord[0].id
@@ -160,7 +172,6 @@ const productController = {
     })
     const qrcodeList = []
     for (record of list) {
-      console.log('record', record)
       const expDate = await ExpirationDate.findByPk(record.ExpirationDateId)
       const product = await Product.findByPk(record.ProductId)
       const IDTag = await qrcode.toDataURL(
