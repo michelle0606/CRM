@@ -68,8 +68,44 @@ function setRecord(product) {
   const record = data.filter(
     item => Number(item.ProductId) === Number(product.dataset.target)
   )
+  const html = generatorForm(product)
+  field.innerHTML += html
+  const listField = document.querySelector('.list-field')
   if (record.length !== 0) {
-    const html = `
+    return (listField.innerHTML = `
+        <div class="single-record">
+          <div>
+            <label>本次進貨數量</label>
+            <input type="number" name="amount" id="amount" value="${record[0].quantity}" data-count=>
+          </div>
+          <div>
+            <label>商品有效期限</label>
+            <input type="date" name="expiration-date" id="expirationDate" value="${record[0].expirationDate}">
+          </div>
+        </div>
+  `)
+  } else {
+    return (listField.innerHTML = generatorNewList())
+  }
+}
+
+function generatorNewList() {
+  return `
+    <div class="single-record">
+      <div>
+        <label>本次進貨數量</label>
+        <input type="number" name="amount">
+      </div>
+      <div>
+        <label>商品有效期限</label>
+        <input type="date" name="expiration-date">
+      </div>
+    </div>
+  `
+}
+
+function generatorForm(product) {
+  return `
     <div class="bg">
       <div class="data-setting" data-id="${product.dataset.target}">
         <div class="card-title">
@@ -79,16 +115,7 @@ function setRecord(product) {
           </button>
         </div>
         <div class="list-field">
-          <div class="single-record">
-            <div>
-              <label for="amount">本次進貨數量</label>
-              <input type="number" name="amount" id="amount" value="${record[0].quantity}">
-            </div>
-            <div>
-              <label for="expiration-date">商品有效期限</label>
-              <input type="date" name="expiration-date" id="expirationDate" value="${record[0].expirationDate}">
-            </div>
-          </div>
+        
         </div>
         <div class="button-group">
           <button type="button" class="add-new-one">再新增一筆</button>
@@ -96,39 +123,7 @@ function setRecord(product) {
         </div>
       </div>
     </div>
-  `
-    return (field.innerHTML += html)
-  } else {
-    const html = `
-    <div class="bg">
-      <div class="data-setting" data-id="${product.dataset.target}">
-        <div class="card-title">
-          <h2>${product.id}</h2>
-          <button type="button" class="card-close" aria-label="Close">
-            &times;
-          </button>
-        </div>
-        <div class="list-field">
-          <div class="single-record">
-            <div>
-              <label for="amount">本次進貨數量</label>
-              <input type="number" name="amount" id="amount">
-            </div>
-            <div>
-              <label for="expiration-date">商品有效期限</label>
-              <input type="date" name="expiration-date" id="expirationDate">
-            </div>
-          </div>
-        </div>
-        <div class="button-group">
-          <button type="button" class="add-new-one">再新增一筆</button>
-          <button type="button" class="check-record">送出</button>
-        </div>
-      </div>
-    </div>
-  `
-    return (field.innerHTML += html)
-  }
+   `
 }
 
 field.addEventListener('click', event => {
@@ -148,18 +143,7 @@ field.addEventListener('click', event => {
 
   if (event.target.className === 'add-new-one') {
     const insertField = document.querySelector('.list-field')
-    insertField.innerHTML += `
-      <div class="single-record">
-        <div>
-          <label for="amount">本次進貨數量</label>
-          <input type="number" name="amount" id="amount">
-        </div>
-        <div>
-          <label for="expiration-date">商品有效期限</label>
-          <input type="date" name="expiration-date" id="expirationDate">
-        </div>
-      </div>
-    `
+    insertField.innerHTML += generatorNewList()
   }
   if (event.target.parentNode.className === 'purchase-products') {
     setRecord(event.target)
