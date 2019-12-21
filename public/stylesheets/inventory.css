@@ -34,3 +34,10 @@
 .purchase-record > a {
   color: var(--bgColor1);
 }
+
+.edit-inventory > button {
+  font-size: 14px;
+  color: var(--browncolor);
+  border: none;
+  background: none;
+}

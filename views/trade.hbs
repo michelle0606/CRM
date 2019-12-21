@@ -2,19 +2,22 @@
 <div class="container">
   <div class="trade-content">
     <div class="Title">
-      新增交易
+      {{title}}
     </div>
     <div class="trade">
       <div>
-        {{#ifCond customer.name '非會員'}}
-        <span>{{customer.name}}</span>
+        {{#ifCond customer.name '非會員交易紀錄'}}
+        <div class="form-wrapper">輸入會員電話
+          <input type="number" class="phoneNr">
+          <button type="button" class="find-customer-btn"><i class="fas fa-search-plus"></i></button>
+        </div>
         {{else}}
         <span>會員姓名 <a href="/customers/{{customer.id}}">{{customer.name}} <i class="far fa-user-circle"></i></a></span>
         </br>
-        <span>會員電話 {{customer.phoneNr}}</span>
+        <div>會員電話 {{customer.phoneNr}}</div>
         {{/ifCond}}
       </div>
-      <form action="/customers/{{customer.id}}/record" method="POST">
+      <form action="/customers/{{customer.id}}/record" method="POST" id="send-trade">
         <div class="creat-trade-page">
           <input type="text" class="productId" placeholder="輸入產品編號">
           <input type="number" class="count" placeholder="數量" value="1">

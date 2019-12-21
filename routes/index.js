@@ -94,10 +94,10 @@ router.get(
 router.get('/api/products', authenticated, productController.APIGetAllProducts)
 
 // dashboard
-router.get('/dashboard', tradeController.getDashboard)
+router.get('/dashboard', authenticated, tradeController.getDashboard)
 
 // directBuy
-router.get('/directBuy', tradeController.directBuy)
+router.get('/directBuy', authenticated, tradeController.directBuy)
 
 // api
 router.get('/api/dashboard/:shop_id/:nameOfTheStats', tradeController.getStats)
