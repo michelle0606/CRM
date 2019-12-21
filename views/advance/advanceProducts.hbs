@@ -12,6 +12,7 @@
       <th scope="col">單價</th>
       <th scope="col">庫存數量</th>
       <th scope="col">最低庫存警示</th>
+      <th scope="col">圖片預覽</th>
     </tr>
     {{#each products}}
     <tr>
@@ -20,6 +21,7 @@
       <td>{{this.salePrice}}</td>
       <td>{{this.inventory}}</td>
       <td>{{this.minimumStock}}</td>
+      <td><img src="{{this.image}}" style="width:60px;" alt="{{this.name}}"></td>
     </tr>
     {{/each}}
   </table>

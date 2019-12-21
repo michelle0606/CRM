@@ -49,32 +49,34 @@ const advanceController = {
     const priceArray = req.body.price
     const inventoryArray = req.body.inventory
     const minimumStockArray = req.body.minimumStock
-
+    const { files } = req
     if (priceArray.some(a => Number(a) <= 0)) {
       req.flash('top_messages', '價格不能小於等於0, 請重新輸入')
       return res.render('back')
     }
-
     if (inventoryArray.some(a => Number(a) < 0)) {
       req.flash('top_messages', '庫存不能小於0, 請重新輸入')
       return res.redirect('back')
     }
-
+    if (files) {
+      imgur.setClientID(process.env.IMGUR_CLIENT_ID)
+    }
     if (minimumStockArray.some(a => Number(a) < 0)) {
       req.flash('top_messages', '庫存警示需大於0, 請重新輸入')
       return res.redirect('back')
     } else {
       for (let i = 0; i < idArray.length; i++) {
-        Product.findByPk(idArray[i])
-          .then(product => {
+        imgur.upload(files[i].path, (err, img) => {
+          Product.findByPk(idArray[i]).then(product => {
             product.update({
               salePrice: priceArray[i],
               name: nameArray[i],
               inventory: inventoryArray[i],
-              minimumStock: minimumStockArray[i]
+              minimumStock: minimumStockArray[i],
+              image: files[i] ? img.data.link : product.image
             })
           })
-          .then(p => {})
+        })
       }
       res.redirect('/advance/products')
     }

@@ -1,7 +1,7 @@
 {{> messages}}
 <div class="container">
   <div class="Title">商品管理</div>
-  <form action="/advance/products?_method=PUT" method="POST">
+  <form action="/advance/products?_method=PUT" method="POST" enctype="multipart/form-data">
     <ul class="manage-action">
       <li class="edit-inventory">
         <button type="submit">確定編輯</button>
@@ -14,15 +14,22 @@
         <th scope="col">單價</th>
         <th scope="col">庫存數量</th>
         <th scope="col">最低庫存警示</th>
+        <th scope="col">圖片上傳</th>
       </tr>
   </form>
   {{#each products}}
   <tr>
-    <td><input type="text" name="id" value="{{this.id}}" readonly></td>
+    <td><input type="text" name="id" value="{{this.id}}"></td>
     <td><input type="text" name="name" value="{{this.name}}"></td>
     <td><input type="text" name="price" value="{{this.salePrice}}"></td>
     <td><input type="text" name="inventory" value="{{this.inventory}}"></td>
     <td><input type="text" name="minimumStock" value="{{this.minimumStock}}"></td>
+    <td>
+      <label for="product-pic">
+        <input type="file" name="img" value="{{this.image}}" multiple>
+        <i class="fas fa-image"></i>
+      </label>
+    </td>
   </tr>
   {{/each}}
 
