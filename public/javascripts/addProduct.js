@@ -10,14 +10,13 @@ const newRecord = []
 productIdInputField.focus()
 
 fetch(endpoint)
-  .then(blob => blob.json())
-  .then(data => {
-    products.push(...data)
-  })
+.then((res) => res.json())
+.then((data) => products.push(...data))
+.catch((error) => console.log(error));
 
 function addProduct(itemInfo, count) {
-  // app will crash if itemInfo is not the format
-  // of '22 2020-01-31 2019-12-11'
+  // itemInfo needs to be in the format of 'id exp_date stock_date'
+  // e.g. '22 2020-01-31 2019-12-11'
   const itemInfoArr = itemInfo.split(' ')
   const itemId = Number(itemInfoArr[0])
   const itemExpDate = itemInfoArr[1]
@@ -70,7 +69,6 @@ function creatTableHeader() {
 
 function renderRecord(record) {
   productList.innerHTML = creatTableHeader()
-
   record.forEach(product => {
     productList.innerHTML += `
       <tr>
@@ -92,6 +90,7 @@ function calculateTotalPrice(record) {
   let price = 0
 
   if (!record) return
+
   record.forEach(product => {
     price += product.salePrice * product.count
   })
@@ -100,18 +99,15 @@ function calculateTotalPrice(record) {
 
 function cancelProduct(productId) {
   const removeData = newRecord.find(item => item.id === Number(productId))
-  let index = newRecord.indexOf(removeData)
+  const index = newRecord.indexOf(removeData)
   newRecord.splice(index, 1)
   renderRecord(newRecord)
   calculateTotalPrice(newRecord)
 }
 
 function changeProductCount(productId, changeValue) {
-  newRecord.filter(product => {
-    if (product.id === productId) {
-      product.count = Number(changeValue)
-    }
-  })
+  const product = newRecord.find(el => el.id === productId)
+  product.count = Number(changeValue)
   renderRecord(newRecord)
   calculateTotalPrice(newRecord)
 }
@@ -140,7 +136,6 @@ addButton.addEventListener('click', () => {
 container.addEventListener('change', event => {
   if (event.target.id === 'count') {
     const productId = Number(event.target.dataset.id)
-    console.log('event change')
     changeProductCount(productId, event.target.value)
   }
 })

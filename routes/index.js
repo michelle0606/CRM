@@ -84,6 +84,13 @@ router.delete(
   tagController.deleteTag
 )
 
+
+router.get('/dashboard', tradeController.getDashboard)// dashboard
+router.get('/recSys', tradeController.getRec)// recommendation system
+router.get('/shops/:shop_id/returns', authenticated, tradeController.getReturnsPage)// returns page
+router.post('/shops/:shop_id/returnsRecord', authenticated, tradeController.postReturnsRecord)
+router.get('/directBuy', tradeController.directBuy)// directBuy
+
 // api routes
 router.get(
   '/api/customers',
@@ -92,14 +99,6 @@ router.get(
 )
 
 router.get('/api/products', authenticated, productController.APIGetAllProducts)
-
-// dashboard
-router.get('/dashboard', tradeController.getDashboard)
-
-// directBuy
-router.get('/directBuy', tradeController.directBuy)
-
-// api
 router.get('/api/dashboard/:shop_id/:nameOfTheStats', tradeController.getStats)
 router.get(
   '/api/customer/:customers_id',
@@ -114,6 +113,5 @@ router.get(
 )
 
 router.get('/api/shopInfo', authenticated, marketingController.APIGetShopInfo)
-router.get('/recSys', tradeController.getRec)
 
 module.exports = router

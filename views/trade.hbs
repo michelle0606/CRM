@@ -2,7 +2,7 @@
 <div class="container">
   <div class="trade-content">
     <div class="Title">
-      新增交易
+      {{title}}
     </div>
     <div class="trade">
       <div>
@@ -14,7 +14,11 @@
         <span>會員電話 {{customer.phoneNr}}</span>
         {{/ifCond}}
       </div>
+      {{#if isReturnsPage}}
+      <form action="/shops/{{shopId}}/returnsRecord" method="POST">
+      {{else}}
       <form action="/customers/{{customer.id}}/record" method="POST">
+      {{/if}}
         <div class="creat-trade-page">
           <input type="text" class="productId" placeholder="輸入產品編號">
           <input type="number" class="count" placeholder="數量" value="1">

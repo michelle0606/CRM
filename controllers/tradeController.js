@@ -7,13 +7,123 @@ const Op = Sequelize.Op
 const Json2csvParser = require("json2csv").Parser
 // const fs = require("fs")
 const fs = require('fs').promises
-const { Customer, Product, Sale, SaleDetail, Tag, CustomerDetail, ExpirationDate, ProductExpDateDetail } = db
+const { Customer, Product, Sale, SaleDetail, Tag, CustomerDetail, ExpirationDate, ProductExpDateDetail, Return, ReturnDetail } = db
 
 const tradeController = {
+  getReturnsPage: async (req, res) => {
+    res.render('trade', { 
+      shopId: req.params.shop_id, 
+      title: '退貨', 
+      isReturnsPage: true
+    })
+  },
+
+  postReturnsRecord: async (req, res) => {
+    const itemIds = []
+    const itemCounts = []
+    const expDatesPerItem = []
+    const stockDatesPerItem = []
+
+    console.log(req.body)
+
+    if (!req.body.productId) {
+      req.flash('top_messages', '請掃描要退貨的商品！')
+      return res.redirect(`/shops/${req.params.shop_id}/returns`)
+    }
+
+    // future word: refactor
+    if (!Array.isArray(req.body.count)) itemCounts.push(req.body.count)
+    else itemCounts.push(...req.body.count)
+
+    if (!Array.isArray(req.body.productId)) itemIds.push(req.body.productId)
+    else itemIds.push(...req.body.productId)
+
+    if (!Array.isArray(req.body.expDates)) expDatesPerItem.push(req.body.expDates)
+    else expDatesPerItem.push(...req.body.expDates)
+
+    if (!Array.isArray(req.body.stockDates)) stockDatesPerItem.push(req.body.stockDates)
+    else stockDatesPerItem.push(...req.body.stockDates)
+
+    const rtn = await Return.create({
+      UserId: Number(req.user.id),
+      ShopId: Number(req.user.ShopId)
+    })
+    let i = 0
+    let stockDatesStr = ''
+
+    for (itemId of itemIds) {
+      // calulate the holding time for the item
+      stockDates = stockDatesPerItem[i].split(' ')
+      for (stockDate of stockDates) {
+        stockDatesStr += (' ' + moment().diff(moment(stockDate), 'hours').toString())
+      }
+
+      const returnDetail = await ReturnDetail.create({
+        quantity: Number(itemCounts[i]),
+        holdingTime: stockDatesStr,
+        ProductId: Number(itemId),
+        ReturnId: rtn.id
+      })
+      const product = await Product.findByPk(returnDetail.ProductId)
+
+      await product.update({
+        inventory: Number(product.inventory) - Number(returnDetail.quantity)
+      })
+
+      const expDates = expDatesPerItem[i++].split(' ')
+
+      // update rows in tables, ProductExpDateDetails and ExpirationDates if needed
+      for (expDate of expDates) {
+        const expirationDate = ExpirationDate.findOne({
+          where: {
+            expDate: expDate,
+            ShopId: Number(req.user.ShopId)
+          }
+        })
+        const productExpDateDetail = ProductExpDateDetail.findOne({
+          where: {
+            ProductId: Number(itemId),
+            ExpirationDateId: expirationDate.id
+          }
+        })
+        const qty = productExpDateDetail.quantity - 1
+        // expiration dates from the other shop?
+        const c = await ProductExpDateDetail.count({ 
+          where: { 
+            ExpirationDateId: expirationDate.id
+          } 
+        })
+
+        // if there is only one item that uses the expiration date
+        // delete the related rows in both tables, ProductExpDateDetails and ExpirationDates
+        if (c === 1) {
+          if (qty !== 0) {
+            await productExpDateDetail.update({
+              quantity: productExpDateDetail.quantity - 1
+            })
+          } else {
+            await ProductExpDateDetail.destroy({ 
+              where: { 
+                id:  productExpDateDetail.id
+              } 
+            })
+            await ExpirationDate.destroy({ 
+              where: { 
+                id: expirationDate.id 
+              } 
+            })
+          }
+        }
+      }
+    }
+
+    return res.redirect(`/shops/${req.params.shop_id}/returns`)
+  },
+
   getCustomerTradePage: (req, res) => {
     Customer.findOne({ where: { id: req.params.customers_id } }).then(
       customer => {
-        res.render('trade', { customer, title: '新增交易' })
+        res.render('trade', { customer, title: '新增交易', isReturnsPage: false })
       }
     )
   },
@@ -37,7 +147,7 @@ const tradeController = {
     const expDatesPerItem = []
     const stockDatesPerItem = []
 
-    console.log(req.body)
+    // console.log(req.body)
 
     if (!req.body.productId) {
       req.flash('top_messages', '無品項不可以新增交易！')
@@ -110,6 +220,7 @@ const tradeController = {
     .then(sale => {
       let i = 0
       let stockDatesStr = ''
+
       allProducts.forEach(itemId => {
         stockDates = stockDatesPerItem[i].split(' ')
         for (stockDate of stockDates) {
@@ -131,7 +242,7 @@ const tradeController = {
           })
         })
         .then(() => {
-          expDates = expDatesPerItem[i++].split(' ')
+          const expDates = expDatesPerItem[i++].split(' ')
 
           for (expDate of expDates) {
             ExpirationDate.findOne({
@@ -197,6 +308,7 @@ const tradeController = {
   },
 
   getRec: async (req, res) => {
+    console.log('in getRec')
     const sales = await Sale.findAll({
       where: {
         // CustomerId: 25,

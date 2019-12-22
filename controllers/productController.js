@@ -88,7 +88,7 @@ const productController = {
 
   APIGetAllProducts: (req, res) => {
     Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
-      res.send(products)
+      return res.json(products)
     })
   }
 }
