@@ -374,57 +374,24 @@ const tradeController = {
     // console.log(req.query.end)
     // console.log(helpers.getUser(req).ShopId)//error
 
-    const dailyRevenueLineChart = {
-      title: {
-        text: ''
-      },
-      plotOptions: {
-        series: {
-          pointStart: Date.UTC(2000, 0, 1)
-        }
-      },
-      series: [
-        {
-          // name: '營業額',
-          data: []
-        }
-      ]
-    }
-    const bestSellersColumnChart = {
-      title: {
-        text: ''
-      },
-      series: [
-        {
-          name: '',
-          data: []
-        }
-      ]
-    }
-    const mostMentionedColumnChart = {
-      title: {
-        text: ''
-      },
-      series: [
-        {
-          name: '',
-          data: []
-        }
-      ]
-    }
-    const avgHoldingTimeColumnChart = {
-      title: {
-        text: ''
-      },
-      series: [
-        {
-          name: '',
-          data: []
-        }
-      ]
-    }
-
     if (req.params.nameOfTheStats.includes('dailyRevenue')) {
+      const dailyRevenueLineChart = {
+        title: {
+          text: ''
+        },
+        plotOptions: {
+          series: {
+            pointStart: Date.UTC(2000, 0, 1)
+          }
+        },
+        series: [
+          {
+            // name: '營業額',
+            data: []
+          }
+        ]
+      }
+
       const dailyRevenue = await Sale.findAll({
         where: {
           createdAt: {
@@ -479,8 +446,7 @@ const tradeController = {
 
       while (!moment(startDate).isAfter(endDate)) {
         revenue = dailyRevenue.find(record => record.date === startDate)
-        if (typeof revenue === 'undefined')
-          dailyRevenueLineChart.series[0].data.push(0)
+        if (typeof revenue === 'undefined') dailyRevenueLineChart.series[0].data.push(0)
         else dailyRevenueLineChart.series[0].data.push(parseInt(revenue.amount))
         startDate = moment(startDate)
           .add(1, 'days')
@@ -489,6 +455,18 @@ const tradeController = {
 
       return res.json(dailyRevenueLineChart)
     } else if (req.params.nameOfTheStats.includes('bestSellers')) {
+      const bestSellersColumnChart = {
+        title: {
+          text: ''
+        },
+        series: [
+          {
+            name: '',
+            data: []
+          }
+        ]
+      }
+
       const bestSellers = await Sale.findAll({
         where: {
           createdAt: {
@@ -557,6 +535,18 @@ const tradeController = {
 
       return res.json(bestSellersColumnChart)
     } else if (req.params.nameOfTheStats.includes('mostMentioned')) {
+      const mostMentionedColumnChart = {
+        title: {
+          text: ''
+        },
+        series: [
+          {
+            name: '',
+            data: []
+          }
+        ]
+      }
+
       const sales = await Sale.findAndCountAll({
         where: {
           createdAt: {
@@ -629,7 +619,94 @@ const tradeController = {
       }
 
       return res.json(mostMentionedColumnChart)
-    } else if (req.params.nameOfTheStats.includes('avgHoldingTime')) {
+    } else if (req.params.nameOfTheStats.includes('daysToExp')) {
+      const expDates = await ExpirationDate.findAll({
+        where: {
+          ShopId: Number(req.params.shop_id)
+        },
+        include: [{
+          model: ProductExpDateDetail
+        }, {
+          model: Product,
+          as: 'associatedProducts',
+          where: {
+            id: {
+              [Op.eq]: db.sequelize.col('ProductExpDateDetails.ProductId')
+            }
+          }
+        }],
+        attributes: [
+          'expDate',
+          'associatedProducts.id',
+          'associatedProducts.name',
+          'ProductExpDateDetails.quantity'
+        ],
+        includeIgnoreAttributes: false,
+        raw: true
+      })
+
+      const series = [{
+        name: '270天',
+        data: [],
+        color: '#0000FF'
+      }, {
+        name: '225天',
+        data: [],
+        color: '#00FF00'
+      }, {
+        name: '195天',
+        data: [],
+        color: '#FFFF00'
+      }, {
+        name: '180天',
+        data: [],
+        color: '#FF7F00'
+      }, {
+        name: '180以下',
+        data: [],
+        color: '#FF0000'
+      }]
+
+      for (el of expDates) {
+        const daysToExp = moment(el.expDate).diff(moment(), 'days')
+        const item = {
+          name: el.name,
+          value: daysToExp
+        }
+
+        switch(true) {
+          case (daysToExp > 270):
+            for (let i = 0; i < el.quantity; i++) series[0].data.push(item)
+            break
+          case (daysToExp > 225):
+            for (let i = 0; i < el.quantity; i++) series[1].data.push(item)
+            break
+          case (daysToExp > 195):
+            for (let i = 0; i < el.quantity; i++) series[2].data.push(item)
+            break
+          case (daysToExp > 180):
+            for (let i = 0; i < el.quantity; i++) series[3].data.push(item)
+            break
+          default:
+            for (let i = 0; i < el.quantity; i++) series[4].data.push(item)
+        }
+      }
+
+      return res.json(series)
+    } else if (req.params.nameOfTheStats.includes('HoldingTime')) {
+      const holdingTimeDumbbell = {
+        title: {
+          text: ''
+        },
+        series: [{
+          name: '',
+          data: []
+        }, {
+          type: 'scatter',
+          name: 'whatever',
+          data: []
+        }]
+      }
 
       const holdingTimePerItem = await Sale.findAll({
         where: {
@@ -669,46 +746,55 @@ const tradeController = {
       })
 
       switch (req.params.nameOfTheStats) {
-        case 'avgHoldingTimeToday':
-          avgHoldingTimeColumnChart.title.text = '今日平均商品架上停留時間'
+        case 'HoldingTimeToday':
+          holdingTimeDumbbell.title.text = '今日商品架上停留時間'
           break
-        case 'avgHoldingTimeYesterday':
-          avgHoldingTimeColumnChart.title.text = '昨日平均商品架上停留時間'
+        case 'HoldingTimeYesterday':
+          holdingTimeDumbbell.title.text = '昨日商品架上停留時間'
           break
-        case 'avgHoldingTimeLastSevenDays':
-          avgHoldingTimeColumnChart.title.text = '過去7日平均商品架上停留時間'
+        case 'HoldingTimeLastSevenDays':
+          holdingTimeDumbbell.title.text = '過去7日商品架上停留時間'
           break
-        case 'avgHoldingTimeLastThirtyDays':
-          avgHoldingTimeColumnChart.title.text = '過去30日平均商品架上停留時間'
+        case 'HoldingTimeLastThirtyDays':
+          holdingTimeDumbbell.title.text = '過去30日商品架上停留時間'
           break
-        case 'avgHoldingTimeThisMonth':
-          avgHoldingTimeColumnChart.title.text = '本月平均商品架上停留時間'
+        case 'HoldingTimeThisMonth':
+          holdingTimeDumbbell.title.text = '本月商品架上停留時間'
           break
-        case 'avgHoldingTimeLastMonth':
-          avgHoldingTimeColumnChart.title.text = '上個月平均商品架上停留時間'
+        case 'HoldingTimeLastMonth':
+          holdingTimeDumbbell.title.text = '上個月商品架上停留時間'
           break
         default:
-          avgHoldingTimeColumnChart.title.text = '自訂區間平均商品架上停留時間'
+          holdingTimeDumbbell.title.text = '自訂區間商品架上停留時間'
       }
 
-      for (element of holdingTimePerItem) {
-        let tmp = []
+      for (el of holdingTimePerItem) {
+        let tmp = {}
         let sum = 0
 
         // remove whitespace from both sides of the string
-        // and split the string using whitespace or comma
-        // and convert each of the array element from string into number
-        let holdingTimeArr = element.holdingTime.trim().split(/[ ,]+/).map(e => Number(e))
-        
+        // and obtain an array by spliting the string using whitespace or comma
+        // and convert each of the array elements from string into number
+        let holdingTimeArr = el.holdingTime.trim().split(/[ ,]+/).map(e => Number(e))
+        holdingTimeArr.sort((a, b) => {return a - b})
+
+        // console.log(holdingTimeArr)
+
+        const min = holdingTimeArr[0]
+        const max = holdingTimeArr[holdingTimeArr.length - 1]
+
         for (let i = 0; i < holdingTimeArr.length; i++) sum += holdingTimeArr[i]
         let avgHoldingTime = sum / holdingTimeArr.length
 
-        tmp.push(element.name)
-        tmp.push(avgHoldingTime)
-        avgHoldingTimeColumnChart.series[0].data.push(tmp)
+        tmp.name = el.name
+        tmp.low = min
+        tmp.high = max
+        // console.log(tmp)
+        holdingTimeDumbbell.series[0].data.push(tmp)
+        holdingTimeDumbbell.series[1].data.push(avgHoldingTime)
       }
 
-      return res.json(avgHoldingTimeColumnChart)
+      return res.json(holdingTimeDumbbell)
     }
   }
 }

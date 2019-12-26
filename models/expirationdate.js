@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       }, 
       foreignKey: 'ExpirationDateId'
     })
+    ExpirationDate.hasMany(models.ProductExpDateDetail)
     ExpirationDate.belongsTo(models.Shop)
   };
   return ExpirationDate;

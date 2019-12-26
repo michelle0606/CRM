@@ -1,211 +1,3 @@
-let dailyRevenueLineChart = {
-  title: {
-    text: '過去30日營業額'
-  },
-  xAxis: {
-    type: 'datetime',
-    // dateTimeLabelFormats: {
-    //   day: '%m/%e',
-    // }
-    labels: {
-      format: '{value: %m/%e}'
-      // align: 'right',
-      // rotation: -30
-    }
-  },
-  yAxis: {
-    title: {
-      text: '新台幣 (元)'
-    }
-  },
-  legend: {
-    enabled: false
-    //   layout: 'vertical',
-    //   align: 'right',
-    //   verticalAlign: 'middle'
-  },
-  tooltip: {
-    valuePrefix: 'NT$',
-    valueSuffix: ' 元'
-  },
-  plotOptions: {
-    series: {
-      label: {
-        connectorAllowed: false
-      },
-      pointStart: Date.UTC(2019, 8, 24),
-      pointInterval: 24 * 3600 * 1000 // one day
-    }
-  },
-  series: [{
-    name: ''
-  }],
-  responsive: {
-    rules: [{
-      condition: {
-        maxWidth: 500
-      },
-      chartOptions: {
-        legend: {
-          layout: 'horizontal',
-          align: 'center',
-          verticalAlign: 'bottom'
-        }
-      }
-    }]
-  }
-}
-let bestSellersColumnChart = {
-  chart: {
-    type: 'column'
-  },
-  title: {
-    text: ''
-  },
-  xAxis: {
-    type: 'category',
-    labels: {
-      rotation: -45,
-      style: {
-        fontSize: '12px',
-        fontFamily: 'Verdana, sans-serif'
-      }
-    }
-  },
-  yAxis: {
-    min: 0,
-    title: {
-      text: '個數 (個)'
-    }
-  },
-  legend: {
-    enabled: false
-  },
-  tooltip: {
-    pointFormat: '銷出: <b>{point.y} 個</b>'
-  },
-  series: [{
-    name: '',
-    data: [
-      // ['itemA', 24],
-      // ['itemB', 20],
-      // ['itemC', 14],
-    ],
-    dataLabels: {
-      enabled: true,
-      rotation: -90,
-      color: '#FFFFFF',
-      align: 'right',
-      format: '{point.y}',
-      y: 10, // 10 pixels down from the top
-      style: {
-        fontSize: '12px',
-        fontFamily: 'Verdana, sans-serif'
-      }
-    }
-  }]
-}
-let mostMentionedColumnChart = {
-  chart: {
-    type: 'column'
-  },
-  title: {
-    text: ''
-  },
-  xAxis: {
-    type: 'category',
-    labels: {
-      rotation: -45,
-      style: {
-        fontSize: '12px',
-        fontFamily: 'Verdana, sans-serif'
-      }
-    }
-  },
-  yAxis: {
-    min: 0,
-    title: {
-      text: '出現於交易紀錄中比例 (%)'
-    }
-  },
-  legend: {
-    enabled: false
-  },
-  tooltip: {
-    pointFormat: '出現於 <b>{point.y:.1f} %</b> 之交易紀錄中'
-  },
-  series: [{
-    name: '',
-    data: [
-      // ['itemA', 24.2],
-      // ['itemB', 20.8],
-      // ['itemC', 14.9],
-    ],
-    dataLabels: {
-      enabled: true,
-      rotation: -90,
-      color: '#FFFFFF',
-      align: 'right',
-      format: '{point.y:.1f}',
-      y: 10, // 10 pixels down from the top
-      style: {
-        fontSize: '12px',
-        fontFamily: 'Verdana, sans-serif'
-      }
-    }
-  }]
-}
-let avgHoldingTimeColumnChart = {
-  chart: {
-    type: 'column'
-  },
-  title: {
-    text: ''
-  },
-  xAxis: {
-    type: 'category',
-    labels: {
-      rotation: -45,
-      style: {
-        fontSize: '12px',
-        fontFamily: 'Verdana, sans-serif'
-      }
-    }
-  },
-  yAxis: {
-    min: 0,
-    title: {
-      text: '時間 (小時)'
-    }
-  },
-  legend: {
-    enabled: false
-  },
-  tooltip: {
-    pointFormat: '平均停留 <b>{point.y} 小時</b>'
-  },
-  series: [{
-    name: '',
-    data: [
-      // ['itemA', 24],
-      // ['itemB', 20],
-      // ['itemC', 14],
-    ],
-    dataLabels: {
-      enabled: true,
-      rotation: -90,
-      color: '#FFFFFF',
-      align: 'right',
-      format: '{point.y}',
-      y: 10, // 10 pixels down from the top
-      style: {
-        fontSize: '12px',
-        fontFamily: 'Verdana, sans-serif'
-      }
-    }
-  }]
-}
-
 $(function() {
   Highcharts.setOptions({
     lang: {
@@ -213,9 +5,68 @@ $(function() {
       weekdays: ['週一', '週二', '週三', '週四', '週五', '週六', '週日']
     }
   })
+
   const shopId = document.getElementById('shopId').value
   var start = moment().subtract(29, 'days')
   var end = moment()
+
+  let dailyRevenueLineChart = {
+    title: {
+      text: '過去30日營業額'
+    },
+    xAxis: {
+      type: 'datetime',
+      // dateTimeLabelFormats: {
+      //   day: '%m/%e',
+      // }
+      labels: {
+        format: '{value: %m/%e}'
+        // align: 'right',
+        // rotation: -30
+      }
+    },
+    yAxis: {
+      title: {
+        text: '新台幣 (元)'
+      }
+    },
+    legend: {
+      enabled: false
+      //   layout: 'vertical',
+      //   align: 'right',
+      //   verticalAlign: 'middle'
+    },
+    tooltip: {
+      valuePrefix: 'NT$',
+      valueSuffix: ' 元'
+    },
+    plotOptions: {
+      series: {
+        label: {
+          connectorAllowed: false
+        },
+        pointStart: Date.UTC(2019, 8, 24),
+        pointInterval: 24 * 3600 * 1000 // one day
+      }
+    },
+    series: [{
+      name: ''
+    }],
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom'
+          }
+        }
+      }]
+    }
+  }
 
   function cbDailyRevenue(start, end, label) {
     let param = ''
@@ -289,6 +140,57 @@ $(function() {
     cbDailyRevenue
   )
 
+  let bestSellersColumnChart = {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: ''
+    },
+    xAxis: {
+      type: 'category',
+      labels: {
+        rotation: -45,
+        style: {
+          fontSize: '12px',
+          fontFamily: 'Verdana, sans-serif'
+        }
+      }
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: '個數 (個)'
+      }
+    },
+    legend: {
+      enabled: false
+    },
+    tooltip: {
+      pointFormat: '銷出: <b>{point.y} 個</b>'
+    },
+    series: [{
+      name: '',
+      data: [
+        // ['itemA', 24],
+        // ['itemB', 20],
+        // ['itemC', 14],
+      ],
+      dataLabels: {
+        enabled: true,
+        rotation: -90,
+        color: '#FFFFFF',
+        align: 'right',
+        format: '{point.y}',
+        y: 10, // 10 pixels down from the top
+        style: {
+          fontSize: '12px',
+          fontFamily: 'Verdana, sans-serif'
+        }
+      }
+    }]
+  }
+
   function cbBestSellers(start, end, label) {
     let param = ''
 
@@ -358,6 +260,57 @@ $(function() {
     },
     cbBestSellers
   )
+
+  let mostMentionedColumnChart = {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: ''
+    },
+    xAxis: {
+      type: 'category',
+      labels: {
+        rotation: -45,
+        style: {
+          fontSize: '12px',
+          fontFamily: 'Verdana, sans-serif'
+        }
+      }
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: '出現於交易紀錄中比例 (%)'
+      }
+    },
+    legend: {
+      enabled: false
+    },
+    tooltip: {
+      pointFormat: '出現於 <b>{point.y:.1f} %</b> 之交易紀錄中'
+    },
+    series: [{
+      name: '',
+      data: [
+        // ['itemA', 24.2],
+        // ['itemB', 20.8],
+        // ['itemC', 14.9],
+      ],
+      dataLabels: {
+        enabled: true,
+        rotation: -90,
+        color: '#FFFFFF',
+        align: 'right',
+        format: '{point.y:.1f}',
+        y: 10, // 10 pixels down from the top
+        style: {
+          fontSize: '12px',
+          fontFamily: 'Verdana, sans-serif'
+        }
+      }
+    }]
+  }
 
   function cbMostMentioned(start, end, label) {
     let param = ''
@@ -429,32 +382,136 @@ $(function() {
     cbMostMentioned
   )
 
-  function cbAvgHoldingTime(start, end, label) {
+  const daysToExpPackedBubble = {
+    chart: {
+      type: 'packedbubble',
+      height: '100%'
+    },
+    title: {
+      text: '所有商品新鮮狀態'
+    },
+    tooltip: {
+      useHTML: true,
+      pointFormat: '<b>{point.name}:</b> {point.value}天'
+    },
+    plotOptions: {
+      packedbubble: {
+        minSize: '90%',
+        maxSize: '20%',
+        zMin: 0,
+        zMax: 500,
+        layoutAlgorithm: {
+          splitSeries: false,
+          gravitationalConstant: 0.02
+        },
+        dataLabels: {
+          enabled: true,
+          format: '{point.name}',
+          filter: {
+            property: 'y',
+            operator: '>',
+            value: 250
+          },
+          style: {
+            color: 'black',
+            textOutline: 'none',
+            fontWeight: 'normal'
+          }
+        }
+      }
+    },
+    series: []
+  }
+
+  function cbDaysToExp(start, end, label) {
+    let param = 'daysToExp'
+
+    // $('#reportrange4 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+
+    const url =
+      'http://127.0.0.1:3000/api/dashboard/' +
+      shopId +
+      '/' +
+      param +
+      '?start=' +
+      start.format('YYYY-MM-DD') +
+      '&end=' +
+      end.format('YYYY-MM-DD')
+
+    $.getJSON(url, function(data) {
+      daysToExpPackedBubble.series = data
+      Highcharts.chart('container4', daysToExpPackedBubble)
+    })
+  }
+
+  let holdingTimeDumbbell = {
+    chart: {
+      type: 'dumbbell',
+      inverted: true
+    },
+    legend: {
+      enabled: false
+    },
+    subtitle: {
+      text: '最短 vs 平均 vs 最長'
+    },
+    title: {
+      text: ''
+    },
+    tooltip: {
+      shared: true,
+      // formatter: function () {
+      //   return 'The value for <b>' + this.x + '</b> is <b>' + this.y.low + '</b>';
+      // }
+    },
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      title: {
+        text: '架上停留時間（小時）'
+      }
+    },
+    series: [{
+      name: '停留',
+      data: [],
+      tooltip: {}
+    }, {
+      type: 'scatter',
+      name: '點',
+      data: [],
+      tooltip: {
+        pointFormat: '{point.name}<br><b>{point.y}</b>',
+      }
+    }]
+  }
+
+  function cbMaxAvgMinHoldingTime(start, end, label) {
     let param = ''
 
-    $('#reportrange4 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+    $('#reportrange5 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
 
     switch (label) {
       case '今日':
-        param = 'avgHoldingTimeToday'
+        param = 'HoldingTimeToday'
         break
       case '昨日':
-        param = 'avgHoldingTimeYesterday'
+        param = 'HoldingTimeYesterday'
         break
       case '過去7日':
-        param = 'avgHoldingTimeLastSevenDays'
+        param = 'HoldingTimeLastSevenDays'
         break
       case '過去30日':
-        param = 'avgHoldingTimeLastThirtyDays'
+        param = 'HoldingTimeLastThirtyDays'
         break
       case '本月':
-        param = 'avgHoldingTimeThisMonth'
+        param = 'HoldingTimeThisMonth'
         break
       case '上個月':
-        param = 'avgHoldingTimeLastMonth'
+        param = 'HoldingTimeLastMonth'
         break
       default:
-        param = 'avgHoldingTimeCustomRange'
+        param = 'HoldingTimeCustomRange'
     }
 
     const url =
@@ -468,13 +525,15 @@ $(function() {
       end.format('YYYY-MM-DD')
 
     $.getJSON(url, function(data) {
-      avgHoldingTimeColumnChart.title = data.title
-      avgHoldingTimeColumnChart.series[0].data = data.series[0].data
-      Highcharts.chart('container4', avgHoldingTimeColumnChart)
+      console.log(data)
+      holdingTimeDumbbell.title = data.title
+      holdingTimeDumbbell.series[0].data = data.series[0].data
+      holdingTimeDumbbell.series[1].data = data.series[1].data
+      Highcharts.chart('container5', holdingTimeDumbbell)
     })
   }
 
-  $('#reportrange4').daterangepicker({
+  $('#reportrange5').daterangepicker({
     startDate: start,
     endDate: end,
     ranges: {
@@ -485,11 +544,12 @@ $(function() {
       本月: [moment().startOf('month'), moment().endOf('month')],
       上個月: [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
     }},
-    cbAvgHoldingTime
+    cbMaxAvgMinHoldingTime
   )
 
   cbDailyRevenue(start, end, '過去30日')
   cbBestSellers(start, end, '過去30日')
   cbMostMentioned(start, end, '過去30日')
-  cbAvgHoldingTime(start, end, '過去30日')
+  cbDaysToExp(start, end, '')
+  cbMaxAvgMinHoldingTime(start, end, '過去30日')
 })

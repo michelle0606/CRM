@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   ProductExpDateDetail.associate = function(models) {
     // associations can be defined here
+    ProductExpDateDetail.belongsTo(models.ExpirationDate)
   };
   return ProductExpDateDetail;
 };
