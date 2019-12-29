@@ -3,6 +3,8 @@ const Product = db.Product
 const User = db.User
 const PurchaseRecord = db.PurchaseRecord
 const PurchaseRecordDetail = db.PurchaseRecordDetail
+const ExpirationDate = db.ExpirationDate
+const ProductExpDateDetail = db.ProductExpDateDetail
 const csv = require('csvtojson')
 const qrcode = require('qrcode')
 
@@ -15,6 +17,7 @@ const productController = {
     })
   },
 
+  // via csv
   postInventory: async (req, res) => {
     const regex = /\.(csv)$/i
     if (!req.file) {
@@ -32,48 +35,160 @@ const productController = {
         UserId: req.user.id,
         ShopId: req.user.ShopId
       })
-
-      jsonArrayObj.forEach(async el => {
-        const data = await PurchaseRecordDetail.create({
-          quantity: el.quantity,
-          ProductId: Number(el.ProductId),
-          PurchaseRecordId: record.id
-        })
+      for (el of jsonArrayObj) {
+        isNaN(el.quantity) || el.quantity === ''
+          ? (el.quantity = 0)
+          : el.quantity
 
         const existProduct = await Product.findOne({
-          where: { id: Number(data.ProductId), ShopId: req.user.ShopId }
+          where: {
+            id: Number(el.ProductId),
+            ShopId: req.user.ShopId
+          }
         })
         if (existProduct) {
+          await PurchaseRecordDetail.create({
+            quantity: el.quantity,
+            ProductId: Number(el.ProductId),
+            PurchaseRecordId: record.id,
+            ExpirationDateId: 0
+          })
           // 現有產品更新資訊
           const newInventory =
             Number(existProduct.inventory) + Number(data.quantity)
           existProduct.update({
             name: el.name,
             salePrice: el.salePrice,
-            inventory: newInventory
+            inventory: newInventory,
+            ExpirationDateId: 0
           })
         } else {
-          // 新產品
-          Product.create({
+          const newRecord = await Product.create({
             name: el.name,
             salePrice: el.salePrice,
             ShopId: req.user.ShopId,
-            inventory: el.quantity
+            inventory: el.quantity,
+            ExpirationDateId: 0
+          })
+
+          await PurchaseRecordDetail.create({
+            quantity: el.quantity,
+            ProductId: Number(newRecord.id),
+            PurchaseRecordId: record.id,
+            ExpirationDateId: 0
           })
         }
-      })
+      }
       req.flash('top_messages', '成功上傳檔案！')
       return res.redirect('/inventory')
     }
   },
 
+  // check details
   getPurchaseRecords: (req, res) => {
     PurchaseRecord.findAll({
       where: { ShopId: req.user.ShopId },
       include: [User, { model: Product, as: 'associatedProducts' }]
     }).then(purchaseRecords => {
+      console.log(purchaseRecords)
       res.render('purchaseRecord', { purchaseRecords, title: '進貨紀錄' })
     })
+  },
+
+  // render drag page
+  purchase: (req, res) => {
+    Product.findAll({ where: { ShopId: req.user.ShopId } }).then(products => {
+      res.render('purchase', { products, title: '單次進貨' })
+    })
+  },
+
+  // post inventory via frontend
+  postPurchase: async (req, res) => {
+    const list = req.body.purchaseList
+    const record = await PurchaseRecord.create({
+      UserId: req.user.id,
+      ShopId: req.user.ShopId
+    })
+    for (el of list) {
+      const expDate = await ExpirationDate.findOne({
+        where: { expDate: el.expirationDate, ShopId: req.user.ShopId }
+      })
+      if (expDate) {
+        await ProductExpDateDetail.create({
+          ProductId: el.ProductId,
+          ExpirationDateId: expDate.id,
+          quantity: el.quantity
+        })
+      } else {
+        const expDate2 = await ExpirationDate.create({
+          expDate: el.expirationDate,
+          ShopId: req.user.ShopId
+        })
+        await ProductExpDateDetail.create({
+          ProductId: el.ProductId,
+          ExpirationDateId: expDate2.id,
+          quantity: el.quantity
+        })
+      }
+      const expDateId = expDate ? expDate.id : expDate2.id
+      const data = await PurchaseRecordDetail.create({
+        quantity: el.quantity,
+        ProductId: Number(el.ProductId),
+        PurchaseRecordId: record.id,
+        ExpirationDateId: expDateId
+      })
+
+      const existProduct = await Product.findOne({
+        where: { id: Number(data.ProductId), ShopId: req.user.ShopId }
+      })
+
+      if (existProduct) {
+        const newInventory =
+          Number(existProduct.inventory) + Number(data.quantity)
+        existProduct.update({
+          name: el.name,
+          salePrice: el.salePrice,
+          inventory: newInventory
+        })
+      }
+    }
+    return res.redirect('/getqrcode')
+  },
+
+  // render qrcode in other page
+  renderQrcode: async (req, res) => {
+    const lastRecord = await PurchaseRecord.findAll({
+      limit: 1,
+      where: {
+        ShopId: req.user.ShopId
+      },
+      order: [['createdAt', 'DESC']]
+    })
+
+    const list = await PurchaseRecordDetail.findAll({
+      where: {
+        PurchaseRecordId: lastRecord[0].id
+      }
+    })
+    const qrcodeList = []
+    for (record of list) {
+      const expDate = await ExpirationDate.findByPk(record.ExpirationDateId)
+      const product = await Product.findByPk(record.ProductId)
+      const IDTag = await qrcode.toDataURL(
+        `${record.ProductId} PD:${getYearMonthDay(record.createdAt)} ED:${
+          expDate.expDate
+        }`
+      )
+      qrcodeList.push({
+        productId: record.ProductId,
+        productName: product.name,
+        expDate: expDate.expDate,
+        qrcode: IDTag,
+        quantity: record.quantity
+      })
+    }
+    console.log('qrcodeList', qrcodeList)
+    res.render('qrcode', { qrcodeList, purchaseDate: lastRecord.createdAt })
   },
 
   APIGetAllProducts: (req, res) => {
@@ -81,6 +196,14 @@ const productController = {
       res.send(products)
     })
   }
+}
+
+function getYearMonthDay(dateObj) {
+  let month = dateObj.getUTCMonth() + 1
+  let day = dateObj.getUTCDate()
+  let year = dateObj.getUTCFullYear()
+
+  return (newdate = year + '/' + month + '/' + day)
 }
 
 module.exports = productController

@@ -1,0 +1,33 @@
+<div class="top-menu">
+  <div class="tip">*請拖曳要進貨的商品標籤至「本次進貨」，並設定數量及保存期限
+  </div>
+  <div class="purchase-submit">
+    <button type="button" class="Button3" onclick="submitPurchaseList()">送出</button>
+  </div>
+  <div class="clear-all">
+    <button type="button" class="Button3" style="background: rebeccapurple;" id="clear-all"
+      onclick="clearAll()">清除所有紀錄</button>
+  </div>
+</div>
+<div class="drag-products">
+  <div class="left">
+    <div class="all-products">
+      {{#each products}}
+      <div class="product-single" draggable='true' id="{{this.name}}" data-target="{{this.id}}">
+        {{this.name}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  <div class="right">
+    <div class="right-title">
+      <span>本次進貨</span>
+    </div>
+    <div class="purchase-products" data-role="drag-drop-container">
+
+    </div>
+  </div>
+</div>
+
+<script src="/javascripts/purchase.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
